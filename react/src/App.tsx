@@ -1,66 +1,24 @@
-import "./App.css"
-import { Counter } from "./features/counter/Counter"
-import { Quotes } from "./features/quotes/Quotes"
-import logo from "./logo.svg"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import "./general-styles/general-styles.css"
+import { Pets } from "./former-code/pets/Pets"
+import { Home } from "./home"
+import  Layout  from "./layout-wrapper"
+
+//show for routing: https://www.dhiwise.com/post/understanding-and-implementing-react-router-middleware
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Quotes />
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://reselect.js.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Reselect
-          </a>
-        </span>
-      </header>
+
+      <Router>
+        <Routes> {/* place the one component the route fits */ }
+          <Route path="/" element={<Layout />} >
+            <Route index element={<Home />} />
+            <Route path="/pets" element={<Pets />} />
+          </Route>
+        </Routes>
+      </Router>
+
     </div>
   )
 }
