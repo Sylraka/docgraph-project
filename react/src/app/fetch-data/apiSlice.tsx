@@ -21,7 +21,7 @@ export const apiSlice = createApi({
 		return {
 		fetchCards: builder.query<Card[], number|void> ({
 			 query() {
-				return '/cards'
+				return '/api/boards/'
 				}
 			})
 		}
