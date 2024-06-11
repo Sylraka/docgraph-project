@@ -4,12 +4,12 @@ import { setupListeners } from "@reduxjs/toolkit/query"
 import { counterSlice } from "../former-code/counter/counterSlice"
 import { quotesApiSlice } from "../former-code/quotes/quotesApiSlice"
 
-import { apiSlice } from "./fetch-data/apiSlice"
+import { boardsApiSlice } from "./fetch-data/apiSlice"
 
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices(counterSlice, quotesApiSlice, apiSlice)
+const rootReducer = combineSlices(boardsApiSlice)
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>
 
@@ -24,8 +24,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
     // and other useful features of `rtk-query`.
     middleware: getDefaultMiddleware => {
       return getDefaultMiddleware()
-      .concat(quotesApiSlice.middleware)
-      .concat(apiSlice.middleware)
+      .concat(boardsApiSlice.middleware)
     },
     preloadedState,
   })

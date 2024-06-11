@@ -1,12 +1,12 @@
 import { useState } from "react"
-import { useFetchCardsQuery } from "../../app/fetch-data/apiSlice"
+import { useFetchBoardsQuery } from "../../app/fetch-data/apiSlice"
 import { useNavigate } from 'react-router-dom';
 
 
 export const Pets = () => {
   const navigate = useNavigate();
   // Using a query hook automatically fetches data and returns query values
-  const { data, isError, isLoading, isSuccess } = useFetchCardsQuery()
+  const { data, isError, isLoading, isSuccess } = useFetchBoardsQuery();
 
 
   if (isError) {
@@ -29,9 +29,9 @@ export const Pets = () => {
     return (
       <div >
         <h3>Here are your animals!</h3>
-        {data.map(({ number, animal }) => (
-          <blockquote key={number}>
-            &ldquo;{animal}&rdquo;
+        {data.map(({ _id, boardName }) => (
+          <blockquote key={_id}>
+            &ldquo;{boardName}&rdquo;
           </blockquote>
         ))}
 

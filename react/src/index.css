@@ -13,7 +13,3 @@ code {
     monospace;
 }
 
-a:visited a:link a:hover a:active{
-  color: grey;
-  text-decoration: none !important;
-}

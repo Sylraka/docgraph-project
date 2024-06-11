@@ -22,7 +22,7 @@ app.use(express.json());
 // Verbinden mit MongoDB
 //mongoose.connect('mongodb://localhost:27017/mydatabase', {
     //127.0.0.1
-mongoose.connect('mongodb://localhost:27017/graphProject-22', {});
+mongoose.connect('mongodb://localhost:27017/graphProjectRuntime', {});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

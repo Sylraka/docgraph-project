@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./general-styles/general-styles.css"
 import { Pets } from "./former-code/pets/Pets"
 import { Home } from "./home"
+import { Board } from "./pages/single-board/board"
 import  Layout  from "./layout-wrapper"
 
 //show for routing: https://www.dhiwise.com/post/understanding-and-implementing-react-router-middleware
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/" element={<Layout />} >
             <Route index element={<Home />} />
             <Route path="/pets" element={<Pets />} />
+            <Route path="/board/:id" element={<Board />} />
           </Route>
         </Routes>
       </Router>
