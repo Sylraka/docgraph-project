@@ -2,27 +2,26 @@ import React, { useState, useEffect } from 'react';
 import {Card} from '../../app/fetch-data/apiSlice';
 import './canvas.css';
 
+interface canvasProps {
+cardList: Card[]
+}
 
-const CanvasComponent = (props:any) => {
+const CanvasComponent = (props: canvasProps) => {
   const [draggingCard, setDraggingCard] = useState(null);
-  // const [cards, setCards] = useState([
-  //   { id: 1, x: 50, y: 50 },
-  //   { id: 2, x: 150, y: 150 },
-  //   { id: 3, x: 250, y: 250 },
-  // ]);
-  const [activeObject, setActiveObject] = useState<{objectID: number}>({
-    objectID: -1
+  const [cards, setCards] = useState(
+    props.cardList
+  );
+
+  // currently only the active card who is to move is tracked here, later also the arrows.
+  // in each case only one object, whether card or arrow, can be active.
+  const [activeObject, setActiveObject] = useState<{objectID: number, x: number, y:number}>({
+    objectID: -1,
+    x: -1,
+    y: -1
   })
 
-  const handleMouseDown = (e: React.MouseEvent, id:number) => {
-    //setDraggingCard(id);
-  };
 
-  const handleMouseUp = () => {
-    setDraggingCard(null);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
+  //const handleMouseMove = (e: React.MouseEvent) => {
     // if (draggingCard !== null) {
     //   const newCards = cards.map((card) =>
     //     card.id === draggingCard
@@ -31,26 +30,44 @@ const CanvasComponent = (props:any) => {
     //   );
     //   setCards(newCards);
     //}
-  };
+  //};
 
   const handleClickCard = (e: React.MouseEvent, card:Card) => {
     console.log(e);
-    setActiveObject({objectID: card.cardID});
+    setActiveObject({objectID: card.cardID, x: card.squaresTop * 14, y: card.squaresLeft * 14});
+
   }
 
-  useEffect(() => {
-     
-  }, [activeObject]);
+  const handleClickEmpty = () => {
+    console.log("clicked in empty space");
+    setActiveObject({objectID: -1, x: -1, y: -1});
+
+  }
+
+  const handleDownCard = () => {
+    console.log("now Card should drag")
+  }
+  const handleUpCard = () => {
+    console.log("now drag should leave")
+  }
+  
+  // useEffect(() => {
+  // }, [activeObject]);
 
   return (
     <svg className='svg-canvas'
       width="1000"
       height="600"
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      //onMouseDown={handleMouseDown}
     >
-      {props.cardList.map((card:Card) => (
+      <rect
+      //element shall have the same size as the svg-element to catch clicks in empty space
+          width="1000"
+          height="600"
+          fill="white"
+          fillOpacity={0.5}
+          onClick={(e) => handleClickEmpty()}
+        />
+      {cards.map((card:Card) => (
         <rect
           key={card.cardID}
           x={card.squaresTop * 14}
@@ -59,10 +76,19 @@ const CanvasComponent = (props:any) => {
           height="100"
           fill="blue"
           onClick={(e) => handleClickCard(e, card)}
-          //onMouseDown={(e) => handleMouseDown(e, props.cardList.cardID)}
+          onMouseDown={(e) => handleDownCard()}
+          onMouseUp={(e) => handleUpCard()}
         />
       ))}
-    </svg>
+      {activeObject.objectID !== -1 && (
+        <>
+          <circle cx={activeObject.x} cy={activeObject.y} r="4" stroke="black" strokeWidth="1" fill="white" />
+          <circle cx={activeObject.x + 100} cy={activeObject.y} r="4" stroke="black" strokeWidth="1" fill="white" />
+          <circle cx={activeObject.x} cy={activeObject.y + 100} r="4" stroke="black" strokeWidth="1" fill="white" />
+          <circle cx={activeObject.x + 100} cy={activeObject.y + 100} r="4" stroke="black" strokeWidth="1" fill="white" />
+        </>
+    )}
+      </svg>
   );
 };
 
