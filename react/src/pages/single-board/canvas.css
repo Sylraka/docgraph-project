@@ -1,0 +1,5 @@
+.svg-canvas {
+    position: absolute;
+    pointer-events: auto;
+    z-index: 1000;
+}

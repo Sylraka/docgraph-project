@@ -22,4 +22,9 @@ const Layout = () => {
   )
 };
 
+
+// <button onClick={() => navigate('/')}>
+// go to home
+// </button>
+
 export default Layout;

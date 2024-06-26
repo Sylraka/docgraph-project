@@ -1,0 +1,142 @@
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board-name-wrapper {
+  /* padding: 10px 0px 0px 0px; */
+  margin: 10px;
+}
+
+.board-name {
+  text-align: center;
+  background-color: white;
+  box-shadow: 0px 0px 5px rgba(75, 75, 75, 0.2);
+  border-radius: 3px;
+  margin: 0 auto;
+  padding: 7px 13px 5px 13px;
+  width: fit-content;
+  font-size: 28px;
+  font-weight: 400;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.board-name-input {
+  height: 32px;
+  border: 0px;
+  resize: none;
+  width: auto;
+}
+
+.canvas {
+  margin: 0px 10px 10px 10px;
+  box-sizing: border-box;
+  position: relative;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: inherit;
+  width: calc(100vw - 20px);
+  height: calc(100vh - 130px);
+}
+
+.show-props {
+  position: absolute;
+  top: 2px;
+}
+
+.tilingSprite {
+  background-image: url("./../images/kacheln_02.png");
+  background-repeat: repeat;
+  background-size: 400px 400px;
+  height: 100%;
+}
+
+.squares-wrapper {
+  margin: 0px;
+  height: 100%;
+  position: relative;
+}
+
+.three-canvas-container {
+  width: calc(100vw - 111px);
+  height: calc(100vh - 160px);
+  box-shadow: 0px 0px 5px rgb(75, 75, 75);
+  border: 4px solid rgb(95, 56, 12);
+  margin: 10px;
+}
+
+.fancy-canvas-wrapper {
+  flex: 1 0; /*flex-grow: wachstums-verhältnis zu anderen, flex-shrink*/
+  border-radius: 5px;
+  overflow: auto;
+  height: calc(100vh - 160px);
+  /* width: calc(33% - 1px);  */ /*  - 14px because of the border we need more place*/
+}
+
+#fancy-canvas-wrapper-1 {
+  border-right: 4px dashed rgb(95, 56, 12);
+}
+
+#fancy-canvas-wrapper-2 {
+  border-right: 0px dashed rgb(95, 56, 12);
+  border-left: 0px dashed rgb(95, 56, 12);
+}
+
+#fancy-canvas-wrapper-3 {
+  border-left: 4px dashed rgb(95, 56, 12);
+}
+
+/*start autosizer, see https://codepen.io/shshaw/pen/bGNJJBE*/
+.input-sizer {
+  display: inline-grid;
+  position: relative;
+
+  &.stacked {
+    padding: 0.5em;
+    align-items: stretch;
+
+    &::after,
+    input,
+    textarea {
+      box-sizing: border-box;
+      grid-area: 6 / 3;
+    }
+  }
+
+  /*here happens the magic: some hidden content for resize*/
+  &::after,
+  input,
+  textarea {
+    box-sizing: border-box;
+    height: 45px;
+    width: auto;
+    min-width: 1em;
+    grid-area: 3 / 6;
+    font-size: 28px;
+    font-weight: 400;
+    font-family: Helvetica, Arial, sans-serif;
+    padding: 0.25em;
+    margin: 0;
+    resize: none;
+    appearance: none;
+    border: none;
+  }
+
+  &::after {
+    box-sizing: border-box;
+    content: attr(data-value) " ";
+    visibility: hidden;
+    white-space: pre-wrap;
+  }
+
+  &:focus-within {
+    textarea:focus,
+    input:focus {
+      outline: none;
+    }
+  }
+}
+
+/*end auto-sizer*/

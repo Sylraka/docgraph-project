@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 //const DOGS_API_KEY = 'some-kryptic-string';
 
 
-interface Card {
+export interface Card {
 	math: object;
 	cardID: number;
 	canvasNumber: number;
@@ -15,14 +15,14 @@ interface Card {
 	height: number;
 }
 
-interface Arrow {
+export interface Arrow {
 	arrowID: number;
 	arrowTypes: string[];
 	anchorStart: object;
 	anchorEnd: object;
 }
 
-interface Board {
+export interface Board {
 	_id: string;
 	boardName: string;
 	boardType: string;

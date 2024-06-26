@@ -121,3 +121,11 @@ const SavedBoards = (props: { sortBy: number }) => {
         )
     }
 }
+
+  /** 
+        {data.map(({ _id, boardName }) => (
+          <blockquote key={_id}>
+            &ldquo;{boardName}&rdquo;
+          </blockquote>
+        ))}
+         */
