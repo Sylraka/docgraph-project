@@ -2,4 +2,11 @@
     position: absolute;
     pointer-events: auto;
     z-index: 1000;
+    width: calc(100vw - 111px);
+    height: calc(100vh - 160px);
+}
+
+.svg-canvas-rect {
+    width: calc(100vw - 111px);
+    height: calc(100vh - 160px);
 }

@@ -1,95 +1,105 @@
-import React, { useState, useEffect } from 'react';
-import {Card} from '../../app/fetch-data/apiSlice';
+import React, { useState } from 'react';
+import { Card } from '../../app/fetch-data/apiSlice';
+
 import './canvas.css';
 
 interface canvasProps {
-cardList: Card[]
+    cardList: Card[]
+  }
+
+interface DragElement{ 
+  x: number;
+  y: number;
+  active : boolean;
+  xOffset: number;
+  yOffset: number;
 }
 
-const CanvasComponent = (props: canvasProps) => {
-  const [draggingCard, setDraggingCard] = useState(null);
-  const [cards, setCards] = useState(
-    props.cardList
+// interface chosenObject {
+//   objectID: number;
+//   x: number;
+//   y: number;
+// }
+
+export default function CanvasComponent (props:canvasProps) {
+  const [elements, setElements] = useState<DragElement[]>(
+    props.cardList.map(card => ({
+        ...card,
+        active:false,
+        xOffset: -1, // Initialwert für xOffset
+        yOffset: -1, // Initialwert für yOffset
+      }))
   );
 
-  // currently only the active card who is to move is tracked here, later also the arrows.
-  // in each case only one object, whether card or arrow, can be active.
-  const [activeObject, setActiveObject] = useState<{objectID: number, x: number, y:number}>({
-    objectID: -1,
-    x: -1,
-    y: -1
-  })
 
 
-  //const handleMouseMove = (e: React.MouseEvent) => {
-    // if (draggingCard !== null) {
-    //   const newCards = cards.map((card) =>
-    //     card.id === draggingCard
-    //       ? { ...card, x: e.clientX - 50, y: e.clientY - 50 }
-    //       : card
-    //   );
-    //   setCards(newCards);
-    //}
-  //};
+  function handlePointerDown(index1: number, e: React.PointerEvent<SVGElement>) {
+    let newElements = elements.map(function (item, index2): DragElement {
+        console.log("index1:",index1)
+      if (index1 === index2) {
+        const el = e.currentTarget;
+        const bbox = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - bbox.left;
+        const y = e.clientY - bbox.top;
+        el.setPointerCapture(e.pointerId);
+        return { ...item, xOffset: x, yOffset: y, active: true };
+      }
+      return item
+    });
 
-  const handleClickCard = (e: React.MouseEvent, card:Card) => {
-    console.log(e);
-    setActiveObject({objectID: card.cardID, x: card.squaresTop * 14, y: card.squaresLeft * 14});
-
+    setElements(newElements);
   }
 
-  const handleClickEmpty = () => {
-    console.log("clicked in empty space");
-    setActiveObject({objectID: -1, x: -1, y: -1});
+  function handlePointerMove(index1: number, e: React.PointerEvent<SVGElement>) {
+    let newElements = elements.map(function (item, index2): DragElement {
+      if (index1 === index2 && item.active === true) {
+        const bbox = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - bbox.left;
+        const y = e.clientY - bbox.top;
 
+        return {
+          ...item,
+          x: item.x - (item.xOffset - x),
+          y: item.y - (item.yOffset - y),
+        };
+      }
+      return item;
+    });
+    setElements(newElements);
   }
 
-  const handleDownCard = () => {
-    console.log("now Card should drag")
+  function handlePointerUp(index1: number, e: React.PointerEvent<SVGElement>) {
+    let newElements = elements.map(function (item, index2): DragElement {
+      if (index1 === index2) {
+        return { ...item, active: false };
+      }
+      return item;
+    });
+
+    setElements(newElements);
   }
-  const handleUpCard = () => {
-    console.log("now drag should leave")
-  }
-  
-  // useEffect(() => {
-  // }, [activeObject]);
+
+  const rectElements = elements.map(function (item, index) {
+    return (
+      <rect
+        key={index.toString()}
+        x={item.x}
+        y={item.y}
+        fill="yellow"
+        stroke="blue"
+        width={100}
+        height={200}
+        onPointerDown={(event) => handlePointerDown(index, event)}
+        onPointerUp={(event) => handlePointerUp(index, event)}
+        onPointerMove={(event) => handlePointerMove(index, event)}
+      />
+    );
+  });
 
   return (
     <svg className='svg-canvas'
-      width="1000"
-      height="600"
-    >
-      <rect
-      //element shall have the same size as the svg-element to catch clicks in empty space
-          width="1000"
-          height="600"
-          fill="white"
-          fillOpacity={0.5}
-          onClick={(e) => handleClickEmpty()}
-        />
-      {cards.map((card:Card) => (
-        <rect
-          key={card.cardID}
-          x={card.squaresTop * 14}
-          y={card.squaresLeft * 14}
-          width="100"
-          height="100"
-          fill="blue"
-          onClick={(e) => handleClickCard(e, card)}
-          onMouseDown={(e) => handleDownCard()}
-          onMouseUp={(e) => handleUpCard()}
-        />
-      ))}
-      {activeObject.objectID !== -1 && (
-        <>
-          <circle cx={activeObject.x} cy={activeObject.y} r="4" stroke="black" strokeWidth="1" fill="white" />
-          <circle cx={activeObject.x + 100} cy={activeObject.y} r="4" stroke="black" strokeWidth="1" fill="white" />
-          <circle cx={activeObject.x} cy={activeObject.y + 100} r="4" stroke="black" strokeWidth="1" fill="white" />
-          <circle cx={activeObject.x + 100} cy={activeObject.y + 100} r="4" stroke="black" strokeWidth="1" fill="white" />
-        </>
-    )}
-      </svg>
+    > 
+      {rectElements}
+    </svg>
   );
-};
-
-export default CanvasComponent;
+}

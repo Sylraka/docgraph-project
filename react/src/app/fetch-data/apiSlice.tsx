@@ -9,8 +9,8 @@ export interface Card {
 	canvasNumber: number;
 	cardTypes: string[];
 	text: string;
-	squaresTop: number;
-	squaresLeft: number;
+	x: number;
+	y: number;
 	width: number;
 	height: number;
 }

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
 import { useNavigate, useLocation } from 'react-router-dom';
-import CanvasComponent from "./canvas";
+//import CanvasComponent from "./canvas_alt";
 
 import './board.scss';
+import CanvasComponent from "./canvas";
 
 export const Board = () => {
     const navigate = useNavigate();
@@ -14,10 +15,10 @@ export const Board = () => {
     // Using a query hook automatically fetches data and returns query values
     const { data, isError, isLoading, isSuccess } = useFetchSingleBoardQuery(boardId);
 
-   
+
 
     useEffect(() => {
-     
+
     }, [data?.cardList]);
 
 
@@ -61,8 +62,10 @@ export const Board = () => {
                             <div className="three-canvas-container">
                                 <div className="flex-row" id="three-canvas-inner">
                                     <CanvasComponent
-                                    cardList={data?.cardList}
+                                        cardList={data?.cardList}
                                     />
+
+
                                     <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-1">
                                         <div className='squares-wrapper flex-row' >
 
@@ -79,7 +82,7 @@ export const Board = () => {
 
                                     <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-3">
                                         <div className='squares-wrapper' >
-        
+
                                         </div>
                                     </div>
 
