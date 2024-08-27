@@ -1,7 +1,7 @@
 .svg-canvas {
     position: absolute;
     pointer-events: auto;
-    z-index: 1000;
+    z-index: 10;
     width: calc(100vw - 111px);
     height: calc(100vh - 160px);
 }
@@ -9,4 +9,12 @@
 .svg-canvas-rect {
     width: calc(100vw - 111px);
     height: calc(100vh - 160px);
+}
+
+.text-element{
+    position: absolute;
+    z-index: 100;
+    margin: 35px;
+    font-size: 12px;
+    word-wrap: break-word;
 }
