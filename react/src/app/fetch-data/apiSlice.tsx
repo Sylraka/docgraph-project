@@ -76,3 +76,4 @@ export const boardsApiSlice = createApi({
 })
 
 export const { useFetchBoardsQuery, useFetchSingleBoardQuery } = boardsApiSlice
+export default boardsApiSlice.reducer;

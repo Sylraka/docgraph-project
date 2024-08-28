@@ -3,9 +3,9 @@ import { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import './board.scss';
-import CanvasComponent from "./canvas-draggable";
-import CanvasSVG from "./canvas-svg";
-import DragCard from "./card"
+import CanvasComponent from "./elements/canvas-draggable";
+import CanvasSVG from "./elements/canvas-svg";
+import DragCard from "./elements/card"
 
 import { Card } from '../../app/fetch-data/apiSlice';
 

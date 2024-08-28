@@ -1,7 +1,7 @@
 //draggable https://www.npmjs.com/package/react-draggable#react-draggable
 import { useState, useRef, useEffect } from "react";
-import { Card } from '../../app/fetch-data/apiSlice';
-import './canvas.css';
+import { Card } from '../../../app/fetch-data/apiSlice';
+import './card.css';
 
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 

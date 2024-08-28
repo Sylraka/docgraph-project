@@ -1,9 +1,9 @@
 //dragNdrop svg: https://gist.github.com/hashrock/0e8f10d9a233127c5e33b09ca6883ff4
 
 import React, { useState } from 'react';
-import { Card } from '../../app/fetch-data/apiSlice';
+import { Card } from '../../../app/fetch-data/apiSlice';
 
-import './canvas.css';
+import './card.css';
 
 interface canvasProps {
   cardList: Card[]
