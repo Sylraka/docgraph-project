@@ -14,8 +14,8 @@ interface DragElement {
   x: number;
   y: number;
   active: boolean;
-  xOffset: number;
-  yOffset: number;
+  movedLeftX: number;
+  movedTopY: number;
   canvasNumber: number;
   cardID: number;
   width: number;
@@ -37,8 +37,8 @@ export default function CanvasComponent(props: canvasProps) {
     props.cardList.map(card => ({
       ...card,
       active: false,
-      xOffset: -1, // Initialwert für xOffset
-      yOffset: -1, // Initialwert für yOffset
+      movedLeftX: -1, // Initialwert für xOffset
+      movedTopY: -1, // Initialwert für yOffset
     }))
   );
 
@@ -52,7 +52,7 @@ export default function CanvasComponent(props: canvasProps) {
         const x = e.clientX - bbox.left;
         const y = e.clientY - bbox.top;
         el.setPointerCapture(e.pointerId);
-        return { ...item, xOffset: x, yOffset: y, active: true };
+        return { ...item, movedLeftX: x, movedTopY: y, active: true };
       }
       return item
     });
@@ -69,8 +69,8 @@ export default function CanvasComponent(props: canvasProps) {
 
         return {
           ...item,
-          x: item.x - (item.xOffset - x),
-          y: item.y - (item.yOffset - y),
+          x: item.x - (item.movedLeftX - x),
+          y: item.y - (item.movedTopY - y),
         };
       }
       return item;
@@ -80,9 +80,16 @@ export default function CanvasComponent(props: canvasProps) {
 
   function handlePointerUp(index1: number, e: React.PointerEvent<SVGElement>) {
     let newElements = elements.map(function (item, index2): DragElement {
-      console.log("item: ", item)
       if (index1 === index2) {
-        return { ...item, active: false, xOffset: -1, yOffset: -1 };
+        console.log("item: ", item)
+
+        //TODO: drag stop per canvas 1-3
+        // if(item.canvasNumber === 1){
+        //   if(item.x >= 100){
+        //     item.x=100;
+        //   }
+        // }
+        return { ...item, active: false, movedLeftX: -1, movedTopY: -1 };
       }
       return item;
     });
@@ -90,12 +97,14 @@ export default function CanvasComponent(props: canvasProps) {
     setElements(newElements);
   }
 
+  
   const rectElements = elements.map(function (item, index) {
     return (
       <>
-        <g>
+        <g
+        key={index.toString()}
+        >
           <rect
-            key={index.toString()}
             x={item.x}
             y={item.y}
             fill="#555555"
@@ -115,14 +124,6 @@ export default function CanvasComponent(props: canvasProps) {
             fill="white"
             rx="6"
           />
-          {/* <text
-            x={item.x + 30}
-            y={item.y + 30}
-            width={item.width}
-            className="small"
-          >
-            {item.text}
-          </text> */}
         </g>
       </>
     );
@@ -131,14 +132,16 @@ export default function CanvasComponent(props: canvasProps) {
   const textElements = elements.map(function (item, index) {
     return (
       <p
-      key={index.toString()}
-      className='text-element'
-      style={{'top': item.y, 'left': item.x, 'width': item.width - 10, 'height':item.height - 40}}
+        key={index.toString()}
+        className='text-element2'
+        style={{ 'top': item.y, 'left': item.x, 'width': item.width - 10, 'height': item.height - 40 }}
       >
         {item.text}
       </p>
+    )
+  });
 
-    )});
+
 
   return (
     <>

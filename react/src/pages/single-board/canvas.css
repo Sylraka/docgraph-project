@@ -11,10 +11,36 @@
     height: calc(100vh - 160px);
 }
 
-.text-element{
+
+/* from canvas-svg */
+.text-element2{
     position: absolute;
+    background: #fff;
     z-index: 100;
-    margin: 35px;
     font-size: 12px;
     word-wrap: break-word;
+}
+
+.text-element{
+    position: absolute;
+    font-size: 12px;
+    word-wrap: break-word;
+    margin: 6px 10px 10px 8px;
+}
+
+
+.drag-box {
+    position: absolute;
+    background: #555;
+    border: 1px solid #999;
+    border-radius: 3px;
+    /* margin: 10px; */
+    padding: 15px;
+    float: left;
+}
+
+.drag-box-text {
+    background-color: #fff;
+    border-radius: 3px;
+    min-height: 28px;
 }
