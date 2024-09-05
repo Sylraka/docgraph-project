@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
-import { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
+
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useAppDispatch } from "../../app/hooks"
 
 import './board.scss';
-import CanvasComponent from "./elements/canvas-draggable";
-import CanvasSVG from "./elements/canvas-svg";
 import DragCard from "./elements/card"
 
-import { Card } from '../../app/fetch-data/apiSlice';
+import boardsApiSlice, { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
+import { Card, Board, useUpdateBoardMutation } from '../../app/fetch-data/apiSlice';
 
 interface cardLists {
     cardList1: Card[]
@@ -15,14 +15,19 @@ interface cardLists {
     cardList3: Card[]
 }
 
-export const Board = () => {
+export const SingleBoard = () => {
     const navigate = useNavigate();
     const location = useLocation();
+
+    const dispatch = useAppDispatch()
 
     // extract Board-ID from path
     const boardId = location.pathname.split('/').pop() || 'IdNotDefined';
     // Using a query hook automatically fetches data and returns query values
     const { data, isError, isLoading, isSuccess } = useFetchSingleBoardQuery(boardId);
+    //umbenennung um namenskonflikte zu vermeiden
+    //returns a tuple with a function and an object
+    const [updateBoardMutation, { isLoading: updateIsLoading, isSuccess: updateIsSuccess, isError: updateIsError }] = useUpdateBoardMutation();
 
 
     const [cardLists, setCardLists] = useState<cardLists>({
@@ -53,6 +58,55 @@ export const Board = () => {
             cardList3: newCardList3,
         })
     }, [data?.cardList]);
+
+
+//if i ever want to mutate the board-store without db-request
+    const optimisticUpdateCard = (updatedCard: Card) => {
+        dispatch(
+            //aktualisiert das board ohne eine db-abfrage
+            boardsApiSlice.util.updateQueryData('fetchBoards', undefined, (draft) => {
+                const board = draft.find((b) => b._id === boardId);
+                if (board) {
+                    board.cardList.map(draftCard => {
+                        if (draftCard.cardID === updatedCard.cardID) {
+                            draftCard.x = updatedCard.x;
+                            draftCard.y = updatedCard.y;
+                        }
+                    })
+                }
+            })
+        )
+    }
+
+    const saveCard = (updatedCard: Card) => {
+        let updatedCardList = data?.cardList.map(card => {
+            if (card.cardID === updatedCard.cardID) {
+                return {
+                    ...card,
+                    x: updatedCard.x,
+                    y: updatedCard.y
+                }
+            }
+            return card;
+        })
+
+        const updatedBoard: any = {
+            ...data,
+            cardList: updatedCardList 
+        };
+        saveBoard(updatedBoard)
+    }
+
+    const saveBoard = async (updatedBoard: Board) => {
+        try {
+            // Trigger die Mutation
+            const result = await updateBoardMutation(updatedBoard).unwrap();
+            
+            console.log('Board updated successfully:', result);
+        } catch (error) {
+            console.error('Failed to update the board:', error);
+        }
+    }
 
 
 
@@ -101,6 +155,8 @@ export const Board = () => {
                                         {cardLists.cardList1.map(card => (
                                             <DragCard
                                                 card={card}
+                                                boardId={boardId}
+                                                saveCard={saveCard}
                                             />
                                         ))}
                                     </div>
@@ -111,6 +167,8 @@ export const Board = () => {
                                         {cardLists.cardList2.map(card => (
                                             <DragCard
                                                 card={card}
+                                                boardId={boardId}
+                                                saveCard={saveCard}
                                             />
                                         ))}
                                     </div>
@@ -123,6 +181,8 @@ export const Board = () => {
                                         {cardLists.cardList3.map(card => (
                                             <DragCard
                                                 card={card}
+                                                boardId={boardId}
+                                                saveCard={saveCard}
                                             />
                                         ))}
                                     </div>

@@ -2,9 +2,9 @@ import { useState, useEffect, Key } from "react";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from 'react-router-dom';
-import { useFetchBoardsQuery } from "./app/fetch-data/apiSlice"
+import { useFetchBoardsQuery } from "../app/fetch-data/apiSlice"
 
-import "./general-styles/general-styles.css"
+import "./../general-styles/general-styles.css"
 
 export const Home = () => {
     const navigate = useNavigate();

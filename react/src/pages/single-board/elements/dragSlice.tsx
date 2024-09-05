@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface DragState {
+export interface DragState {
     elementType: string,
     ID: number,
     placeToTop: number,

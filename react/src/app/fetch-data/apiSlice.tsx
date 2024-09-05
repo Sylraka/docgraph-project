@@ -64,16 +64,16 @@ export const boardsApiSlice = createApi({
 		// 		body: newBoard,
 		// 	}),
 		// }),
-		// Definieren Sie einen PUT-Endpunkt
-		// updateBoard: builder.mutation<Board, Partial<Board>>({
-		// 	query: (updatedBoard) => ({
-		// 		url: `/boards/${updatedBoard.id}`,
-		// 		method: 'PUT',
-		// 		body: updatedBoard,
-		// 	}),
-		// }),
+		// PUT-Endpunkt, // The mutation accepts a `Partial<Board>`(all args are optional) arg, and returns a `Board`
+		updateBoard: builder.mutation<Board, Partial<Board>>({
+			query: (updatedBoard) => ({
+				url: `/boards/${updatedBoard._id}`,
+				method: 'PUT',
+				body: updatedBoard,
+			}),
+		}),
 	})
 })
 
-export const { useFetchBoardsQuery, useFetchSingleBoardQuery } = boardsApiSlice
-export default boardsApiSlice.reducer;
+export const { useFetchBoardsQuery, useFetchSingleBoardQuery, useUpdateBoardMutation } = boardsApiSlice
+export default boardsApiSlice;
