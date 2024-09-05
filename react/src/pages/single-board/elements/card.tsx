@@ -13,7 +13,6 @@ interface canvasProps {
     card: Card,
     boardId: string,
     saveCard: (param: Card) => void,
-    optimisticUpdateCard: (param: Card) => void
 }
 
 
@@ -78,7 +77,7 @@ export default function CardComponent(props: canvasProps) {
 
     const onStop = (event: DraggableEvent, data: DraggableData) => {
         let positions = setPositionInElement(event, data)
-        console.log(positions)
+       // console.log(positions)
 
         props.saveCard ({
             ...props.card,

@@ -88,6 +88,25 @@
   border-left: 4px dashed rgb(95, 56, 12);
 }
 
+
+
+
+.svg-canvas {
+  position: absolute;
+  pointer-events: auto;
+ 
+  width: calc(100vw - 111px);
+  height: calc(100vh - 160px);
+}
+
+
+
+
+
+
+
+
+
 /*start autosizer, see https://codepen.io/shshaw/pen/bGNJJBE*/
 .input-sizer {
   display: inline-grid;

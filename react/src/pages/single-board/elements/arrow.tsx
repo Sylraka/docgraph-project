@@ -1,12 +1,17 @@
 //dragNdrop svg: https://gist.github.com/hashrock/0e8f10d9a233127c5e33b09ca6883ff4
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Arrow } from '../../../app/fetch-data/apiSlice';
+import { Card, Arrow } from '../../../app/fetch-data/apiSlice';
 import "./arrow.css";
+
+//we need that to read the state
+import { useAppSelector } from '../../../app/hooks'; // Pfad zu deinem custom Hook
+
 
 interface canvasProps {
     arrow: Arrow;
+    cards: Card[]
 }
 
 
@@ -21,12 +26,108 @@ interface ArrowHead {
 }
 
 
+
 export default function ArrowComponent(props: canvasProps) {
+    const singleCanvasSize = useAppSelector((state) => state.canvasSize)
     const [arrow, setArrow] = useState<Arrow>({
         ...props.arrow
     });
 
 
+    useEffect(() => {
+        props.cards.map(card => {
+            if (arrow.anchorStart.onCard === card.cardID) {
+                if (card.canvasNumber === 1) {
+                    //point-operator is not allowed in typescript
+                    setArrow((prevArrow) => ({
+                        ...prevArrow,
+                        anchorStart: {
+                            ...prevArrow.anchorStart,
+                            anchorCanvas: {
+                                ...prevArrow.anchorStart.anchorCanvas,
+                                x: card.x,
+                                y: card.y
+                            }
+                        }
+                    }))
+                }
+                if (card.canvasNumber === 2) {
+                    //point-operator is not allowed in typescript
+                    setArrow((prevArrow) => ({
+                        ...prevArrow,
+                        anchorStart: {
+                            ...prevArrow.anchorStart,
+                            anchorCanvas: {
+                                ...prevArrow.anchorStart.anchorCanvas,
+                                x: card.x + singleCanvasSize.width,
+                                y: card.y
+                            }
+                        }
+                    }))
+                }
+                if (card.canvasNumber === 3) {
+                    //point-operator is not allowed in typescript
+                    setArrow((prevArrow) => ({
+                        ...prevArrow,
+                        anchorStart: {
+                            ...prevArrow.anchorStart,
+                            anchorCanvas: {
+                                ...prevArrow.anchorStart.anchorCanvas,
+                                x: card.x + singleCanvasSize.width * 2,
+                                y: card.y
+                            }
+                        }
+                    }))
+                }
+            }
+
+            if (arrow.anchorEnd.onCard === card.cardID) {
+                if (card.canvasNumber === 1) {
+                    //point-operator is not allowed in typescript
+                    setArrow((prevArrow) => ({
+                        ...prevArrow,
+                        anchorEnd: {
+                            ...prevArrow.anchorEnd,
+                            anchorCanvas: {
+                                ...prevArrow.anchorEnd.anchorCanvas,
+                                x: card.x ,
+                                y: card.y
+                            }
+                        }
+                    }))
+                }
+                if (card.canvasNumber === 2) {
+                    //point-operator is not allowed in typescript
+                    setArrow((prevArrow) => ({
+                        ...prevArrow,
+                        anchorEnd: {
+                            ...prevArrow.anchorEnd,
+                            anchorCanvas: {
+                                ...prevArrow.anchorEnd.anchorCanvas,
+                                x: card.x + singleCanvasSize.width,
+                                y: card.y
+                            }
+                        }
+                    }))
+                }
+                if (card.canvasNumber === 3) {
+                    //point-operator is not allowed in typescript
+                    setArrow((prevArrow) => ({
+                        ...prevArrow,
+                        anchorEnd: {
+                            ...prevArrow.anchorEnd,
+                            anchorCanvas: {
+                                ...prevArrow.anchorEnd.anchorCanvas,
+                                x: card.x + singleCanvasSize.width * 2,
+                                y: card.y
+                            }
+                        }
+                    }))
+                }
+            }
+        });
+
+    }, [props.cards, singleCanvasSize])
 
     // function handlePointerDown(e: React.PointerEvent<SVGElement>) {
     //     let newElements = elements.map(function (item, index2): DragElement {
@@ -89,23 +190,22 @@ export default function ArrowComponent(props: canvasProps) {
 
     return (
         <>
-            <svg className='svg-canvas'
+
+            <g
+                key={arrow.arrowID}
             >
-                 <g
-                    key={arrow.arrowID}
-                >
-                    <line
-                        x1={arrow.anchorStart.anchorCanvas.x}
-                        y1={arrow.anchorStart.anchorCanvas.y}
-                        x2={arrow.anchorEnd.anchorCanvas.x}
-                        y2={arrow.anchorEnd.anchorCanvas.y}
-                        stroke="#555555"
-                        // onPointerDown={(event) => handlePointerDown(event)}
-                        // onPointerUp={(event) => handlePointerUp(event)}
-                        // onPointerMove={(event) => handlePointerMove(event)}
-                    />
-                </g>
-            </svg>
+                <line
+                    x1={arrow.anchorStart.anchorCanvas.x}
+                    y1={arrow.anchorStart.anchorCanvas.y}
+                    x2={arrow.anchorEnd.anchorCanvas.x}
+                    y2={arrow.anchorEnd.anchorCanvas.y}
+                    stroke="#006666"
+                    strokeWidth={3}
+                // onPointerDown={(event) => handlePointerDown(event)}
+                // onPointerUp={(event) => handlePointerUp(event)}
+                // onPointerMove={(event) => handlePointerMove(event)}
+                />
+            </g>
         </>
     );
 }

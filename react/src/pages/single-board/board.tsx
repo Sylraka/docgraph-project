@@ -10,6 +10,7 @@ import DragArrow from "./elements/arrow";
 
 import boardsApiSlice, { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
 import { Card, Board, useUpdateBoardMutation } from '../../app/fetch-data/apiSlice';
+import { setCanvasSize } from "./canvasSIzeSlice";
 
 
 interface cardLists {
@@ -39,6 +40,8 @@ export const SingleBoard = () => {
         cardList3: [],
     });
 
+    
+
     useEffect(() => {
         let newCardList1: Card[] = [];
         let newCardList2: Card[] = [];
@@ -62,33 +65,37 @@ export const SingleBoard = () => {
         })
     }, [data?.cardList]);
 
+    //empty array, effect triggers by mount
+    useEffect(() => {
 
-    //if i ever want to mutate the board-store without db-request
-    const optimisticUpdateCard = (updatedCard: Card) => {
-        console.log("test");
-        dispatch(
-            
-            //aktualisiert das board ohne eine db-abfrage
-            boardsApiSlice.util.updateQueryData('fetchBoards', undefined, (draft) => {
-                const board = draft.find((b) => b._id === boardId);
-                console.log("test")
-                if (board) {
-                    board.cardList.map(draftCard => {
-                        if (draftCard.cardID === updatedCard.cardID) {
-                            draftCard.x = updatedCard.x;
-                            draftCard.y = updatedCard.y;
-                            console.log("optimistic updated card:", draftCard);
-                        }
-                    })
-                }
-            })
-        )
-    }
+        // Event-Listener hinzufügen
+        window.addEventListener('resize', handleResize);
+
+        const timer = setTimeout(() => {
+            // Dieser Code wird nach der Verzögerung ausgeführt
+            handleResize()
+          },100 );//1000=1sec
+        // Cleanup: Event-Listener entfernen, wenn die Komponente unmountet
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [])
+
+
+    const handleResize = () => {
+        const element = document.getElementById('fancy-canvas-wrapper-1')
+        const elementWidth = element?.offsetWidth; //oder element.clientWidth
+        const elementHeight = element?.offsetHeight;
+        console.log("resize!", elementWidth, elementHeight)
+        if (elementWidth !== undefined && elementHeight !== undefined) {
+            dispatch(setCanvasSize({ width: elementWidth, height: elementHeight }))
+        }
+    };
 
     const saveCard = (updatedCard: Card) => {
         let updatedCardList = data?.cardList.map(card => {
             if (card.cardID === updatedCard.cardID) {
-           //    console.log("updated card:", updatedCard )
+                //    console.log("updated card:", updatedCard )
                 return {
                     ...card,
                     x: updatedCard.x,
@@ -108,19 +115,20 @@ export const SingleBoard = () => {
 
     const saveBoard = async (updatedBoard: Board) => {
         try {
-            
+
             // Trigger die Mutation
             const result = await updateBoardMutation(updatedBoard).unwrap();
 
             // with updateboardmutation we cannot actualize the current state, so we have to trigger it manually
+            //"query" are the data wen can read or get with a GET
             dispatch(
                 boardsApiSlice.util.updateQueryData('fetchSingleBoard', updatedBoard._id, (draft) => {
-                  // Lokalen Zustand des Boards mit den neuen Daten aktualisieren
-                  Object.assign(draft, updatedBoard);
+                    // Lokalen Zustand des Boards mit den neuen Daten aktualisieren
+                    Object.assign(draft, updatedBoard);
                 })
-              );
+            );
 
-            console.log('Board updated successfully:', result);
+            //   console.log('Board updated successfully:', result);
         } catch (error) {
             console.error('Failed to update the board:', error);
         }
@@ -165,15 +173,15 @@ export const SingleBoard = () => {
 
                         <div className="three-canvas-container">
                             <div className="flex-row" id="three-canvas-inner">
-                                {/* {data?.arrowList.map(arrow => {
-                                    // <DragArrow
-                                    //     arrow={data.arrowList}>
+                                <svg className='svg-canvas' >
+                                    {data?.arrowList.map(arrow => (
+                                        <DragArrow
+                                            arrow={arrow}
+                                            cards={data?.cardList}
+                                        />
 
-                                    // </DragArrow>
-
-                                })} */}
-                                {/* <CanvasSVG cardList={cardLists.cardList1}/> */}
-
+                                    ))}
+                                </svg>
                                 <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-1">
                                     <div className='squares-wrapper flex-row' >
                                         {cardLists.cardList1.map(card => (
@@ -181,7 +189,6 @@ export const SingleBoard = () => {
                                                 card={card}
                                                 boardId={boardId}
                                                 saveCard={saveCard}
-                                                optimisticUpdateCard={optimisticUpdateCard}
                                             />
                                         ))}
                                     </div>
@@ -194,7 +201,6 @@ export const SingleBoard = () => {
                                                 card={card}
                                                 boardId={boardId}
                                                 saveCard={saveCard}
-                                                optimisticUpdateCard={optimisticUpdateCard}
                                             />
                                         ))}
                                     </div>
@@ -209,7 +215,6 @@ export const SingleBoard = () => {
                                                 card={card}
                                                 boardId={boardId}
                                                 saveCard={saveCard}
-                                                optimisticUpdateCard={optimisticUpdateCard}
                                             />
                                         ))}
                                     </div>
