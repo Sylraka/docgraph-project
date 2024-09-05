@@ -16,10 +16,26 @@ export interface Card {
 }
 
 export interface Arrow {
-	arrowID: number;
-	arrowTypes: string[];
-	anchorStart: object;
-	anchorEnd: object;
+    arrowID: number;
+    arrowTypes: string[];
+    anchorStart: {
+        anchorID: number;
+        onCard: number;
+        anchorCanvas: {
+            canvasNumber: number;
+            x: number;
+            y: number;    
+        }
+    };
+    anchorEnd: {
+        anchorID: number;
+        onCard: number;
+        anchorCanvas: {
+            canvasNumber: number;
+            x: number;
+            y: number;    
+        }
+    };
 }
 
 export interface Board {

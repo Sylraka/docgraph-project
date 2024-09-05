@@ -5,9 +5,12 @@ import { useAppDispatch } from "../../app/hooks"
 
 import './board.scss';
 import DragCard from "./elements/card"
+import { BoardName } from "./boardName"
+import DragArrow from "./elements/arrow";
 
 import boardsApiSlice, { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
 import { Card, Board, useUpdateBoardMutation } from '../../app/fetch-data/apiSlice';
+
 
 interface cardLists {
     cardList1: Card[]
@@ -60,17 +63,21 @@ export const SingleBoard = () => {
     }, [data?.cardList]);
 
 
-//if i ever want to mutate the board-store without db-request
+    //if i ever want to mutate the board-store without db-request
     const optimisticUpdateCard = (updatedCard: Card) => {
+        console.log("test");
         dispatch(
+            
             //aktualisiert das board ohne eine db-abfrage
             boardsApiSlice.util.updateQueryData('fetchBoards', undefined, (draft) => {
                 const board = draft.find((b) => b._id === boardId);
+                console.log("test")
                 if (board) {
                     board.cardList.map(draftCard => {
                         if (draftCard.cardID === updatedCard.cardID) {
                             draftCard.x = updatedCard.x;
                             draftCard.y = updatedCard.y;
+                            console.log("optimistic updated card:", draftCard);
                         }
                     })
                 }
@@ -81,6 +88,7 @@ export const SingleBoard = () => {
     const saveCard = (updatedCard: Card) => {
         let updatedCardList = data?.cardList.map(card => {
             if (card.cardID === updatedCard.cardID) {
+           //    console.log("updated card:", updatedCard )
                 return {
                     ...card,
                     x: updatedCard.x,
@@ -92,16 +100,26 @@ export const SingleBoard = () => {
 
         const updatedBoard: any = {
             ...data,
-            cardList: updatedCardList 
+            cardList: updatedCardList
         };
         saveBoard(updatedBoard)
     }
 
+
     const saveBoard = async (updatedBoard: Board) => {
         try {
+            
             // Trigger die Mutation
             const result = await updateBoardMutation(updatedBoard).unwrap();
-            
+
+            // with updateboardmutation we cannot actualize the current state, so we have to trigger it manually
+            dispatch(
+                boardsApiSlice.util.updateQueryData('fetchSingleBoard', updatedBoard._id, (draft) => {
+                  // Lokalen Zustand des Boards mit den neuen Daten aktualisieren
+                  Object.assign(draft, updatedBoard);
+                })
+              );
+
             console.log('Board updated successfully:', result);
         } catch (error) {
             console.error('Failed to update the board:', error);
@@ -147,7 +165,13 @@ export const SingleBoard = () => {
 
                         <div className="three-canvas-container">
                             <div className="flex-row" id="three-canvas-inner">
+                                {/* {data?.arrowList.map(arrow => {
+                                    // <DragArrow
+                                    //     arrow={data.arrowList}>
 
+                                    // </DragArrow>
+
+                                })} */}
                                 {/* <CanvasSVG cardList={cardLists.cardList1}/> */}
 
                                 <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-1">
@@ -157,6 +181,7 @@ export const SingleBoard = () => {
                                                 card={card}
                                                 boardId={boardId}
                                                 saveCard={saveCard}
+                                                optimisticUpdateCard={optimisticUpdateCard}
                                             />
                                         ))}
                                     </div>
@@ -169,6 +194,7 @@ export const SingleBoard = () => {
                                                 card={card}
                                                 boardId={boardId}
                                                 saveCard={saveCard}
+                                                optimisticUpdateCard={optimisticUpdateCard}
                                             />
                                         ))}
                                     </div>
@@ -183,6 +209,7 @@ export const SingleBoard = () => {
                                                 card={card}
                                                 boardId={boardId}
                                                 saveCard={saveCard}
+                                                optimisticUpdateCard={optimisticUpdateCard}
                                             />
                                         ))}
                                     </div>
@@ -210,47 +237,3 @@ export const SingleBoard = () => {
 
 
 
-const BoardName = (props: any) => {
-
-
-    useEffect(() => {
-
-        if (props.editMode === true) {
-            setWidth("IDboardName" + props.boardID);
-        }
-    }, [props.boardID]);
-
-
-
-    const setWidth = (fieldId: string) => {
-        let element = document.getElementById(fieldId);
-        //  element.parentNode.dataset.value = element.value;
-        console.log("setwidth is not implemented yet")
-    }
-
-    //TODO: boardname size blocker 
-    const manageTextInput = (fieldId: string) => {
-        let element = document.getElementById(fieldId);
-        setWidth(fieldId);
-        //props.updateBoardName(element.value);
-        console.log("manageTextInput is not implemented yet")
-    }
-
-    if (props.editMode === true) {
-        return (
-            <label id={"IDlabel"} className="input-sizer">
-                <input
-                    id={"IDboardName" + props.boardID}
-                    className="board-name board-name-input"
-                    defaultValue={props.boardName}
-                    onInput={() => manageTextInput("IDboardName" + props.boardID)}
-                />
-            </label>
-        )
-    } else {
-        return (
-            <p className="board-name">{props.boardName}</p>
-        )
-    }
-
-}

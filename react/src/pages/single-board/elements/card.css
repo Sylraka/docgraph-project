@@ -1,25 +1,4 @@
-.svg-canvas {
-    position: absolute;
-    pointer-events: auto;
-    z-index: 10;
-    width: calc(100vw - 111px);
-    height: calc(100vh - 160px);
-}
 
-.svg-canvas-rect {
-    width: calc(100vw - 111px);
-    height: calc(100vh - 160px);
-}
-
-
-/* from canvas-svg */
-.text-element2{
-    position: absolute;
-    background: #fff;
-    z-index: 100;
-    font-size: 12px;
-    word-wrap: break-word;
-}
 
 .text-element{
     position: absolute;

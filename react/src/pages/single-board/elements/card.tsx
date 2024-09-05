@@ -12,7 +12,8 @@ import { setActiveDragElement, moveActiveDragElement, removeActiveDrag, DragStat
 interface canvasProps {
     card: Card,
     boardId: string,
-    saveCard: (param: Card) => void
+    saveCard: (param: Card) => void,
+    optimisticUpdateCard: (param: Card) => void
 }
 
 
@@ -31,7 +32,7 @@ interface DragElement {
     math: object;
 }
 
-export default function CanvasComponent(props: canvasProps) {
+export default function CardComponent(props: canvasProps) {
     const dispatch = useAppDispatch()
     //const activeDragValue = useAppSelector((state) => state.drag)
 
@@ -79,21 +80,18 @@ export default function CanvasComponent(props: canvasProps) {
         let positions = setPositionInElement(event, data)
         console.log(positions)
 
-
         props.saveCard ({
             ...props.card,
             x: positions.placeToLeft,
             y: positions.placeToTop
         })
-
-        dispatch(removeActiveDrag())
-   
-        // setElement(prevState => ({
-        //     ...prevState,
+        // props.optimisticUpdateCard({
+        //     ...props.card,
         //     x: positions.placeToLeft,
         //     y: positions.placeToTop
-        // }))
+        // })
 
+        dispatch(removeActiveDrag())
     }
 
     const onDrag = (event: DraggableEvent, data: DraggableData) => {
