@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Card, Arrow } from '../../../app/fetch-data/apiSlice';
 import "./arrow.css";
+import SvgArrowHead from "./arrowHead"
 
 //we need that to read the state
 import { useAppSelector } from '../../../app/hooks'; // Pfad zu deinem custom Hook
@@ -11,19 +12,10 @@ import { useAppSelector } from '../../../app/hooks'; // Pfad zu deinem custom Ho
 
 interface canvasProps {
     arrow: Arrow;
-    cards: Card[]
+    cards: Card[];
+    saveArrow: (param: Arrow) => void
 }
 
-
-
-interface ArrowHead {
-    rotationHead: number;
-    anchor: {
-        anchorID: number;
-        x: number;
-        y: number;
-    };
-}
 
 
 
@@ -37,6 +29,10 @@ export default function ArrowComponent(props: canvasProps) {
     useEffect(() => {
         props.cards.map(card => {
             if (arrow.anchorStart.onCard === card.cardID) {
+
+
+
+
                 if (card.canvasNumber === 1) {
                     //point-operator is not allowed in typescript
                     setArrow((prevArrow) => ({
@@ -79,9 +75,24 @@ export default function ArrowComponent(props: canvasProps) {
                         }
                     }))
                 }
+
+                props.saveArrow({
+                    ...arrow,
+                    anchorStart: {
+                        ...arrow.anchorStart,
+                        anchorCanvas: {
+                            ...arrow.anchorStart.anchorCanvas,
+                            x: card.x,
+                            y: card.y
+                        }
+                    },
+                })
             }
 
             if (arrow.anchorEnd.onCard === card.cardID) {
+
+
+                
                 if (card.canvasNumber === 1) {
                     //point-operator is not allowed in typescript
                     setArrow((prevArrow) => ({
@@ -124,11 +135,28 @@ export default function ArrowComponent(props: canvasProps) {
                         }
                     }))
                 }
+
+                props.saveArrow({
+                    ...arrow,
+                    anchorEnd: {
+                        ...arrow.anchorEnd,
+                        anchorCanvas: {
+                            ...arrow.anchorEnd.anchorCanvas,
+                            x: card.x,
+                            y: card.y
+                        }
+        
+                    }
+                })
             }
         });
 
     }, [props.cards, singleCanvasSize])
 
+
+
+
+    
     // function handlePointerDown(e: React.PointerEvent<SVGElement>) {
     //     let newElements = elements.map(function (item, index2): DragElement {
     //         if (index1 === index2) {
@@ -204,6 +232,10 @@ export default function ArrowComponent(props: canvasProps) {
                 // onPointerDown={(event) => handlePointerDown(event)}
                 // onPointerUp={(event) => handlePointerUp(event)}
                 // onPointerMove={(event) => handlePointerMove(event)}
+                />
+
+                <SvgArrowHead
+                    arrow={arrow}
                 />
             </g>
         </>

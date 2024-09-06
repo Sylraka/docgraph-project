@@ -6,7 +6,7 @@ import { quotesApiSlice } from "../former-code/quotes/quotesApiSlice"
 
 import { boardsApiSlice } from "./fetch-data/apiSlice"
 import dragReducer from "../pages/single-board/elements/dragSlice"
-import canvasSizeReducer from "./../pages/single-board/canvasSIzeSlice"
+import canvasSizeReducer from "./../pages/single-board/canvasSizeSlice"
 
 export const store = configureStore({
     reducer: {

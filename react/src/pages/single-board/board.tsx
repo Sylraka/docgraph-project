@@ -9,8 +9,8 @@ import { BoardName } from "./boardName"
 import DragArrow from "./elements/arrow";
 
 import boardsApiSlice, { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
-import { Card, Board, useUpdateBoardMutation } from '../../app/fetch-data/apiSlice';
-import { setCanvasSize } from "./canvasSIzeSlice";
+import { Card, Board, Arrow, useUpdateBoardMutation } from '../../app/fetch-data/apiSlice';
+import { setCanvasSize } from "./canvasSizeSlice";
 
 
 interface cardLists {
@@ -33,6 +33,11 @@ export const SingleBoard = () => {
     //returns a tuple with a function and an object
     const [updateBoardMutation, { isLoading: updateIsLoading, isSuccess: updateIsSuccess, isError: updateIsError }] = useUpdateBoardMutation();
 
+    // const[canvasSize, setCanvasSize]=useState<{width: number, height:number}>({
+    //     width: -1,
+    //     height: -1
+    // })
+
 
     const [cardLists, setCardLists] = useState<cardLists>({
         cardList1: [],
@@ -40,7 +45,7 @@ export const SingleBoard = () => {
         cardList3: [],
     });
 
-    
+
 
     useEffect(() => {
         let newCardList1: Card[] = [];
@@ -70,7 +75,7 @@ export const SingleBoard = () => {
 
         // Event-Listener hinzufügen
         window.addEventListener('resize', handleResize);
-
+        handleResize()
         const timer = setTimeout(() => {
             // Dieser Code wird nach der Verzögerung ausgeführt
             handleResize()
@@ -108,6 +113,42 @@ export const SingleBoard = () => {
         const updatedBoard: any = {
             ...data,
             cardList: updatedCardList
+        };
+        saveBoard(updatedBoard)
+    }
+
+    
+    const saveArrow = (updatedArrow: Arrow) => {
+        let updatedArrowList = data?.arrowList.map(arrow => {
+            if (arrow.arrowID === updatedArrow.arrowID) {
+                return {
+                    ...arrow,
+                    anchorStart: {
+                        ...arrow.anchorStart,
+                        onCard: updatedArrow.anchorStart.onCard,
+                        anchorCanvas: {
+                            canvasNumber: updatedArrow.anchorStart.anchorCanvas.canvasNumber,
+                            x: updatedArrow.anchorStart.anchorCanvas.x,
+                            y: updatedArrow.anchorStart.anchorCanvas.y
+                        }
+                    },
+                    anchorEnd: {
+                        ...arrow.anchorEnd,
+                        onCard: updatedArrow.anchorEnd.onCard,
+                        anchorCanvas: {
+                            canvasNumber: updatedArrow.anchorEnd.anchorCanvas.canvasNumber,
+                            x: updatedArrow.anchorEnd.anchorCanvas.x,
+                            y: updatedArrow.anchorEnd.anchorCanvas.y
+                        }
+                    }
+                }
+            }
+            return arrow;
+        })
+
+        const updatedBoard: any = {
+            ...data,
+            arrowList: updatedArrowList
         };
         saveBoard(updatedBoard)
     }
@@ -178,6 +219,7 @@ export const SingleBoard = () => {
                                         <DragArrow
                                             arrow={arrow}
                                             cards={data?.cardList}
+                                            saveArrow={saveArrow}
                                         />
 
                                     ))}
