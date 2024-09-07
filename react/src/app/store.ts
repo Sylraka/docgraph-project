@@ -1,17 +1,12 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
-import { counterSlice } from "../former-code/counter/counterSlice"
-import { quotesApiSlice } from "../former-code/quotes/quotesApiSlice"
 
 import { boardsApiSlice } from "./fetch-data/apiSlice"
 import dragReducer from "../pages/single-board/elements/dragSlice"
-import canvasSizeReducer from "./../pages/single-board/canvasSizeSlice"
-
 export const store = configureStore({
     reducer: {
       drag: dragReducer,
-      canvasSize: canvasSizeReducer,
 
       [boardsApiSlice.reducerPath]: boardsApiSlice.reducer,
     },

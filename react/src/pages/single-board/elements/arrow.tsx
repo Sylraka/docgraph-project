@@ -20,7 +20,6 @@ interface canvasProps {
 
 
 export default function ArrowComponent(props: canvasProps) {
-    const singleCanvasSize = useAppSelector((state) => state.canvasSize)
     const [arrow, setArrow] = useState<Arrow>({
         ...props.arrow
     });
@@ -92,7 +91,7 @@ export default function ArrowComponent(props: canvasProps) {
             }
         });
 
-    }, [props.cards, singleCanvasSize])
+    }, [props.cards])
 
 
 

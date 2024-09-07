@@ -34,9 +34,9 @@ const SvgArrowHead = (props: propTypes) => {
             setArrowTransform({
                 transform:
                     "translate(" + 
-                     (props.arrow.anchorEnd.anchorCanvas.x - 4) +
+                     (props.arrow.anchorEnd.anchorCanvas.x - 4) +//+0
                     "px, " + 
-                    (props.arrow.anchorEnd.anchorCanvas.y + 5) +
+                    (props.arrow.anchorEnd.anchorCanvas.y + 5) +//-10
                     "px) rotate(" + 
                     rotation +
                     "deg)",

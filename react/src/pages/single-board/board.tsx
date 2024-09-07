@@ -11,7 +11,6 @@ import CardText from "./elements/cardText";
 
 import boardsApiSlice, { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
 import { Card, Board, Arrow, useUpdateBoardMutation } from '../../app/fetch-data/apiSlice';
-import { setCanvasSize } from "./canvasSizeSlice";
 
 
 interface cardLists {
@@ -34,39 +33,7 @@ export const SingleBoard = () => {
     //returns a tuple with a function and an object
     const [updateBoardMutation, { isLoading: updateIsLoading, isSuccess: updateIsSuccess, isError: updateIsError }] = useUpdateBoardMutation();
 
-    // const[canvasSize, setCanvasSize]=useState<{width: number, height:number}>({
-    //     width: -1,
-    //     height: -1
-    // })
 
-
-
-    //empty array, effect triggers by mount
-    useEffect(() => {
-
-        // Event-Listener hinzufügen
-        window.addEventListener('resize', handleResize);
-        handleResize()
-        const timer = setTimeout(() => {
-            // Dieser Code wird nach der Verzögerung ausgeführt
-            handleResize()
-        }, 100);//1000=1sec
-        // Cleanup: Event-Listener entfernen, wenn die Komponente unmountet
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [])
-
-
-    const handleResize = () => {
-        const element = document.getElementById('fancy-canvas-wrapper-1')
-        const elementWidth = element?.offsetWidth; //oder element.clientWidth
-        const elementHeight = element?.offsetHeight;
-        console.log("resize!", elementWidth, elementHeight)
-        if (elementWidth !== undefined && elementHeight !== undefined) {
-            dispatch(setCanvasSize({ width: elementWidth, height: elementHeight }))
-        }
-    };
 
     const saveCard = (updatedCard: Card) => {
         let updatedCardList = data?.cardList.map(card => {
