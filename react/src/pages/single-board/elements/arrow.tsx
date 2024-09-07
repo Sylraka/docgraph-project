@@ -33,48 +33,19 @@ export default function ArrowComponent(props: canvasProps) {
 
 
 
-                if (card.canvasNumber === 1) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorStart: {
-                            ...prevArrow.anchorStart,
-                            anchorCanvas: {
-                                ...prevArrow.anchorStart.anchorCanvas,
-                                x: card.x,
-                                y: card.y
-                            }
+                //point-operator is not allowed in typescript
+                setArrow((prevArrow) => ({
+                    ...prevArrow,
+                    anchorStart: {
+                        ...prevArrow.anchorStart,
+                        anchorCanvas: {
+                            ...prevArrow.anchorStart.anchorCanvas,
+                            x: card.x,
+                            y: card.y
                         }
-                    }))
-                }
-                if (card.canvasNumber === 2) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorStart: {
-                            ...prevArrow.anchorStart,
-                            anchorCanvas: {
-                                ...prevArrow.anchorStart.anchorCanvas,
-                                x: card.x + singleCanvasSize.width,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
-                if (card.canvasNumber === 3) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorStart: {
-                            ...prevArrow.anchorStart,
-                            anchorCanvas: {
-                                ...prevArrow.anchorStart.anchorCanvas,
-                                x: card.x + singleCanvasSize.width * 2,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
+                    }
+                }))
+
 
                 props.saveArrow({
                     ...arrow,
@@ -92,49 +63,19 @@ export default function ArrowComponent(props: canvasProps) {
             if (arrow.anchorEnd.onCard === card.cardID) {
 
 
-                
-                if (card.canvasNumber === 1) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorEnd: {
-                            ...prevArrow.anchorEnd,
-                            anchorCanvas: {
-                                ...prevArrow.anchorEnd.anchorCanvas,
-                                x: card.x ,
-                                y: card.y
-                            }
+                //point-operator is not allowed in typescript
+                setArrow((prevArrow) => ({
+                    ...prevArrow,
+                    anchorEnd: {
+                        ...prevArrow.anchorEnd,
+                        anchorCanvas: {
+                            ...prevArrow.anchorEnd.anchorCanvas,
+                            x: card.x,
+                            y: card.y
                         }
-                    }))
-                }
-                if (card.canvasNumber === 2) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorEnd: {
-                            ...prevArrow.anchorEnd,
-                            anchorCanvas: {
-                                ...prevArrow.anchorEnd.anchorCanvas,
-                                x: card.x + singleCanvasSize.width,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
-                if (card.canvasNumber === 3) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorEnd: {
-                            ...prevArrow.anchorEnd,
-                            anchorCanvas: {
-                                ...prevArrow.anchorEnd.anchorCanvas,
-                                x: card.x + singleCanvasSize.width * 2,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
+                    }
+                }))
+
 
                 props.saveArrow({
                     ...arrow,
@@ -145,7 +86,7 @@ export default function ArrowComponent(props: canvasProps) {
                             x: card.x,
                             y: card.y
                         }
-        
+
                     }
                 })
             }
@@ -156,7 +97,7 @@ export default function ArrowComponent(props: canvasProps) {
 
 
 
-    
+
     // function handlePointerDown(e: React.PointerEvent<SVGElement>) {
     //     let newElements = elements.map(function (item, index2): DragElement {
     //         if (index1 === index2) {

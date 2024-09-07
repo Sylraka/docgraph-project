@@ -94,7 +94,7 @@
 .svg-canvas {
   position: absolute;
   pointer-events: auto;
- 
+  z-index: 10;
   width: calc(100vw - 111px);
   height: calc(100vh - 160px);
 }

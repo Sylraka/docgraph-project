@@ -63,124 +63,150 @@ export default function CardComponent(props: canvasProps) {
     //     // });
     // }, [props]);
 
-    const onStart = (event: DraggableEvent, data: DraggableData) => {
-        let positions = setPositionInElement(event, data)
-        dispatch(setActiveDragElement({
-            elementType: "card",
-            ID: element.cardID,
-            placeToTop: positions.placeToTop,
-            placeToRight: positions.placeToRight,
-            placeToBottom: positions.placeToBottom,
-            placeToLeft: positions.placeToLeft
-        }))
+
+
+    function handlePointerDown(e: React.PointerEvent<SVGElement>) {
+        let newElement: DragElement;
+        const el = e.currentTarget;
+        const bbox = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - bbox.left;
+        const y = e.clientY - bbox.top;
+        el.setPointerCapture(e.pointerId);
+        newElement = { ...element, movedLeftX: x, movedTopY: y, active: true };
+        setElement(newElement);
     }
 
-    const onStop = (event: DraggableEvent, data: DraggableData) => {
-        let positions = setPositionInElement(event, data)
-       // console.log(positions)
+    function handlePointerMove(e: React.PointerEvent<SVGElement>) {
+        if (element.active === true) {
 
-        props.saveCard ({
+            //for redux-state "dragState"
+            // get position without margin, but with padding, border, scrollbar
+            let cardBounds = e.currentTarget.getBoundingClientRect();
+            let parentNode = e.currentTarget.ownerSVGElement;
+            if (parentNode !== null) {
+
+                const parentNodeBounds = parentNode.getBoundingClientRect();
+
+                let placeToTop = cardBounds.top - parentNodeBounds.top;
+                let placeToRight = parentNodeBounds.right - cardBounds.right;
+                let placeToBottom = parentNodeBounds.bottom - cardBounds.bottom;
+                let placeToLeft = cardBounds.left - parentNodeBounds.left;
+                console.log("topy cardbound",cardBounds.top, "parent ",parentNodeBounds.top, "result: ",placeToTop)
+                console.log("leftx cardbound",cardBounds.left, "parent ",parentNodeBounds.left, "result: ",placeToLeft)
+                dispatch(setActiveDragElement({
+                    elementType: "card",
+                    ID: element.cardID,
+                    placeToTopY: placeToTop,
+                    placeToRight: placeToRight,
+                    placeToBottom: placeToBottom,
+                    placeToLeftX: placeToLeft
+                }))
+                console.log("update dragState")
+            }
+
+
+            //for local movement
+            let newElement: DragElement;
+
+            const bbox = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - bbox.left;
+            const y = e.clientY - bbox.top;
+
+            newElement = {
+                ...element,
+                x: element.x - (element.movedLeftX - x),
+                y: element.y - (element.movedTopY - y),
+            };
+
+            setElement(newElement);
+        }
+    }
+
+    function handlePointerUp(e: React.PointerEvent<SVGElement>) {
+        let newElement: DragElement;
+        console.log("element: ", element)
+
+        newElement = { ...element, active: false, movedLeftX: -1, movedTopY: -1 };
+
+        setElement(newElement);
+
+        props.saveCard({
             ...props.card,
-            x: positions.placeToLeft,
-            y: positions.placeToTop
+            x: element.x,
+            y: element.y
         })
-        // props.optimisticUpdateCard({
-        //     ...props.card,
-        //     x: positions.placeToLeft,
-        //     y: positions.placeToTop
-        // })
-
-        dispatch(removeActiveDrag())
     }
-
-    const onDrag = (event: DraggableEvent, data: DraggableData) => {
-        // get position without margin, but with padding, border, scrollbar
-        let cardBounds = data.node.getBoundingClientRect();
-        let parentNode = data.node.parentNode;
-        if (parentNode !== null) {
-            const parentNodeBounds = (parentNode as HTMLElement).getBoundingClientRect();
-
-            let placeToTop = cardBounds.top - parentNodeBounds.top;
-            let placeToRight = parentNodeBounds.right - cardBounds.right;
-            let placeToBottom = parentNodeBounds.bottom - cardBounds.bottom;
-            let placeToLeft = cardBounds.left - parentNodeBounds.left;
-            dispatch(moveActiveDragElement({
-                elementType: "card",
-                ID: element.cardID,
-                placeToTop: placeToTop,
-                placeToRight: placeToRight,
-                placeToBottom: placeToBottom,
-                placeToLeft: placeToLeft
-            }))
-        }
-    }
-
-    const setPositionInElement = (event: DraggableEvent, data: DraggableData) => {
-
-        // get position without margin, but with padding, border, scrollbar
-        let cardBounds = data.node.getBoundingClientRect();
-        let parentNode = data.node.parentNode;
-        if (parentNode !== null) {
-            const parentNodeBounds = (parentNode as HTMLElement).getBoundingClientRect();
-
-            // console.log("cardBounds", cardBounds)
-            //console.log("parentNodeBounds", parentNodeBounds)
-            let placeToTop = cardBounds.top - parentNodeBounds.top;
-            let placeToRight = parentNodeBounds.right - cardBounds.right;
-            let placeToBottom = parentNodeBounds.bottom - cardBounds.bottom;
-            let placeToLeft = cardBounds.left - parentNodeBounds.left;
-
-            setElement(prevState => ({
-                ...prevState,
-                x: placeToLeft,
-                y: placeToTop
-            }))
-            return { placeToTop, placeToRight, placeToBottom, placeToLeft }
-        }
-        return { placeToTop: -1, placeToRight: -1, placeToBottom: -1, placeToLeft: -1 }
-    }
-
-
-
 
 
 
     return (
         <>
-            <Draggable
-                key={element.cardID}
-                //cancel=".strong"
-                onStart={onStart}
-                onStop={onStop}
-                onDrag={onDrag}
-                position={{ x: element.x, y: element.y }}
-            // position={{ x: item.movedLeftX, y: item.movedTopY }}
-            >
-                <div className="drag-box">
-                    {/* <div
-                        className={'box' + (item.active ? ' grabbing' : '')}
-                        id={"cardID" + item.cardID}
-                        style={{ left: item.x, top: item.y, width: item.width }}
-                    > 
-                     
-                     </div>
-                     
-                     */}
 
-                    <div className="drag-box-text"
-                        style={{ 'width': element.width - 10, 'height': element.height - 40 }}
-                    >
-                        <p
-                            className='text-element'
-                            style={{ 'width': element.width - 20, 'height': element.height - 40 }}
-                        >
-                            {element.text}
-                        </p>
-                    </div>
-                </div>
-            </Draggable>
+            <g
+                key={element.cardID.toString()}
+            >
+                <rect
+                    x={element.x}
+                    y={element.y}
+                    fill="#555555"
+                    stroke="white"
+                    rx="10"
+                    width={element.width + 30}
+                    height={element.height + 30}
+                    onPointerDown={(event) => handlePointerDown(event)}
+                    onPointerUp={(event) => handlePointerUp(event)}
+                    onPointerMove={(event) => handlePointerMove(event)}
+                />
+                <rect
+                    x={element.x + 15}
+                    y={element.y + 15}
+                    width={element.width}
+                    height={element.height}
+                    fill="white"
+                    rx="6"
+                />
+            </g>
 
         </>
-
     );
+
+    // return (
+    //     <>
+    //         <Draggable
+    //             key={element.cardID}
+    //             //cancel=".strong"
+    //             onStart={onStart}
+    //             onStop={onStop}
+    //             onDrag={onDrag}
+    //             position={{ x: element.x, y: element.y }}
+    //         // position={{ x: item.movedLeftX, y: item.movedTopY }}
+    //         >
+    //             <div className="drag-box">
+    //                 {/* <div
+    //                     className={'box' + (item.active ? ' grabbing' : '')}
+    //                     id={"cardID" + item.cardID}
+    //                     style={{ left: item.x, top: item.y, width: item.width }}
+    //                 > 
+
+    //                  </div>
+
+    //                  */}
+
+    //                 <div className="drag-box-text"
+    //                     style={{ 'width': element.width - 10, 'height': element.height - 40 }}
+    //                 >
+    //                     <p
+    //                         className='text-element'
+    //                         style={{ 'width': element.width - 20, 'height': element.height - 40 }}
+    //                     >
+    //                         {element.text}
+    //                     </p>
+    //                 </div>
+    //             </div>
+    //         </Draggable>
+
+    //     </>
+
+    // );
+
 }

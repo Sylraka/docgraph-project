@@ -4,7 +4,8 @@
     position: absolute;
     font-size: 12px;
     word-wrap: break-word;
-    margin: 6px 10px 10px 8px;
+    margin: 33px 10px 10px 36px;
+    z-index: 100;
 }
 
 
