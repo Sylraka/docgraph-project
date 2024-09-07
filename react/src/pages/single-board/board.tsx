@@ -156,7 +156,6 @@ export const SingleBoard = () => {
                                     {data?.arrowList.map(arrow => (
                                         <DragArrow
                                             arrow={arrow}
-                                            cards={data?.cardList}
                                             saveArrow={saveArrow}
                                         />
 

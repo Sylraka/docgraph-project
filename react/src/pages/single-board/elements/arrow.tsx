@@ -12,7 +12,6 @@ import { useAppSelector } from '../../../app/hooks'; // Pfad zu deinem custom Ho
 
 interface canvasProps {
     arrow: Arrow;
-    cards: Card[];
     saveArrow: (param: Arrow) => void
 }
 
@@ -20,78 +19,77 @@ interface canvasProps {
 
 
 export default function ArrowComponent(props: canvasProps) {
+    const activeDragValue = useAppSelector((state) => state.drag)
+
+
     const [arrow, setArrow] = useState<Arrow>({
         ...props.arrow
     });
 
 
     useEffect(() => {
-        props.cards.map(card => {
-            if (arrow.anchorStart.onCard === card.cardID) {
+
+        if (activeDragValue.ID === arrow.anchorStart.onCard && activeDragValue.elementType === "card") {
 
 
-
-
-                //point-operator is not allowed in typescript
-                setArrow((prevArrow) => ({
-                    ...prevArrow,
-                    anchorStart: {
-                        ...prevArrow.anchorStart,
-                        anchorCanvas: {
-                            ...prevArrow.anchorStart.anchorCanvas,
-                            x: card.x,
-                            y: card.y
-                        }
+            //point-operator is not allowed in typescript
+            setArrow((prevArrow) => ({
+                ...prevArrow,
+                anchorStart: {
+                    ...prevArrow.anchorStart,
+                    anchorCanvas: {
+                        ...prevArrow.anchorStart.anchorCanvas,
+                        x: activeDragValue.placeToLeftX,
+                        y: activeDragValue.placeToTopY
                     }
-                }))
+                }
+            }))
 
 
-                props.saveArrow({
-                    ...arrow,
-                    anchorStart: {
-                        ...arrow.anchorStart,
-                        anchorCanvas: {
-                            ...arrow.anchorStart.anchorCanvas,
-                            x: card.x,
-                            y: card.y
-                        }
-                    },
-                })
-            }
-
-            if (arrow.anchorEnd.onCard === card.cardID) {
-
-
-                //point-operator is not allowed in typescript
-                setArrow((prevArrow) => ({
-                    ...prevArrow,
-                    anchorEnd: {
-                        ...prevArrow.anchorEnd,
-                        anchorCanvas: {
-                            ...prevArrow.anchorEnd.anchorCanvas,
-                            x: card.x,
-                            y: card.y
-                        }
+            props.saveArrow({
+                ...arrow,
+                anchorStart: {
+                    ...arrow.anchorStart,
+                    anchorCanvas: {
+                        ...arrow.anchorStart.anchorCanvas,
+                        x: activeDragValue.placeToLeftX,
+                        y: activeDragValue.placeToTopY
                     }
-                }))
+                },
+            })
+        }
 
+        if (activeDragValue.ID === arrow.anchorEnd.onCard && activeDragValue.elementType === "card") {
 
-                props.saveArrow({
-                    ...arrow,
-                    anchorEnd: {
-                        ...arrow.anchorEnd,
-                        anchorCanvas: {
-                            ...arrow.anchorEnd.anchorCanvas,
-                            x: card.x,
-                            y: card.y
-                        }
-
+            //point-operator is not allowed in typescript
+            setArrow((prevArrow) => ({
+                ...prevArrow,
+                anchorEnd: {
+                    ...prevArrow.anchorEnd,
+                    anchorCanvas: {
+                        ...prevArrow.anchorEnd.anchorCanvas,
+                        x: activeDragValue.placeToLeftX,
+                        y: activeDragValue.placeToTopY
                     }
-                })
-            }
-        });
+                }
+            }))
 
-    }, [props.cards])
+
+            props.saveArrow({
+                ...arrow,
+                anchorEnd: {
+                    ...arrow.anchorEnd,
+                    anchorCanvas: {
+                        ...arrow.anchorEnd.anchorCanvas,
+                        x: activeDragValue.placeToLeftX,
+                        y: activeDragValue.placeToTopY
+                    }
+
+                }
+            })
+        }
+
+    }, [activeDragValue])
 
 
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { Arrow } from '../../../app/fetch-data/apiSlice';
-
+import "./arrow.css" 
 
 type propTypes = {
     arrow: Arrow

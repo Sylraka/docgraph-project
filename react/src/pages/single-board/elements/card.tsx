@@ -6,7 +6,7 @@ import './card.css';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { setActiveDragElement, moveActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
+import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
 
 
 interface canvasProps {
@@ -91,8 +91,8 @@ export default function CardComponent(props: canvasProps) {
                 let placeToRight = parentNodeBounds.right - cardBounds.right;
                 let placeToBottom = parentNodeBounds.bottom - cardBounds.bottom;
                 let placeToLeft = cardBounds.left - parentNodeBounds.left;
-                console.log("topy cardbound",cardBounds.top, "parent ",parentNodeBounds.top, "result: ",placeToTop)
-                console.log("leftx cardbound",cardBounds.left, "parent ",parentNodeBounds.left, "result: ",placeToLeft)
+               // console.log("topy cardbound",cardBounds.top, "parent ",parentNodeBounds.top, "result: ",placeToTop)
+               // console.log("leftx cardbound",cardBounds.left, "parent ",parentNodeBounds.left, "result: ",placeToLeft)
                 dispatch(setActiveDragElement({
                     elementType: "card",
                     ID: element.cardID,
@@ -101,7 +101,6 @@ export default function CardComponent(props: canvasProps) {
                     placeToBottom: placeToBottom,
                     placeToLeftX: placeToLeft
                 }))
-                console.log("update dragState")
             }
 
 
@@ -124,7 +123,7 @@ export default function CardComponent(props: canvasProps) {
 
     function handlePointerUp(e: React.PointerEvent<SVGElement>) {
         let newElement: DragElement;
-        console.log("element: ", element)
+     //   console.log("element: ", element)
 
         newElement = { ...element, active: false, movedLeftX: -1, movedTopY: -1 };
 

@@ -26,15 +26,7 @@ const dragSlice = createSlice({
             state.elementType = action.payload.elementType;
             state.ID = action.payload.ID;
             if (action.payload.elementType === "card") {
-                console.log("elementtype: ", action.payload )
-                state.placeToTopY = action.payload.placeToTopY;
-                state.placeToRight = action.payload.placeToRight;
-                state.placeToBottom = action.payload.placeToBottom;
-                state.placeToLeftX = action.payload.placeToLeftX;
-            }
-        },
-        moveActiveDragElement(state, action: PayloadAction<DragState>) {
-            if (action.payload.elementType === "card") {
+              //  console.log("elementtype: ", action.payload )
                 state.placeToTopY = action.payload.placeToTopY;
                 state.placeToRight = action.payload.placeToRight;
                 state.placeToBottom = action.payload.placeToBottom;
@@ -53,5 +45,5 @@ const dragSlice = createSlice({
 });
 
 
-export const { setActiveDragElement, moveActiveDragElement, removeActiveDrag } = dragSlice.actions;
+export const { setActiveDragElement, removeActiveDrag } = dragSlice.actions;
 export default dragSlice.reducer;
