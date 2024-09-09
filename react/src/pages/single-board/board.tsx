@@ -152,7 +152,7 @@ export const SingleBoard = () => {
 
                         <div className="three-canvas-container">
                             <div className="flex-row" id="three-canvas-inner">
-                                <svg className='svg-canvas' >
+                                <svg className='svg-canvas' id="svg-canvas-id">
                                     {data?.arrowList.map(arrow => (
                                         <DragArrow
                                             arrow={arrow}

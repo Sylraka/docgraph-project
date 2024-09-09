@@ -3,3 +3,6 @@
 .arrowHeadWrapper {
     z-index: 100;
 }
+.focusPoints{
+    z-index: 101;
+}

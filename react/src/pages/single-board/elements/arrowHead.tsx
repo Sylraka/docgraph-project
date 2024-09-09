@@ -4,7 +4,9 @@ import { Arrow } from '../../../app/fetch-data/apiSlice';
 import "./arrow.css" 
 
 type propTypes = {
-    arrow: Arrow
+    arrow: Arrow,
+
+    computeRotation: (startPoint: anchorCanvas, endPoint: anchorCanvas) => number
 };
 
 interface anchorCanvas {
@@ -15,7 +17,7 @@ interface anchorCanvas {
 
 //TODO make arrowhead as marker-element: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker
 const SvgArrowHead = (props: propTypes) => {
-    const arrowNormal = "M0,0 L5,10 L10,0 L5,2.5 Z";
+    const arrowNormal = "M-5,0 L0,10 L5,0 L0,2.5 Z";
 
     const [arrowTransform, setArrowTransform] = useState({
         transform: "translate(" + 0 + "px, " + 0 + "px) rotate(" + 0 + "deg)",
@@ -25,7 +27,7 @@ const SvgArrowHead = (props: propTypes) => {
 
     useEffect(() => {
 
-        const rotation = computeRotation(props.arrow.anchorStart.anchorCanvas, props.arrow.anchorEnd.anchorCanvas)
+        const rotation = props.computeRotation(props.arrow.anchorStart.anchorCanvas, props.arrow.anchorEnd.anchorCanvas)
 
         //console.log(rotation)
 
@@ -34,9 +36,9 @@ const SvgArrowHead = (props: propTypes) => {
             setArrowTransform({
                 transform:
                     "translate(" + 
-                     (props.arrow.anchorEnd.anchorCanvas.x - 4) +//+0
+                     (props.arrow.anchorEnd.anchorCanvas.x ) +
                     "px, " + 
-                    (props.arrow.anchorEnd.anchorCanvas.y + 5) +//-10
+                    (props.arrow.anchorEnd.anchorCanvas.y )+
                     "px) rotate(" + 
                     rotation +
                     "deg)",
@@ -47,19 +49,7 @@ const SvgArrowHead = (props: propTypes) => {
 
 
 
-    const computeRotation = (startPoint: anchorCanvas, endPoint: anchorCanvas) => {
-        //positive== right side, negative==left side
-        let differenceX = startPoint.x - endPoint.x;
-        let differenceY = startPoint.y - endPoint.y;
 
-        let rotation = Math.atan2(differenceX, differenceY); // range (-PI, PI]
-        rotation *= -1 * (180 / Math.PI)  // rads to degs, range (-180, 180]
-        //if (rotation < 0) rotation = 360 + rotation; // range [0, 360)
-        rotation += 180;
-
-        //console.log(rotation)
-        return (rotation);
-    }
 
     return (
         <>

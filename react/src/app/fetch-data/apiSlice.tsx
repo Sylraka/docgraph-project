@@ -6,7 +6,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export interface Card {
 	math: object;
 	cardID: number;
-	canvasNumber: number;
+	//canvasNumber: number;
 	cardTypes: string[];
 	text: string;
 	x: number;
@@ -31,7 +31,7 @@ export interface Arrow {
         anchorID: number;
         onCard: number;
         anchorCanvas: {
-            canvasNumber: number;
+           canvasNumber: number;
             x: number;
             y: number;    
         }

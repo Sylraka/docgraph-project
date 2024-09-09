@@ -17,18 +17,10 @@ interface canvasProps {
 
 
 //the attributes we need to drag plus the card attributes
-interface DragElement {
-    x: number;
-    y: number;
+interface DragElement extends Card{
     active: boolean;
     movedLeftX: number;
     movedTopY: number;
-    canvasNumber: number;
-    cardID: number;
-    width: number;
-    height: number;
-    text: string;
-    math: object;
 }
 
 export default function CardComponent(props: canvasProps) {

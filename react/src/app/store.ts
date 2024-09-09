@@ -4,10 +4,13 @@ import { setupListeners } from "@reduxjs/toolkit/query"
 
 import { boardsApiSlice } from "./fetch-data/apiSlice"
 import dragReducer from "../pages/single-board/elements/dragSlice"
+import focusReducer from "../pages/single-board/elements/focusSlice"
+
+
 export const store = configureStore({
     reducer: {
       drag: dragReducer,
-
+      focus: focusReducer,
       [boardsApiSlice.reducerPath]: boardsApiSlice.reducer,
     },
 
