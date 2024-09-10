@@ -80,17 +80,18 @@ export default function CardComponent(props: canvasProps) {
                 const parentNodeBounds = parentNode.getBoundingClientRect();
 
                 let placeToTop = cardBounds.top - parentNodeBounds.top;
-                let placeToRight = parentNodeBounds.right - cardBounds.right;
-                let placeToBottom = parentNodeBounds.bottom - cardBounds.bottom;
+                let width =  cardBounds.width
+                let height = cardBounds.height
                 let placeToLeft = cardBounds.left - parentNodeBounds.left;
                // console.log("topy cardbound",cardBounds.top, "parent ",parentNodeBounds.top, "result: ",placeToTop)
                // console.log("leftx cardbound",cardBounds.left, "parent ",parentNodeBounds.left, "result: ",placeToLeft)
+               console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
                 dispatch(setActiveDragElement({
                     elementType: "card",
                     ID: element.cardID,
                     placeToTopY: placeToTop,
-                    placeToRight: placeToRight,
-                    placeToBottom: placeToBottom,
+                    width: width,
+                    height: height,
                     placeToLeftX: placeToLeft
                 }))
             }

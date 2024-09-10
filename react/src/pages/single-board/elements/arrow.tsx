@@ -8,9 +8,9 @@ import SvgArrowHead from "./arrowHead"
 import ArrowFocus from "./arrowFocus"
 
 //we need that to read the state
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // Pfad zu deinem custom Hook
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
 import { setActiveDragElement, removeActiveDrag } from "./dragSlice"
-
+import { setFocusElement, FocusState } from "./focusSlice"
 
 
 interface canvasProps {
@@ -25,7 +25,7 @@ interface anchorCanvas {
 
 }
 
-interface DragElement extends Arrow {
+export interface DragElement extends Arrow {
     active: boolean,
     movedLeftX: number,
     movedTopY: number,
@@ -34,8 +34,8 @@ interface DragElement extends Arrow {
 
 export default function ArrowComponent(props: canvasProps) {
     const dispatch = useAppDispatch()
-    const activeDragValue = useAppSelector((state) => state.drag)
-
+    let activeDragValue = useAppSelector((state) => state.drag)
+    let activeFocusValue = useAppSelector((state) => state.focus)
 
     const [element, setElement] = useState<DragElement>({
         ...props.arrow,
@@ -50,6 +50,23 @@ export default function ArrowComponent(props: canvasProps) {
     useEffect(() => {
 
         if (activeDragValue.ID === element.anchorStart.onCard && activeDragValue.elementType === "card") {
+            let xOnCard = 0;
+            let yOnCard = 0;
+            let rotation = computeRotation(element.anchorStart.anchorCanvas, element.anchorEnd.anchorCanvas)
+            if(rotation >= 45 && rotation <= 135){
+                xOnCard = activeDragValue.placeToLeftX 
+                yOnCard = activeDragValue.placeToTopY + activeDragValue.height/2
+            } else if (rotation > 135 && rotation <= 225){
+                xOnCard = activeDragValue.placeToLeftX + activeDragValue.width/2
+                yOnCard = activeDragValue.placeToTopY 
+            } else if(rotation > 225 && rotation <= 315){
+                xOnCard = activeDragValue.placeToLeftX + activeDragValue.width 
+                yOnCard = activeDragValue.placeToTopY + activeDragValue.height /2
+            } else if (rotation >315 && rotation <= 360 && rotation >=0 && rotation < 45 ) {
+                xOnCard = activeDragValue.placeToLeftX + activeDragValue.width/2
+                yOnCard = activeDragValue.placeToTopY + activeDragValue.height 
+
+            }
 
 
             //point-operator is not allowed in typescript
@@ -59,8 +76,8 @@ export default function ArrowComponent(props: canvasProps) {
                     ...prevArrow.anchorStart,
                     anchorCanvas: {
                         ...prevArrow.anchorStart.anchorCanvas,
-                        x: activeDragValue.placeToLeftX,
-                        y: activeDragValue.placeToTopY
+                        x: xOnCard,
+                        y: yOnCard
                     }
                 }
             }))
@@ -72,14 +89,30 @@ export default function ArrowComponent(props: canvasProps) {
                     ...props.arrow.anchorStart,
                     anchorCanvas: {
                         ...props.arrow.anchorStart.anchorCanvas,
-                        x: activeDragValue.placeToLeftX,
-                        y: activeDragValue.placeToTopY
+                        x: xOnCard,
+                        y: yOnCard
                     }
                 },
             })
         }
 
         if (activeDragValue.ID === element.anchorEnd.onCard && activeDragValue.elementType === "card") {
+            let xOnCard = 0;
+            let yOnCard = 0;
+            let rotation = computeRotation(element.anchorStart.anchorCanvas, element.anchorEnd.anchorCanvas)
+            if(rotation >= 45 && rotation <= 135){
+                xOnCard = activeDragValue.placeToLeftX + activeDragValue.width + 10
+                yOnCard = activeDragValue.placeToTopY + activeDragValue.height /2
+            } else if (rotation > 135 && rotation <= 225){
+                xOnCard = activeDragValue.placeToLeftX + activeDragValue.width/2
+                yOnCard = activeDragValue.placeToTopY + activeDragValue.height + 10
+            } else if(rotation > 225 && rotation <= 315){
+                xOnCard = activeDragValue.placeToLeftX -10
+                yOnCard = activeDragValue.placeToTopY + activeDragValue.height/2
+            } else if (rotation >315 && rotation <= 360 && rotation >=0 && rotation < 45 ) {
+                xOnCard = activeDragValue.placeToLeftX + activeDragValue.width/2
+                yOnCard = activeDragValue.placeToTopY -10
+            }
 
             //point-operator is not allowed in typescript
             setElement((prevArrow) => ({
@@ -88,8 +121,8 @@ export default function ArrowComponent(props: canvasProps) {
                     ...prevArrow.anchorEnd,
                     anchorCanvas: {
                         ...prevArrow.anchorEnd.anchorCanvas,
-                        x: activeDragValue.placeToLeftX,
-                        y: activeDragValue.placeToTopY
+                        x: xOnCard,
+                        y: yOnCard
                     }
                 }
             }))
@@ -101,8 +134,8 @@ export default function ArrowComponent(props: canvasProps) {
                     ...props.arrow.anchorEnd,
                     anchorCanvas: {
                         ...props.arrow.anchorEnd.anchorCanvas,
-                        x: activeDragValue.placeToLeftX,
-                        y: activeDragValue.placeToTopY
+                        x: xOnCard,
+                        y: yOnCard
                     }
 
                 }
@@ -121,8 +154,7 @@ export default function ArrowComponent(props: canvasProps) {
 
         let rotation = Math.atan2(differenceX, differenceY); // range (-PI, PI]
         rotation *= -1 * (180 / Math.PI)  // rads to degs, range (-180, 180]
-        //if (rotation < 0) rotation = 360 + rotation; // range [0, 360)
-        rotation += 180;
+        rotation += 180;// range [0, 360)
 
         //  console.log(rotation)
         return (rotation);
@@ -131,8 +163,9 @@ export default function ArrowComponent(props: canvasProps) {
 
 
 
-    // experimental, drags the hole arrow
+    // drags the hole arrow
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
+        dispatch(setFocusElement({ elementType: "arrow", ID: props.arrow.arrowID }))
         let newElement: DragElement;
         const el = e.currentTarget;
         const bbox = document.getElementById("lineID" + element.arrowID)?.getBoundingClientRect();//e.currentTarget.getBoundingClientRect();
@@ -144,7 +177,7 @@ export default function ArrowComponent(props: canvasProps) {
             setElement(newElement);
         }
     }
-    // experimental, drags the hole arrow
+    // drags the hole arrow
     function handlePointerMove(e: React.PointerEvent<SVGElement>) {
         if (element.active === true) {
             //for redux-state "dragState"
@@ -152,30 +185,28 @@ export default function ArrowComponent(props: canvasProps) {
             let arrowBounds = document.getElementById("lineID" + element.arrowID)?.getBoundingClientRect();//e.currentTarget.getBoundingClientRect();
             let parentNode = e.currentTarget.ownerSVGElement;
             if (parentNode !== null && arrowBounds !== undefined) {
-
-                console.log("arrowBounds:", arrowBounds, "parentNode:", parentNode)
+                //console.log("arrowBounds:", arrowBounds, "parentNode:", parentNode)
                 const parentNodeBounds = parentNode.getBoundingClientRect();
 
-                let placeToTop = arrowBounds.top - parentNodeBounds.top;
-                let placeToRight = parentNodeBounds.right - arrowBounds.right;
-                let placeToBottom = parentNodeBounds.bottom - arrowBounds.bottom;
                 let placeToLeft = arrowBounds.left - parentNodeBounds.left;
+                let placeToTop = arrowBounds.top - parentNodeBounds.top;
+          //      let width = arrowBounds.width;
+           //     let height = arrowBounds.height;
+
                 // console.log("topy cardbound",cardBounds.top, "parent ",parentNodeBounds.top, "result: ",placeToTop)
                 // console.log("leftx cardbound",cardBounds.left, "parent ",parentNodeBounds.left, "result: ",placeToLeft)
                 dispatch(setActiveDragElement({
                     elementType: "arrow",
                     ID: element.arrowID,
                     placeToTopY: placeToTop,
-                    placeToRight: placeToRight,
-                    placeToBottom: placeToBottom,
-                    placeToLeftX: placeToLeft
+                    placeToLeftX: placeToLeft,
+                    width: -1,
+                    height: -1
                 }))
             }
 
-
             //for local movement
             let newElement: DragElement;
-
             const bbox = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - bbox.left;
             const y = e.clientY - bbox.top;
@@ -185,6 +216,7 @@ export default function ArrowComponent(props: canvasProps) {
                 ...element,
                 anchorStart: {
                     ...element.anchorStart,
+                    onCard: -1,
                     anchorCanvas: {
                         ...element.anchorStart.anchorCanvas,
                         x: element.anchorStart.anchorCanvas.x - (element.movedLeftX - x),
@@ -194,19 +226,20 @@ export default function ArrowComponent(props: canvasProps) {
                 },
                 anchorEnd: {
                     ...element.anchorEnd,
+                    onCard: -1,
                     anchorCanvas: {
                         ...element.anchorEnd.anchorCanvas,
                         x: element.anchorEnd.anchorCanvas.x - (element.movedLeftX - x),
                         y: element.anchorEnd.anchorCanvas.y - (element.movedTopY - y),
                     }
                 }
-
             };
 
             props.saveArrow({
                 ...props.arrow,
                 anchorStart: {
                     ...props.arrow.anchorStart,
+                    onCard: -1,
                     anchorCanvas: {
                         ...props.arrow.anchorStart.anchorCanvas,
                         x: element.anchorStart.anchorCanvas.x,
@@ -215,6 +248,7 @@ export default function ArrowComponent(props: canvasProps) {
                 },
                 anchorEnd: {
                     ...props.arrow.anchorEnd,
+                    onCard: -1,
                     anchorCanvas: {
                         ...props.arrow.anchorEnd.anchorCanvas,
                         x: element.anchorEnd.anchorCanvas.x,
@@ -227,10 +261,9 @@ export default function ArrowComponent(props: canvasProps) {
             setElement(newElement);
         }
     }
-    // experimental, drags the hole arrow
+    // drags the hole arrow
     function handlePointerUp(e: React.PointerEvent<SVGElement>) {
         let newElement: DragElement;
-        //   console.log("element: ", element)
 
         newElement = { ...element, active: false, movedLeftX: -1, movedTopY: -1 };
 
@@ -240,7 +273,7 @@ export default function ArrowComponent(props: canvasProps) {
             ...props.arrow,
             anchorStart: {
                 ...props.arrow.anchorStart,
-                onCard: element.anchorStart.onCard,
+                onCard: -1,//element.anchorStart.onCard,
                 anchorCanvas: {
                     canvasNumber: element.anchorStart.anchorCanvas.canvasNumber,
                     x: element.anchorStart.anchorCanvas.x,
@@ -249,7 +282,7 @@ export default function ArrowComponent(props: canvasProps) {
             },
             anchorEnd: {
                 ...props.arrow.anchorEnd,
-                onCard: element.anchorEnd.onCard,
+                onCard: -1,// element.anchorEnd.onCard,
                 anchorCanvas: {
                     canvasNumber: element.anchorEnd.anchorCanvas.canvasNumber,
                     x: element.anchorEnd.anchorCanvas.x,
@@ -258,7 +291,6 @@ export default function ArrowComponent(props: canvasProps) {
             }
         })
     }
-
 
 
 
@@ -290,14 +322,17 @@ export default function ArrowComponent(props: canvasProps) {
                     computeRotation={computeRotation}
                 />
 
-                {/* <ArrowFocus
-                    arrow={props.arrow}
-                /> */}
-                {/* 
-                {isFocus && (
+
+
+                { activeFocusValue.elementType==="arrow" && activeFocusValue.ID===element.arrowID && (
                     <>
+                        <ArrowFocus
+                            arrow={props.arrow}
+                            element={element}
+                            setElement={setElement}
+                        />
                     </>
-                )} */}
+                )}
 
             </g>
 

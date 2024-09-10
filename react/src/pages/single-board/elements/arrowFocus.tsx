@@ -3,8 +3,13 @@ import { useState, useEffect } from "react";
 import { Arrow } from '../../../app/fetch-data/apiSlice';
 import "./arrow.css" 
 
+import { DragElement } from "./arrow";
+
 type propTypes = {
     arrow: Arrow,
+    element: DragElement,
+    setElement: (DragElement: DragElement) => void
+
 };
 
 interface anchorCanvas {
@@ -18,7 +23,9 @@ const SvgArrowHead = (props: propTypes) => {
 
 
 
+   const handlePointerDown = (event: React.PointerEvent<SVGElement>) => {
 
+   }
 
 
 
@@ -29,20 +36,23 @@ const SvgArrowHead = (props: propTypes) => {
             <g
             >
                 <circle
-                r="7"
+                r="6"
                 cx={props.arrow.anchorEnd.anchorCanvas.x}
                 cy={props.arrow.anchorEnd.anchorCanvas.y}
-                fill='white'
-                stroke='black'
+                fill='#3399ff'
+                stroke='white'
                 stroke-width='1'
-                className='focusPoints'>
+                className='focusPoints'
+                onPointerDown={event => handlePointerDown(event)}
+                >
+            
                 </circle>
                 <circle
-                r="7"
+                r="6"
                 cx={props.arrow.anchorStart.anchorCanvas.x}
                 cy={props.arrow.anchorStart.anchorCanvas.y}
-                fill='white'
-                stroke='black'
+                fill='#3399ff'
+                stroke='white'
                 stroke-width='1'
                 className='focusPoints'>
                 </circle>
