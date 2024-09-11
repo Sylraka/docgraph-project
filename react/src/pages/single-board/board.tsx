@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react"
 
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAppDispatch } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 
 import './board.scss';
 import DragCard from "./elements/card"
 import { BoardName } from "./boardName"
 import DragArrow from "./elements/arrow";
 import CardText from "./elements/cardText";
+import ArrowFocus from "./elements/arrowFocus"
 
 import boardsApiSlice, { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
 import { Card, Board, Arrow, useUpdateBoardMutation } from '../../app/fetch-data/apiSlice';
-
+import { removeFocusElement } from "./elements/focusSlice"
 
 interface cardLists {
     cardList1: Card[]
@@ -32,6 +33,8 @@ export const SingleBoard = () => {
     //umbenennung um namenskonflikte zu vermeiden
     //returns a tuple with a function and an object
     const [updateBoardMutation, { isLoading: updateIsLoading, isSuccess: updateIsSuccess, isError: updateIsError }] = useUpdateBoardMutation();
+
+    let activeFocusValue = useAppSelector((state) => state.focus)
 
 
 
@@ -113,7 +116,13 @@ export const SingleBoard = () => {
         }
     }
 
-
+    const handlePointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
+        const svg = event.target.toString()
+        if (svg === "[object SVGSVGElement]") {
+            console.log('SVG clicked, but not on an element!', svg);
+            dispatch(removeFocusElement())
+        }
+    }
 
 
     if (isError) {
@@ -152,9 +161,11 @@ export const SingleBoard = () => {
 
                         <div className="three-canvas-container">
                             <div className="flex-row" id="three-canvas-inner">
-                                <svg className='svg-canvas' id="svg-canvas-id">
+                                <svg className='svg-canvas' id="svg-canvas-id"
+                                    onPointerDown={handlePointerDown}>
                                     {data?.arrowList.map(arrow => (
                                         <DragArrow
+                                            key={"arrowNr" + arrow.arrowID}
                                             arrow={arrow}
                                             saveArrow={saveArrow}
                                         />
@@ -162,15 +173,29 @@ export const SingleBoard = () => {
                                     ))}
                                     {data?.cardList.map(card => (
                                         <DragCard
+                                            key={"cardNr" + card.cardID}
                                             card={card}
                                             boardId={boardId}
                                             saveCard={saveCard}
                                         />
                                     ))}
+                                    {data?.arrowList.map(arrow => (
+                                            activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID && (
+                                                <>
+                                                    <ArrowFocus
+                                                        arrow={arrow}
+                                                        saveArrow={saveArrow}
+                                                    />
+                                                </>
+                                            )
+                                        
+                                    ))}
+
                                 </svg>
 
                                 {data?.cardList.map(card => (
                                     <CardText
+                                        key={"cardTextNr" + card.cardID}
                                         card={card}
                                     />
                                 ))}

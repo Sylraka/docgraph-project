@@ -25,14 +25,12 @@ const dragSlice = createSlice({
         setActiveDragElement(state, action: PayloadAction<DragState>) {
             state.elementType = action.payload.elementType;
             state.ID = action.payload.ID;
-            if (action.payload.elementType === "card") {
-              //  console.log("elementtype: ", action.payload )
-                state.placeToLeftX = action.payload.placeToLeftX;
-                state.placeToTopY = action.payload.placeToTopY;
-                state.width = action.payload.width;
-                state.height = action.payload.height;
 
-            }
+            state.placeToLeftX = action.payload.placeToLeftX;
+            state.placeToTopY = action.payload.placeToTopY;
+            state.width = action.payload.width;
+            state.height = action.payload.height;
+
         },
         removeActiveDrag(state) {
             state.elementType = "";

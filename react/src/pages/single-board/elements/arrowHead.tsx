@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 
 import { Arrow } from '../../../app/fetch-data/apiSlice';
 import "./arrow.css" 
+import { DragElement } from "./arrow";
 
 type propTypes = {
-    arrow: Arrow,
+    arrow: DragElement,
 
     computeRotation: (startPoint: anchorCanvas, endPoint: anchorCanvas) => number
 };

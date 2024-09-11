@@ -32,7 +32,7 @@ export default function CardTextComponent(props: canvasProps) {
 
 
 
-    
+
     const setTextPosition = () => {
     
         if (activeDragValue.ID === props.card.cardID && activeDragValue.elementType === "card"){

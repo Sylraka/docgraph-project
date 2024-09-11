@@ -7,7 +7,7 @@ import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
-
+import { setFocusElement } from "./focusSlice"
 
 interface canvasProps {
     card: Card,
@@ -19,8 +19,8 @@ interface canvasProps {
 //the attributes we need to drag plus the card attributes
 interface DragElement extends Card{
     active: boolean;
-    movedLeftX: number;
-    movedTopY: number;
+    offsetX: number;
+    offsetY: number;
 }
 
 export default function CardComponent(props: canvasProps) {
@@ -34,8 +34,8 @@ export default function CardComponent(props: canvasProps) {
         // the attributes the cards didnt have
         ...props.card,
         active: false,
-        movedLeftX: -1, // Initialwert für xOffset
-        movedTopY: -1, // Initialwert für yOffset
+        offsetX: -1, //place between element left and mouse
+        offsetY: -1, // place between element top and mouse   
 
     });
 
@@ -58,13 +58,14 @@ export default function CardComponent(props: canvasProps) {
 
 
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
+        dispatch(setFocusElement({ elementType: "card", ID: props.card.cardID}))
         let newElement: DragElement;
         const el = e.currentTarget;
         const bbox = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - bbox.left;
         const y = e.clientY - bbox.top;
         el.setPointerCapture(e.pointerId);
-        newElement = { ...element, movedLeftX: x, movedTopY: y, active: true };
+        newElement = { ...element, offsetX: x, offsetY: y, active: true };
         setElement(newElement);
     }
 
@@ -83,9 +84,7 @@ export default function CardComponent(props: canvasProps) {
                 let width =  cardBounds.width
                 let height = cardBounds.height
                 let placeToLeft = cardBounds.left - parentNodeBounds.left;
-               // console.log("topy cardbound",cardBounds.top, "parent ",parentNodeBounds.top, "result: ",placeToTop)
-               // console.log("leftx cardbound",cardBounds.left, "parent ",parentNodeBounds.left, "result: ",placeToLeft)
-               console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
+               //console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
                 dispatch(setActiveDragElement({
                     elementType: "card",
                     ID: element.cardID,
@@ -104,10 +103,11 @@ export default function CardComponent(props: canvasProps) {
             const x = e.clientX - bbox.left;
             const y = e.clientY - bbox.top;
 
+            console.log("element.x", element.x, "element.offsetX", element.offsetX, "x", x )
             newElement = {
                 ...element,
-                x: element.x - (element.movedLeftX - x),
-                y: element.y - (element.movedTopY - y),
+                x: element.x - (element.offsetX - x),
+                y: element.y - (element.offsetY - y),
             };
 
             setElement(newElement);
@@ -118,7 +118,7 @@ export default function CardComponent(props: canvasProps) {
         let newElement: DragElement;
      //   console.log("element: ", element)
 
-        newElement = { ...element, active: false, movedLeftX: -1, movedTopY: -1 };
+        newElement = { ...element, active: false, offsetX: -1, offsetY: -1 };
 
         setElement(newElement);
 
