@@ -8,6 +8,7 @@ import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
 import { setFocusElement } from "./focusSlice"
+import { setOverCard } from "./overCardSlice"
 
 interface canvasProps {
     card: Card,
@@ -17,7 +18,7 @@ interface canvasProps {
 
 
 //the attributes we need to drag plus the card attributes
-interface DragElement extends Card{
+interface DragElement extends Card {
     active: boolean;
     offsetX: number;
     offsetY: number;
@@ -58,7 +59,7 @@ export default function CardComponent(props: canvasProps) {
 
 
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
-        dispatch(setFocusElement({ elementType: "card", ID: props.card.cardID}))
+        dispatch(setFocusElement({ elementType: "card", ID: props.card.cardID }))
         let newElement: DragElement;
         const el = e.currentTarget;
         const bbox = e.currentTarget.getBoundingClientRect();
@@ -70,6 +71,7 @@ export default function CardComponent(props: canvasProps) {
     }
 
     function handlePointerMove(e: React.PointerEvent<SVGElement>) {
+
         if (element.active === true) {
 
             //for redux-state "dragState"
@@ -81,10 +83,10 @@ export default function CardComponent(props: canvasProps) {
                 const parentNodeBounds = parentNode.getBoundingClientRect();
 
                 let placeToTop = cardBounds.top - parentNodeBounds.top;
-                let width =  cardBounds.width
+                let width = cardBounds.width
                 let height = cardBounds.height
                 let placeToLeft = cardBounds.left - parentNodeBounds.left;
-               //console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
+                //console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
                 dispatch(setActiveDragElement({
                     elementType: "card",
                     ID: element.cardID,
@@ -103,7 +105,7 @@ export default function CardComponent(props: canvasProps) {
             const x = e.clientX - bbox.left;
             const y = e.clientY - bbox.top;
 
-            console.log("element.x", element.x, "element.offsetX", element.offsetX, "x", x )
+            //console.log("element.x", element.x, "element.offsetX", element.offsetX, "x", x)
             newElement = {
                 ...element,
                 x: element.x - (element.offsetX - x),
@@ -116,7 +118,7 @@ export default function CardComponent(props: canvasProps) {
 
     function handlePointerUp(e: React.PointerEvent<SVGElement>) {
         let newElement: DragElement;
-     //   console.log("element: ", element)
+        //   console.log("element: ", element)
 
         newElement = { ...element, active: false, offsetX: -1, offsetY: -1 };
 
@@ -128,8 +130,6 @@ export default function CardComponent(props: canvasProps) {
             y: element.y
         })
     }
-
-
 
     return (
         <>
@@ -148,6 +148,8 @@ export default function CardComponent(props: canvasProps) {
                     onPointerDown={(event) => handlePointerDown(event)}
                     onPointerUp={(event) => handlePointerUp(event)}
                     onPointerMove={(event) => handlePointerMove(event)}
+                    id={element.cardID.toString()}
+
                 />
                 <rect
                     x={element.x + 15}
@@ -156,6 +158,7 @@ export default function CardComponent(props: canvasProps) {
                     height={element.height}
                     fill="white"
                     rx="6"
+                    id={element.cardID.toString()}
                 />
             </g>
 

@@ -6,6 +6,7 @@ import "./arrow.css"
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
 import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
+import overCardSlice, { setOverCard, removeOverCard } from "./overCardSlice"
 
 type propTypes = {
     arrow: Arrow,
@@ -21,6 +22,7 @@ interface DragElement extends Arrow {
 
 //TODO make arrowhead as marker-element: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker
 const ArrowFocus = (props: propTypes) => {
+    const overCardState = useAppSelector((state) => state.overCard)
     const dispatch = useAppDispatch()
 
     const [element, setElement] = useState<DragElement>({
@@ -31,6 +33,8 @@ const ArrowFocus = (props: propTypes) => {
         offsetY: -1, // place between element top and mouse
 
     });
+
+
 
 
 
@@ -67,38 +71,57 @@ const ArrowFocus = (props: propTypes) => {
 
     const handlePointerMove = (event: React.PointerEvent<SVGElement>, location: string) => {
         if (element.active === true) {
-            let anchor: any;
-            if (location === "Start") {
-                anchor = props.arrow.anchorStart
+
+            // manually pointer-enter-event over a little offset in all four corners, tracks overCardStatus
+            let rectElement;
+            const elementUnderPointer1 = document.elementFromPoint(event.clientX + 10, event.clientY + 10);
+            const elementUnderPointer2 = document.elementFromPoint(event.clientX - 10, event.clientY + 10);
+            const elementUnderPointer3 = document.elementFromPoint(event.clientX + 10, event.clientY - 10);
+            const elementUnderPointer4 = document.elementFromPoint(event.clientX - 10, event.clientY - 10);
+
+            if (elementUnderPointer1 && elementUnderPointer1.tagName === 'rect') {
+                rectElement = elementUnderPointer1
+            } else if (elementUnderPointer2 && elementUnderPointer2.tagName === 'rect') {
+                rectElement = elementUnderPointer2
+            } else if (elementUnderPointer3 && elementUnderPointer3.tagName === 'rect') {
+                rectElement = elementUnderPointer3
+            } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'rect') {
+                rectElement = elementUnderPointer4
             } else {
-                anchor = props.arrow.anchorEnd
+                rectElement = undefined
             }
 
+            let id: number;
+            if (rectElement !== undefined) {
+                id = Number(rectElement.id);
+                console.log('Pointer entered rectangle nr', id);
+                dispatch(setOverCard(id))
+            } else {
+                dispatch(removeOverCard())
+                console.log('pointer is free')
+            }
+
+
             let bounds = event.currentTarget.getBoundingClientRect();
-
-            console.log("moving")
-
-
             //for local movement
             const x = event.clientX - bounds.left;
             const y = event.clientY - bounds.top;
 
-
-           
-  
             let newElement: DragElement;
             let newDragElement: DragState;
-            
+
             if (location === "Start") {
+                //for updating the arrow, he is listening to dragState
                 newDragElement = {
                     elementType: "arrowAnchor" + location,
-                    ID: anchor.anchorID,
-                    placeToLeftX:  element.anchorStart.anchorCanvas.x,
-                    placeToTopY:  element.anchorStart.anchorCanvas.y,
+                    ID: props.arrow.anchorStart.anchorID,
+                    placeToLeftX: element.anchorStart.anchorCanvas.x,
+                    placeToTopY: element.anchorStart.anchorCanvas.y,
                     width: 0,
                     height: 0,
                 };
 
+                //for updating the anchor
                 newElement = {
                     ...element,
                     anchorStart: {
@@ -110,17 +133,19 @@ const ArrowFocus = (props: propTypes) => {
                         }
                     }
                 };
-  
+
             } else {
+                //for updating the arrow, he is listening to dragState
                 newDragElement = {
                     elementType: "arrowAnchor" + location,
-                    ID: anchor.anchorID,
-                    placeToLeftX:  element.anchorEnd.anchorCanvas.x,
-                    placeToTopY:  element.anchorEnd.anchorCanvas.y,
+                    ID: props.arrow.anchorEnd.anchorID,
+                    placeToLeftX: element.anchorEnd.anchorCanvas.x,
+                    placeToTopY: element.anchorEnd.anchorCanvas.y,
                     width: 0,
                     height: 0,
                 };
 
+                //for updating the anchor
                 newElement = {
                     ...element,
                     anchorEnd: {
@@ -144,15 +169,19 @@ const ArrowFocus = (props: propTypes) => {
 
     const handlePointerUp = (event: React.PointerEvent<SVGElement>, location: string) => {
         let newElement: DragElement;
-
         newElement = { ...element, active: false, offsetX: -1, offsetY: -1 };
-
         setElement(newElement);
+
+
+        console.log("overCardState",overCardState)
+
+
         if (location === "Start") {
             props.saveArrow({
                 ...element,
                 anchorStart: {
                     ...element.anchorStart,
+                    onCard: overCardState.cardID,
                     anchorCanvas: {
                         ...element.anchorStart.anchorCanvas,
                         x: element.anchorStart.anchorCanvas.x,
@@ -161,10 +190,11 @@ const ArrowFocus = (props: propTypes) => {
                 }
             });
         } else {
-            props.saveArrow ({
+            props.saveArrow({
                 ...element,
                 anchorEnd: {
                     ...element.anchorEnd,
+                    onCard: overCardState.cardID,
                     anchorCanvas: {
                         ...element.anchorEnd.anchorCanvas,
                         x: element.anchorEnd.anchorCanvas.x,

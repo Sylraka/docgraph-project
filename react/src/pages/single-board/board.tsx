@@ -180,15 +180,14 @@ export const SingleBoard = () => {
                                         />
                                     ))}
                                     {data?.arrowList.map(arrow => (
-                                            activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID && (
-                                                <>
-                                                    <ArrowFocus
-                                                        arrow={arrow}
-                                                        saveArrow={saveArrow}
-                                                    />
-                                                </>
-                                            )
-                                        
+                                        activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID && (
+                                            <ArrowFocus
+                                                key={"arrowFocusNr" + arrow.arrowID}
+                                                arrow={arrow}
+                                                saveArrow={saveArrow}
+                                            />
+                                        )
+
                                     ))}
 
                                 </svg>
