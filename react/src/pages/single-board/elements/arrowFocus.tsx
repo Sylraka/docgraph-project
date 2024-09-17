@@ -8,6 +8,9 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to 
 import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
 import overCardSlice, { setOverCard, removeOverCard } from "./overCardSlice"
 
+import { setArrowInside } from "../singleBoardSlice"
+
+
 type propTypes = {
     arrow: Arrow,
     saveArrow: (param: Arrow) => void
@@ -98,7 +101,8 @@ const ArrowFocus = (props: propTypes) => {
                 dispatch(setOverCard(id))
             } else {
                 dispatch(removeOverCard())
-                console.log('pointer is free')
+               // console.log('pointer is free')
+               console.log("arrowID:", element.arrowID)
             }
 
 

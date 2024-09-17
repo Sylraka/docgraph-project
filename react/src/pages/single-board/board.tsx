@@ -46,10 +46,10 @@ export const SingleBoard = () => {
 
     }
 
-
     const saveArrow = (updatedArrow: Arrow) => {
         dispatch(setArrowInside(updatedArrow));
     }
+
 
     const saveDBBoard = (updatedBoard: Board) => {
         dispatch(updateBoardInDb(updatedBoard));

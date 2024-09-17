@@ -11,6 +11,7 @@ import ArrowFocus from "./arrowFocus"
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
 import { setActiveDragElement, removeActiveDrag } from "./dragSlice"
 import { setFocusElement, FocusState } from "./focusSlice"
+import { setArrowInside } from "../singleBoardSlice"
 
 
 interface canvasProps {
@@ -192,133 +193,137 @@ export default function ArrowComponent(props: canvasProps) {
     }
 
 
+
+
+
+
     // drags the hole arrow
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
         dispatch(setFocusElement({ elementType: "arrow", ID: props.arrow.arrowID }))
         let newElement: DragElement;
-        const el = e.currentTarget;
-        const bbox = document.getElementById("lineID" + element.arrowID)?.getBoundingClientRect();//e.currentTarget.getBoundingClientRect();
-        if (bbox !== undefined) {
-            const x = e.clientX - bbox.left;
-            const y = e.clientY - bbox.top;
-            el.setPointerCapture(e.pointerId);
-            newElement = { ...element, movedLeftX: x, movedTopY: y, active: true };
-            setElement(newElement);
-        }
+        // const el = e.currentTarget;
+        // const bbox = document.getElementById("lineID" + element.arrowID)?.getBoundingClientRect();//e.currentTarget.getBoundingClientRect();
+        // if (bbox !== undefined) {
+        //     const x = e.clientX - bbox.left;
+        //     const y = e.clientY - bbox.top;
+        //     el.setPointerCapture(e.pointerId);
+        //     newElement = { ...element, movedLeftX: x, movedTopY: y, active: true };
+        //     setElement(newElement);
+        // }
     }
 
     // drags the hole arrow
-    function handlePointerMove(e: React.PointerEvent<SVGElement>) {
-        if (element.active === true) {
-            //for redux-state "dragState"
-            // get position without margin, but with padding, border, scrollbar
-            let arrowBounds = document.getElementById("lineID" + element.arrowID)?.getBoundingClientRect();//e.currentTarget.getBoundingClientRect();
-            let parentNode = e.currentTarget.ownerSVGElement;
-            if (parentNode !== null && arrowBounds !== undefined) {
-                //console.log("arrowBounds:", arrowBounds, "parentNode:", parentNode)
-                const parentNodeBounds = parentNode.getBoundingClientRect();
+    // function handlePointerMove(e: React.PointerEvent<SVGElement>) {
+    //     if (element.active === true) {
+    //         //for redux-state "dragState"
+    //         // get position without margin, but with padding, border, scrollbar
+    //         let arrowBounds = document.getElementById("lineID" + element.arrowID)?.getBoundingClientRect();//e.currentTarget.getBoundingClientRect();
+    //         let parentNode = e.currentTarget.ownerSVGElement;
+    //         if (parentNode !== null && arrowBounds !== undefined) {
+    //             //console.log("arrowBounds:", arrowBounds, "parentNode:", parentNode)
+    //             const parentNodeBounds = parentNode.getBoundingClientRect();
 
-                let placeToLeft = arrowBounds.left - parentNodeBounds.left;
-                let placeToTop = arrowBounds.top - parentNodeBounds.top;
+    //             let placeToLeft = arrowBounds.left - parentNodeBounds.left;
+    //             let placeToTop = arrowBounds.top - parentNodeBounds.top;
 
-                dispatch(setActiveDragElement({
-                    elementType: "arrow",
-                    ID: element.arrowID,
-                    placeToTopY: placeToTop,
-                    placeToLeftX: placeToLeft,
-                    width: -1,
-                    height: -1
-                }))
-            }
+    //             dispatch(setActiveDragElement({
+    //                 elementType: "arrow",
+    //                 ID: element.arrowID,
+    //                 placeToTopY: placeToTop,
+    //                 placeToLeftX: placeToLeft,
+    //                 width: -1,
+    //                 height: -1
+    //             }))
+    //         }
 
-            //for local movement
-            let newElement: DragElement;
-            const bbox = e.currentTarget.getBoundingClientRect();
-            const x = e.clientX - bbox.left;
-            const y = e.clientY - bbox.top;
-
-
-            newElement = {
-                ...element,
-                anchorStart: {
-                    ...element.anchorStart,
-                    onCard: -1,
-                    anchorCanvas: {
-                        ...element.anchorStart.anchorCanvas,
-                        x: element.anchorStart.anchorCanvas.x - (element.movedLeftX - x),
-                        y: element.anchorStart.anchorCanvas.y - (element.movedTopY - y),
-                    }
-
-                },
-                anchorEnd: {
-                    ...element.anchorEnd,
-                    onCard: -1,
-                    anchorCanvas: {
-                        ...element.anchorEnd.anchorCanvas,
-                        x: element.anchorEnd.anchorCanvas.x - (element.movedLeftX - x),
-                        y: element.anchorEnd.anchorCanvas.y - (element.movedTopY - y),
-                    }
-                }
-            };
-            setElement(newElement);
+    //         //for local movement
+    //         let newElement: DragElement;
+    //         const bbox = e.currentTarget.getBoundingClientRect();
+    //         const x = e.clientX - bbox.left;
+    //         const y = e.clientY - bbox.top;
 
 
-            props.saveArrow({
-                ...props.arrow,
-                anchorStart: {
-                    ...props.arrow.anchorStart,
-                    onCard: -1,
-                    anchorCanvas: {
-                        ...props.arrow.anchorStart.anchorCanvas,
-                        x: element.anchorStart.anchorCanvas.x,
-                        y: element.anchorStart.anchorCanvas.y
-                    }
-                },
-                anchorEnd: {
-                    ...props.arrow.anchorEnd,
-                    onCard: -1,
-                    anchorCanvas: {
-                        ...props.arrow.anchorEnd.anchorCanvas,
-                        x: element.anchorEnd.anchorCanvas.x,
-                        y: element.anchorEnd.anchorCanvas.y
-                    }
+    //         newElement = {
+    //             ...element,
+    //             anchorStart: {
+    //                 ...element.anchorStart,
+    //                 onCard: -1,
+    //                 anchorCanvas: {
+    //                     ...element.anchorStart.anchorCanvas,
+    //                     x: element.anchorStart.anchorCanvas.x - (element.movedLeftX - x),
+    //                     y: element.anchorStart.anchorCanvas.y - (element.movedTopY - y),
+    //                 }
 
-                }
-            })
+    //             },
+    //             anchorEnd: {
+    //                 ...element.anchorEnd,
+    //                 onCard: -1,
+    //                 anchorCanvas: {
+    //                     ...element.anchorEnd.anchorCanvas,
+    //                     x: element.anchorEnd.anchorCanvas.x - (element.movedLeftX - x),
+    //                     y: element.anchorEnd.anchorCanvas.y - (element.movedTopY - y),
+    //                 }
+    //             }
+    //         };
+    //         setElement(newElement);
 
 
-        }
-    }
-    // drags the hole arrow
-    function handlePointerUp(e: React.PointerEvent<SVGElement>) {
-        let newElement: DragElement;
+    //         saveArrow({
+    //             ...props.arrow,
+    //             anchorStart: {
+    //                 ...props.arrow.anchorStart,
+    //                 onCard: -1,
+    //                 anchorCanvas: {
+    //                     ...props.arrow.anchorStart.anchorCanvas,
+    //                     x: element.anchorStart.anchorCanvas.x,
+    //                     y: element.anchorStart.anchorCanvas.y
+    //                 }
+    //             },
+    //             anchorEnd: {
+    //                 ...props.arrow.anchorEnd,
+    //                 onCard: -1,
+    //                 anchorCanvas: {
+    //                     ...props.arrow.anchorEnd.anchorCanvas,
+    //                     x: element.anchorEnd.anchorCanvas.x,
+    //                     y: element.anchorEnd.anchorCanvas.y
+    //                 }
 
-        newElement = { ...element, active: false, movedLeftX: -1, movedTopY: -1 };
+    //             }
+    //         })
 
-        setElement(newElement);
 
-        props.saveArrow({
-            ...props.arrow,
-            anchorStart: {
-                ...props.arrow.anchorStart,
-                onCard: -1,//element.anchorStart.onCard,
-                anchorCanvas: {
-                    canvasNumber: element.anchorStart.anchorCanvas.canvasNumber,
-                    x: element.anchorStart.anchorCanvas.x,
-                    y: element.anchorStart.anchorCanvas.y
-                }
-            },
-            anchorEnd: {
-                ...props.arrow.anchorEnd,
-                onCard: -1,// element.anchorEnd.onCard,
-                anchorCanvas: {
-                    canvasNumber: element.anchorEnd.anchorCanvas.canvasNumber,
-                    x: element.anchorEnd.anchorCanvas.x,
-                    y: element.anchorEnd.anchorCanvas.y
-                }
-            }
-        })
-    }
+    //     }
+    // }
+    // // drags the hole arrow
+    // function handlePointerUp(e: React.PointerEvent<SVGElement>) {
+    //     let newElement: DragElement;
+
+    //     newElement = { ...element, active: false, movedLeftX: -1, movedTopY: -1 };
+
+    //     setElement(newElement);
+
+    //     saveArrow({
+    //         ...props.arrow,
+    //         anchorStart: {
+    //             ...props.arrow.anchorStart,
+    //             onCard: -1,//element.anchorStart.onCard,
+    //             anchorCanvas: {
+    //                 canvasNumber: element.anchorStart.anchorCanvas.canvasNumber,
+    //                 x: element.anchorStart.anchorCanvas.x,
+    //                 y: element.anchorStart.anchorCanvas.y
+    //             }
+    //         },
+    //         anchorEnd: {
+    //             ...props.arrow.anchorEnd,
+    //             onCard: -1,// element.anchorEnd.onCard,
+    //             anchorCanvas: {
+    //                 canvasNumber: element.anchorEnd.anchorCanvas.canvasNumber,
+    //                 x: element.anchorEnd.anchorCanvas.x,
+    //                 y: element.anchorEnd.anchorCanvas.y
+    //             }
+    //         }
+    //     })
+    // }
 
 
 
@@ -340,8 +345,8 @@ export default function ArrowComponent(props: canvasProps) {
                     stroke="#006666"
                     strokeWidth={3}
                     onPointerDown={(event) => handlePointerDown(event)}
-                    onPointerUp={(event) => handlePointerUp(event)}
-                    onPointerMove={(event) => handlePointerMove(event)}
+                  //  onPointerUp={(event) => handlePointerUp(event)}
+                  //  onPointerMove={(event) => handlePointerMove(event)}
                     id={"lineID" + element.arrowID}
                 />
 
