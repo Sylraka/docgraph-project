@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 import "./card.css"
 
 import { useAppDispatch, useAppSelector } from "./../../../app/hooks"
-import { Card } from '../../../app/fetch-data/apiSlice';
+import { Card } from '../../../app/fetch-data/dataTypes';
 
 
 

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector} from "./app/hooks"
 import {updateBoardInDb} from "./pages/single-board/singleBoardSlice"
 import { useLocation } from 'react-router-dom';
 
-import { Board } from './app/fetch-data/apiSlice';
+import { Board } from './app/fetch-data/dataTypes'
 
 
 

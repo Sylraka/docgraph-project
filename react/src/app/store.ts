@@ -6,6 +6,7 @@ import dragReducer from "../pages/single-board/elements/dragSlice"
 import focusReducer from "../pages/single-board/elements/focusSlice"
 import overCardReducer from "../pages/single-board/elements/overCardSlice" 
 import singleBoardReducer from "../pages/single-board/singleBoardSlice"
+import allBoardsReducer from "./fetch-data/allBoardsSlice"
 
 export const store = configureStore({
     reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
       focus: focusReducer,
       overCard: overCardReducer,
       singleBoard: singleBoardReducer,
+      allBoards: allBoardsReducer
 
       // [boardsApiSlice.reducerPath]: boardsApiSlice.reducer,
     },

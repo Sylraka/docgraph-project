@@ -10,7 +10,7 @@ import DragArrow from "./elements/arrow";
 import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
 
-import { Card, Board, Arrow } from '../../app/fetch-data/apiSlice';
+import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
 import { removeFocusElement } from "./elements/focusSlice"
 import { fetchData, setSingleBoardInside, setCardInside, setArrowInside, updateBoardInDb } from "./singleBoardSlice"
 

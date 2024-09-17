@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Card, Arrow } from '../../../app/fetch-data/apiSlice';
+import { Card, Arrow } from '../../../app/fetch-data/dataTypes';
 import "./arrow.css";
 import SvgArrowHead from "./arrowHead"
 import ArrowFocus from "./arrowFocus"

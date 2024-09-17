@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Arrow } from '../../../app/fetch-data/apiSlice';
+import { Arrow } from '../../../app/fetch-data/dataTypes';
 import "./arrow.css" 
 import { DragElement } from "./arrow";
 

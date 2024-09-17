@@ -1,6 +1,6 @@
 //draggable https://www.npmjs.com/package/react-draggable#react-draggable
 import { useState, useRef, useEffect } from "react";
-import { Card } from '../../../app/fetch-data/apiSlice';
+import { Card } from '../../../app/fetch-data/dataTypes';
 import './card.css';
 
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
@@ -165,43 +165,5 @@ export default function CardComponent(props: canvasProps) {
         </>
     );
 
-    // return (
-    //     <>
-    //         <Draggable
-    //             key={element.cardID}
-    //             //cancel=".strong"
-    //             onStart={onStart}
-    //             onStop={onStop}
-    //             onDrag={onDrag}
-    //             position={{ x: element.x, y: element.y }}
-    //         // position={{ x: item.movedLeftX, y: item.movedTopY }}
-    //         >
-    //             <div className="drag-box">
-    //                 {/* <div
-    //                     className={'box' + (item.active ? ' grabbing' : '')}
-    //                     id={"cardID" + item.cardID}
-    //                     style={{ left: item.x, top: item.y, width: item.width }}
-    //                 > 
-
-    //                  </div>
-
-    //                  */}
-
-    //                 <div className="drag-box-text"
-    //                     style={{ 'width': element.width - 10, 'height': element.height - 40 }}
-    //                 >
-    //                     <p
-    //                         className='text-element'
-    //                         style={{ 'width': element.width - 20, 'height': element.height - 40 }}
-    //                     >
-    //                         {element.text}
-    //                     </p>
-    //                 </div>
-    //             </div>
-    //         </Draggable>
-
-    //     </>
-
-    // );
 
 }

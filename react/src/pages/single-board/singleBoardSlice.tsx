@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { Card, Arrow, Board } from "../../app/fetch-data/apiSlice"
+import { Card, Arrow, Board } from "../../app/fetch-data/dataTypes"
 
 
 export interface singleBoardInsideState {

@@ -2,12 +2,20 @@ import { useState, useEffect, Key } from "react";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from 'react-router-dom';
-import { useFetchBoardsQuery } from "../app/fetch-data/apiSlice"
+import { fetchAllBoards } from "../app/fetch-data/allBoardsSlice"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
+
 
 import "./../general-styles/general-styles.css"
 
 export const Home = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchAllBoards())
+    },
+        []);
 
     return (
         <div className='background'>
@@ -56,8 +64,11 @@ export const Home = () => {
 
 
 const SavedBoards = (props: { sortBy: number }) => {
+
+
     // Using a query hook automatically fetches data and returns query values
-    const { data, isError, isLoading, isSuccess } = useFetchBoardsQuery()
+    //const { data, isError, isLoading, isSuccess } = useFetchBoardsQuery()
+    let data = useAppSelector(state => state.allBoards.boards)
 
     /**
     useEffect(() => {
@@ -84,48 +95,31 @@ const SavedBoards = (props: { sortBy: number }) => {
         })
     }, [props.sortBy]);
     */
-    if (isError) {
-        return (
-            <div>
-                <h1>There was an error!!!</h1>
-            </div>
-        )
-    }
+    return (
+        <>
+            {
+                data?.map((board: { _id: Key | null | undefined; boardName: string; }) => (
 
-    if (isLoading) {
-        return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
-        )
-    }
+                    <div key={board._id} className="brick flex-content">
+                        <Link to={{
+                            pathname: "/board/" + board._id
+                        }} className="brick-content">
+                            {board.boardName}
+                        </Link>
 
-    if (isSuccess) {
-        return (
-            <>
-                {
-                    data?.map((board: { _id: Key | null | undefined; boardName: string; }) => (
+                    </div>
 
-                        <div key={board._id} className="brick flex-content">
-                            <Link to={{
-                                pathname: "/board/" + board._id
-                            }} className="brick-content">
-                                {board.boardName}
-                            </Link>
+                ))
+            }
+        </>
+    )
 
-                        </div>
-
-                    ))
-                }
-            </>
-        )
-    }
 }
 
-  /** 
-        {data.map(({ _id, boardName }) => (
-          <blockquote key={_id}>
-            &ldquo;{boardName}&rdquo;
-          </blockquote>
-        ))}
-         */
+/**
+      {data.map(({ _id, boardName }) => (
+        <blockquote key={_id}>
+          &ldquo;{boardName}&rdquo;
+        </blockquote>
+      ))}
+       */
