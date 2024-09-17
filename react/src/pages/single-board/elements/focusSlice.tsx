@@ -12,7 +12,7 @@ const initialState: FocusState = {
 
 
 const focusSlice = createSlice({
-    name: "drag",
+    name: "focus",
     initialState,
     reducers: {
         setFocusElement(state, action: PayloadAction<FocusState>) {

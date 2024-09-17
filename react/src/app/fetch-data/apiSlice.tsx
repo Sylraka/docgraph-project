@@ -53,7 +53,8 @@ export interface Board {
 	__v: number;
 }
 
-export const boardsApiSlice = createApi({
+//api is in singleBoardSLice
+ export const boardsApiSlice = createApi({
 	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({
 		baseUrl: 'http://localhost:5100/api',
@@ -69,9 +70,9 @@ export const boardsApiSlice = createApi({
 			query: (arg = 0) => '/boards/',//query(arg = 0) {	return '/boards/';	}
 		}),
 		//  GET-endpoint
-		fetchSingleBoard: builder.query<Board, string>({
-			query: (boardId = 'IdNotDefined') => '/boards/' + boardId,
-		}),
+		// fetchSingleBoard: builder.query<Board, string>({
+		// 	query: (boardId = 'IdNotDefined') => '/boards/' + boardId,
+		// }),
 		// POST-endpoint
 		// addBoard: builder.mutation<Board, Partial<Board>>({
 		// 	query: (newBoard) => ({
@@ -81,15 +82,15 @@ export const boardsApiSlice = createApi({
 		// 	}),
 		// }),
 		// PUT-Endpunkt, // The mutation accepts a `Partial<Board>`(all args are optional) arg, and returns a `Board`
-		updateBoard: builder.mutation<Board, Partial<Board>>({
-			query: (updatedBoard) => ({
-				url: `/boards/${updatedBoard._id}`,
-				method: 'PUT',
-				body: updatedBoard,
-			}),
-		}),
+		// updateBoard: builder.mutation<Board, Partial<Board>>({
+		// 	query: (updatedBoard) => ({
+		// 		url: `/boards/${updatedBoard._id}`,
+		// 		method: 'PUT',
+		// 		body: updatedBoard,
+		// 	}),
+		// }),
 	})
 })
 
-export const { useFetchBoardsQuery, useFetchSingleBoardQuery, useUpdateBoardMutation } = boardsApiSlice
+export const { useFetchBoardsQuery  } = boardsApiSlice
 export default boardsApiSlice;

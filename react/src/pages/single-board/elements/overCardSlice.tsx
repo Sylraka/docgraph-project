@@ -9,7 +9,7 @@ const initialState: OverCardState = {
 }
 
 const overCardSlice = createSlice({
-    name: "drag",
+    name: "overCard",
     initialState,
     reducers: {
         setOverCard(state, action: PayloadAction<number>) {
