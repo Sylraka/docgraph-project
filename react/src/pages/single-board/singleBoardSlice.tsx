@@ -74,36 +74,49 @@ const singleBoardInsideSlice = createSlice({
                 state.board.arrowList[arrowIndex] = action.payload;
             }
         },
-        deleteCardInside(state, action: PayloadAction<Card>) {
+        deleteCardInside(state, action: PayloadAction<number>) {
             if (state.board !== undefined) {
                 //fills all cards in cardlist where not having the cardid we want to delete
-                state.board.cardList = state.board?.cardList.filter(card => card.cardID !== action.payload.cardID)
+                state.board.cardList = state.board?.cardList.filter(card => card.cardID !== action.payload)
             }
         },
-        deleteArrowInside(state, action: PayloadAction<Arrow>) {
+        deleteArrowInside(state, action: PayloadAction<number>) {
             if (state.board !== undefined) {
                 //fills all arrows in arrowlist where not having the arrowid we want to delete
-                state.board.arrowList = state.board?.arrowList.filter(arrow => arrow.arrowID !== action.payload.arrowID)
+                state.board.arrowList = state.board?.arrowList.filter(arrow => arrow.arrowID !== action.payload)
             }
         },
         addNewCardInside(state, action: PayloadAction<Card>) {
-            action.payload.cardID = state.board!.cardIDCounter
+            // we cannot mutate the action-payload-object, so we make a new object
+            const newCard = {
+                ...action.payload,
+                cardID: state.board!.cardIDCounter
+            }
             state.board!.cardIDCounter++;
             //concat returns a new array, no modification inplace
-            state.board!.cardList = state.board!.cardList.concat(action.payload)
+            state.board!.cardList = state.board!.cardList.concat(newCard)
 
         },
         addNewArrowInside(state, action: PayloadAction<Arrow>) {
-            action.payload.arrowID = state.board!.arrowIDCounter;
-            action.payload.anchorStart.anchorID = state.board!.anchorIDCounter;
-            action.payload.anchorEnd.anchorID = state.board!.anchorIDCounter + 1;
+            // we cannot mutate the action-payload-object, so we make a new object
+            const newArrow = {
+                ...action.payload,
+                arrowID: state.board!.arrowIDCounter,
+                anchorStart: {
+                    ...action.payload.anchorStart,
+                    anchorID: state.board!.anchorIDCounter
+                  },
+                  anchorEnd: {
+                    ...action.payload.anchorEnd,
+                    anchorID: state.board!.anchorIDCounter + 1
+                  }
+            }
             state.board!.anchorIDCounter += 2;
             state.board!.arrowIDCounter++;
             //concat returns a new array, no modification inplace
-            state.board!.arrowList = state.board!.arrowList.concat(action.payload)
+            state.board!.arrowList = state.board!.arrowList.concat(newArrow)
             //console.log("addNewArrow")
         },
-
         clearState(state) {
             state.board = undefined
         }
@@ -130,5 +143,10 @@ const singleBoardInsideSlice = createSlice({
 });
 
 
-export const { setSingleBoardInside, setCardInside, setArrowInside, clearState, addNewCardInside, addNewArrowInside } = singleBoardInsideSlice.actions;
+export const { setSingleBoardInside, 
+    setCardInside, setArrowInside, 
+    clearState, 
+    addNewCardInside, addNewArrowInside, 
+    deleteArrowInside, deleteCardInside
+} = singleBoardInsideSlice.actions;
 export default singleBoardInsideSlice.reducer;

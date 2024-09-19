@@ -19,7 +19,8 @@ import { removeFocusElement } from "./elements/focusSlice"
 import { fetchData, clearState,
     setSingleBoardInside, setCardInside, setArrowInside, 
     updateBoardInDb, 
-    addNewArrowInside, addNewCardInside } from "./singleBoardSlice"
+    addNewArrowInside, addNewCardInside,
+    deleteArrowInside, deleteCardInside } from "./singleBoardSlice"
 
 //for insert new elements
 import { useDrop } from "react-dnd";
@@ -35,22 +36,37 @@ export const SingleBoard = () => {
 
     // extract Board-ID from path
     const boardId = location.pathname.split('/').pop() || 'IdNotDefined';
-    // Using a query hook automatically fetches data and returns query values
-    //const { data, isError, isLoading, isSuccess } = useFetchSingleBoardQuery(boardId);
-    //umbenennung um namenskonflikte zu vermeiden
-    //returns a tuple with a function and an object
-    //const [updateBoardMutation, { isLoading: updateIsLoading, isSuccess: updateIsSuccess, isError: updateIsError }] = useUpdateBoardMutation();
 
     let data = useAppSelector(state => state.singleBoard.board)
     let activeFocusValue = useAppSelector((state) => state.focus)
 
 
-
     useEffect(() => {
-        //console.log("triggerAPI")
         dispatch(fetchData(boardId))
+    },[])
 
-    }, []);
+
+    //to prevent "stale closure problem": have an old state if we didnt hear to activeFocusValue
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            //console.log("klick", event.key)
+            if (event.key === 'Backspace') {
+              console.log('Entf/Entfernen-Taste gedrückt, activeFocusValue:', activeFocusValue);
+              if (activeFocusValue.elementType=="arrow") {
+                console.log("delete arrow")
+                dispatch(deleteArrowInside(activeFocusValue.ID));
+              }
+            }
+          };
+      
+          // Event Listener hinzufügen
+          window.addEventListener('keydown', handleKeyDown);
+      
+          // Cleanup-Funktion, um den Event Listener zu entfernen
+          return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+          };
+        }, [activeFocusValue]);
 
 
     const saveCard = (updatedCard: Card) => {
