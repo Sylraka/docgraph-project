@@ -4,15 +4,27 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 
 import './board.scss';
+
+//show elements
 import DragCard from "./elements/card"
 import { BoardName } from "./boardName"
 import DragArrow from "./elements/arrow";
 import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
+import { Sidebar } from "./sidebar";
 
+// from the redux slices 
 import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
 import { removeFocusElement } from "./elements/focusSlice"
-import { fetchData, setSingleBoardInside, setCardInside, setArrowInside, updateBoardInDb } from "./singleBoardSlice"
+import { fetchData, clearState,
+    setSingleBoardInside, setCardInside, setArrowInside, 
+    updateBoardInDb, 
+    addNewArrowInside, addNewCardInside } from "./singleBoardSlice"
+
+//for insert new elements
+import { useDrop } from "react-dnd";
+import { ItemTypes } from './../../dragConstants';
+import { newArrowData, newCardData} from './../../app/newElementData';
 
 
 export const SingleBoard = () => {
@@ -35,10 +47,10 @@ export const SingleBoard = () => {
 
 
     useEffect(() => {
-        console.log("triggerAPI")
+        //console.log("triggerAPI")
         dispatch(fetchData(boardId))
-    },
-        []);
+
+    }, []);
 
 
     const saveCard = (updatedCard: Card) => {
@@ -56,27 +68,6 @@ export const SingleBoard = () => {
     }
 
 
-    // const saveBoard = async (updatedBoard: Board) => {
-    //     try {
-
-    //         // Trigger die Mutation
-    //         const result = await updateBoardMutation(updatedBoard).unwrap();
-
-    //         // with updateboardmutation we cannot actualize the current state, so we have to trigger it manually
-    //         //"query" are the data wen can read or get with a GET
-    //         dispatch(
-    //             boardsApiSlice.util.updateQueryData('fetchSingleBoard', updatedBoard._id, (draft) => {
-    //                 // Lokalen Zustand des Boards mit den neuen Daten aktualisieren
-    //                 Object.assign(draft, updatedBoard);
-    //             })
-    //         );
-
-    //         //   console.log('Board updated successfully:', result);
-    //     } catch (error) {
-    //         console.error('Failed to update the board:', error);
-    //     }
-    // }
-
     const handlePointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
         const svg = event.target.toString()
         if (svg === "[object SVGSVGElement]") {
@@ -84,6 +75,28 @@ export const SingleBoard = () => {
             dispatch(removeFocusElement())
         }
     }
+
+
+    // more info to usedrop in https://codesandbox.io/s/react-dnd-02-chess-board-and-lonely-knight-7buy2?from-embed=&file=/src/components/BoardSquare.js:394-653
+    const [, dropRef] = useDrop({
+        accept: [ItemTypes.NEWCARD, ItemTypes.NEWARROW],
+        //TODO: get the cursorCoords and add them to newCardData
+
+        drop: (item, monitor) => {
+            console.log(item, monitor.getItemType())
+            if (monitor.getItemType() === 'newCard') {
+                console.log("newCard trigger")
+                dispatch(addNewCardInside(newCardData))
+                //props.boardState.handleCardFunctions.newCard(newCardData());
+            } else if (monitor.getItemType() === 'newArrow') {
+                console.log("newArrow trigger")
+                dispatch(addNewArrowInside(newArrowData))
+               // props.boardState.handleArrowFunctions.newArrow(newArrowData());
+            } else {
+                console.error("ItemType not found:", monitor.getItemType())
+            }
+        }
+    });
 
 
 
@@ -102,12 +115,14 @@ export const SingleBoard = () => {
 
             <div className="canvas">
                 <div className='flex-row'>
-                    {/* <Sidebar />*/}
+                    <Sidebar />
 
                     <div className="three-canvas-container">
                         <div className="flex-row" id="three-canvas-inner">
                             <svg className='svg-canvas' id="svg-canvas-id"
-                                onPointerDown={handlePointerDown}>
+                                onPointerDown={handlePointerDown}
+                                ref={dropRef}
+                                >
                                 {data?.arrowList.map(arrow => (
                                     <DragArrow
                                         key={"arrowNr" + arrow.arrowID}

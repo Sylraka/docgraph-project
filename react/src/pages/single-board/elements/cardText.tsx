@@ -22,7 +22,8 @@ export default function CardTextComponent(props: canvasProps) {
     const activeDragValue = useAppSelector((state) => state.drag)
 
     const [element, setElement] = useState<Card>({
-        ...props.card
+        ...props.card,
+        x: props.card.x +60
     });
     
     useEffect(() => {
@@ -38,7 +39,7 @@ export default function CardTextComponent(props: canvasProps) {
         if (activeDragValue.ID === props.card.cardID && activeDragValue.elementType === "card"){
             setElement((prevElement) => ({
                 ...prevElement,
-                x: activeDragValue.placeToLeftX,
+                x: activeDragValue.placeToLeftX + 60,
                 y: activeDragValue.placeToTopY
             }))
         }

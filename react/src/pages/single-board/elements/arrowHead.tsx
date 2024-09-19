@@ -11,7 +11,6 @@ type propTypes = {
 };
 
 interface anchorCanvas {
-    canvasNumber: number;
     x: number,
     y: number
 }

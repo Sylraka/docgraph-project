@@ -20,7 +20,6 @@ interface canvasProps {
 }
 
 interface anchorCanvas {
-    canvasNumber: number;
     x: number,
     y: number,
 

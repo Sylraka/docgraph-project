@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import "./general-styles/general-styles.css"
+import "./general-styles.css"
 import { Pets } from "./former-code/pets/Pets"
 import { Home } from "./pages/home"
 import { SingleBoard } from "./pages/single-board/board"

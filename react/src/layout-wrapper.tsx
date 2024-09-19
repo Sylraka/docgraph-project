@@ -1,5 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
-import "./general-styles/buttons.css";
+import "./buttons/buttons.css";
 
 import { useAppDispatch, useAppSelector} from "./app/hooks"
 import {updateBoardInDb} from "./pages/single-board/singleBoardSlice"

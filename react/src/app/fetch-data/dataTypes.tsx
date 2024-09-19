@@ -17,7 +17,7 @@ export interface Arrow {
         anchorID: number;
         onCard: number;
         anchorCanvas: {
-            canvasNumber: number;
+          //  canvasNumber: number;
             x: number;
             y: number;    
         }
@@ -26,7 +26,7 @@ export interface Arrow {
         anchorID: number;
         onCard: number;
         anchorCanvas: {
-           canvasNumber: number;
+       //    canvasNumber: number;
             x: number;
             y: number;    
         }
@@ -34,7 +34,7 @@ export interface Arrow {
 }
 
 export interface Board {
-	_id: string;
+	_id: string | undefined;
 	boardName: string;
 	boardType: string;
 	boardPosition: object;
@@ -43,7 +43,7 @@ export interface Board {
 	cardIDCounter: number;
 	arrowIDCounter: number;
 	anchorIDCounter: number;
-	createdAt: string;
-	updatedAt: string;
-	__v: number;
+	createdAt: string | undefined;
+	updatedAt: string | undefined;
+	__v: number | undefined;
 }
