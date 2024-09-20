@@ -52,7 +52,7 @@ export default function ArrowComponent(props: canvasProps) {
         let xOnCard = 0;
         let yOnCard = 0;
         let rotation = computeRotation(element.anchorStart.anchorCanvas, element.anchorEnd.anchorCanvas)
-
+        console.log("rotation",rotation)
         //update arrow if card moves || update arrow if anchor moves
         if ((activeDragValue.ID === element.anchorStart.onCard && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID && activeDragValue.elementType === "arrowAnchorStart")) {
             //update arrow if card moves

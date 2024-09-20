@@ -12,20 +12,23 @@ import DragArrow from "./elements/arrow";
 import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
 import { Sidebar } from "./sidebar";
+import CardFocus from "./elements/cardFocus"
 
 // from the redux slices 
 import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
 import { removeFocusElement } from "./elements/focusSlice"
-import { fetchData, clearState,
-    setSingleBoardInside, setCardInside, setArrowInside, 
-    updateBoardInDb, 
+import {
+    fetchData, clearState,
+    setSingleBoardInside, setCardInside, setArrowInside,
+    updateBoardInDb,
     addNewArrowInside, addNewCardInside,
-    deleteArrowInside, deleteCardInside } from "./singleBoardSlice"
+    deleteArrowInside, deleteCardInside
+} from "./singleBoardSlice"
 
 //for insert new elements
 import { useDrop } from "react-dnd";
 import { ItemTypes } from './../../dragConstants';
-import { newArrowData, newCardData} from './../../app/newElementData';
+import { newArrowData, newCardData } from './../../app/newElementData';
 
 
 export const SingleBoard = () => {
@@ -43,7 +46,7 @@ export const SingleBoard = () => {
 
     useEffect(() => {
         dispatch(fetchData(boardId))
-    },[])
+    }, [])
 
 
     //to prevent "stale closure problem": have an old state if we didnt hear to activeFocusValue
@@ -51,22 +54,26 @@ export const SingleBoard = () => {
         const handleKeyDown = (event: KeyboardEvent) => {
             //console.log("klick", event.key)
             if (event.key === 'Backspace') {
-              console.log('Entf/Entfernen-Taste gedrückt, activeFocusValue:', activeFocusValue);
-              if (activeFocusValue.elementType=="arrow") {
-                console.log("delete arrow")
-                dispatch(deleteArrowInside(activeFocusValue.ID));
-              }
+                console.log('Entf/Entfernen-Taste gedrückt, activeFocusValue:', activeFocusValue);
+                if (activeFocusValue.elementType === "arrow") {
+                    console.log("delete arrow")
+                    dispatch(deleteArrowInside(activeFocusValue.ID));
+                }
+                if(activeFocusValue.elementType ==="card") {
+                    console.log("delete card")
+                    dispatch(deleteCardInside(activeFocusValue.ID))
+                }
             }
-          };
-      
-          // Event Listener hinzufügen
-          window.addEventListener('keydown', handleKeyDown);
-      
-          // Cleanup-Funktion, um den Event Listener zu entfernen
-          return () => {
+        };
+
+        // Event Listener hinzufügen
+        window.addEventListener('keydown', handleKeyDown);
+
+        // Cleanup-Funktion, um den Event Listener zu entfernen
+        return () => {
             window.removeEventListener('keydown', handleKeyDown);
-          };
-        }, [activeFocusValue]);
+        };
+    }, [activeFocusValue]);
 
 
     const saveCard = (updatedCard: Card) => {
@@ -107,7 +114,7 @@ export const SingleBoard = () => {
             } else if (monitor.getItemType() === 'newArrow') {
                 console.log("newArrow trigger")
                 dispatch(addNewArrowInside(newArrowData))
-               // props.boardState.handleArrowFunctions.newArrow(newArrowData());
+                // props.boardState.handleArrowFunctions.newArrow(newArrowData());
             } else {
                 console.error("ItemType not found:", monitor.getItemType())
             }
@@ -138,7 +145,7 @@ export const SingleBoard = () => {
                             <svg className='svg-canvas' id="svg-canvas-id"
                                 onPointerDown={handlePointerDown}
                                 ref={dropRef}
-                                >
+                            >
                                 {data?.arrowList.map(arrow => (
                                     <DragArrow
                                         key={"arrowNr" + arrow.arrowID}
@@ -165,6 +172,17 @@ export const SingleBoard = () => {
                                     )
 
                                 ))}
+                                {data?.cardList.map(card => (
+                                    activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID && (
+                                    < CardFocus
+                                    key={"cardFocusNr" + card.cardID}
+                                    card = { card }
+                                    saveCard={saveCard}
+                                    />
+                                    
+                                    
+                                )
+                                ))}
 
                             </svg>
 
@@ -174,6 +192,8 @@ export const SingleBoard = () => {
                                     card={card}
                                 />
                             ))}
+
+
 
 
                             <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-1">

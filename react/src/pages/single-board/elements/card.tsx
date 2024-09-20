@@ -26,10 +26,6 @@ interface DragElement extends Card {
 
 export default function CardComponent(props: canvasProps) {
     const dispatch = useAppDispatch()
-    //const activeDragValue = useAppSelector((state) => state.drag)
-
-
-
 
     const [element, setElement] = useState<DragElement>({
         // the attributes the cards didnt have
@@ -39,22 +35,6 @@ export default function CardComponent(props: canvasProps) {
         offsetY: -1, // place between element top and mouse   
 
     });
-
-    //fill in the cards when they are loaded
-    // useEffect(() => {
-    //     // setElement({
-    //     //     ...props.card,
-    //     //     active: false,
-    //     //     movedLeftX: -1, // Initialwert für xOffset
-    //     //     movedTopY: -1, // Initialwert für yOffset
-    //     // })
-
-    //     // props.cardState.cardTypes.map(cardType => {
-    //     //   if (cardType === 'math') {
-    //     //     setIsMathOn(true)
-    //     //   }
-    //     // });
-    // }, [props]);
 
 
 
