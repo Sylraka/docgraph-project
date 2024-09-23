@@ -59,7 +59,7 @@ export const SingleBoard = () => {
                     console.log("delete arrow")
                     dispatch(deleteArrowInside(activeFocusValue.ID));
                 }
-                if(activeFocusValue.elementType ==="card") {
+                if (activeFocusValue.elementType === "card") {
                     console.log("delete card")
                     dispatch(deleteCardInside(activeFocusValue.ID))
                 }
@@ -174,14 +174,14 @@ export const SingleBoard = () => {
                                 ))}
                                 {data?.cardList.map(card => (
                                     activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID && (
-                                    < CardFocus
-                                    key={"cardFocusNr" + card.cardID}
-                                    card = { card }
-                                    saveCard={saveCard}
-                                    />
-                                    
-                                    
-                                )
+                                        < CardFocus
+                                            key={"cardFocusNr" + card.cardID}
+                                            card={card}
+                                            saveCard={saveCard}
+                                        />
+
+
+                                    )
                                 ))}
 
                             </svg>

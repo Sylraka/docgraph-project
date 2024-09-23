@@ -10,6 +10,8 @@ import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
 import { setFocusElement } from "./focusSlice"
 import { setOverCard } from "./overCardSlice"
 
+import CardFocus from "./cardFocus"
+
 interface canvasProps {
     card: Card,
     boardId: string,
@@ -26,6 +28,8 @@ interface DragElement extends Card {
 
 export default function CardComponent(props: canvasProps) {
     const dispatch = useAppDispatch()
+    const activeDragValue = useAppSelector(state => state.drag)
+    const activeFocusValue = useAppSelector(state => state.focus)
 
     const [element, setElement] = useState<DragElement>({
         // the attributes the cards didnt have
@@ -35,6 +39,77 @@ export default function CardComponent(props: canvasProps) {
         offsetY: -1, // place between element top and mouse   
 
     });
+
+
+//update width and height of a card (cardFocus is moving)
+    useEffect(() => {
+        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID) {
+            setElement(prevElement => ({
+                ...prevElement,
+                width: Math.max(prevElement.width + activeDragValue.width,30),
+                height: Math.max(prevElement.height + activeDragValue.height,30)
+            }))
+            props.saveCard({
+                ...props.card,
+                width: Math.max(props.card.width + activeDragValue.width, 30),
+                height:  Math.max(props.card.height + activeDragValue.height,30)
+            })     
+        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID) {
+            setElement(prevElement => ({
+                ...prevElement,
+                x:  prevElement.x + activeDragValue.width,
+                width: Math.max(prevElement.width - activeDragValue.width, 30),
+                height: Math.max(prevElement.height + activeDragValue.height,30)
+            }))
+            props.saveCard({
+                ...props.card,
+                x:  props.card.x + activeDragValue.width,
+                width: Math.max(props.card.width - activeDragValue.width, 30),
+                height:  Math.max(props.card.height + activeDragValue.height,30)
+            })  
+        }else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID) {
+            setElement(prevElement => ({
+                ...prevElement,
+                y:  prevElement.y + activeDragValue.height,
+                width: Math.max(prevElement.width + activeDragValue.width, 30),
+                height: Math.max(prevElement.height - activeDragValue.height,30)
+            }))
+            props.saveCard({
+                ...props.card,
+                y:  props.card.x + activeDragValue.height,
+                width: Math.max(props.card.width + activeDragValue.width, 30),
+                height:  Math.max(props.card.height - activeDragValue.height,30)
+            })  
+        }else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID) {
+            setElement(prevElement => ({
+                ...prevElement,
+                y:  prevElement.y + activeDragValue.height,
+                x:  prevElement.x + activeDragValue.width,
+                width: Math.max(prevElement.width - activeDragValue.width, 30),
+                height: Math.max(prevElement.height - activeDragValue.height,30)
+            }))
+            props.saveCard({
+                ...props.card,
+                x:  props.card.x + activeDragValue.width,
+                y:  props.card.x + activeDragValue.height,
+                width: Math.max(props.card.width - activeDragValue.width, 30),
+                height:  Math.max(props.card.height - activeDragValue.height,30)
+            })  
+        }
+
+
+
+    }, [activeDragValue]);
+
+    // const handleWidthHeight = (newWidth: number, newHeight: number) => {
+    //     // setElement(prevElement => ({
+    //     //                 ...prevElement,
+    //     //                 width: prevElement.width + newWidth,
+    //     //                 height: prevElement.height + newHeight
+    //     //             }))
+    //     //             console.log(newWidth,newHeight )
+    // }
+
 
 
 
@@ -140,6 +215,14 @@ export default function CardComponent(props: canvasProps) {
                     rx="6"
                     id={element.cardID.toString()}
                 />
+                {/* {activeFocusValue.elementType === "card" && activeFocusValue.ID === props.card.cardID && (
+                    < CardFocus
+                        key={"cardFocusNr" + props.card.cardID}
+                        card={props.card}
+                        saveCard={props.saveCard}
+                        handleWidthHeight={handleWidthHeight}
+                    />
+                )} */}
             </g>
 
         </>

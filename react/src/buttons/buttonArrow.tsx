@@ -18,6 +18,7 @@ export const ButtonArrow = () => {
   }
   
 //useDragHook
+ // more info to usedrop in https://codesandbox.io/s/react-dnd-02-chess-board-and-lonely-knight-7buy2?from-embed=&file=/src/components/BoardSquare.js:394-653
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
     type: ItemTypes.NEWARROW, //drop targets react to this type
     //item: { }, // information the drop targets have
