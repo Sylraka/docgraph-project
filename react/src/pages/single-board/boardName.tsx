@@ -1,30 +1,49 @@
-import { useEffect } from "react"
+import { useRef, useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
+
+
+import { setSingleBoardInside, } from "./singleBoardSlice"
+import { Board } from '../../app/fetch-data/dataTypes';
 
 
 export const BoardName = (props: any) => {
 
+    let board = useAppSelector(state => state.singleBoard.board)
+    const dispatch = useAppDispatch()
+
 
     useEffect(() => {
 
-        if (props.editMode === true) {
-            setWidth("IDboardName" + props.boardID);
-        }
+
+        setWidth("IDboardName" + props.boardID);
+
+
     }, [props.boardID]);
 
 
 
     const setWidth = (fieldId: string) => {
-        let element = document.getElementById(fieldId);
-        //  element.parentNode.dataset.value = element.value;
-        console.log("setwidth is not implemented yet")
+        let element = document.getElementById(fieldId) as HTMLInputElement;
+
+        element.style.width = `${element.value.length + 2}ch`;
+
     }
+
+
 
     //TODO: boardname size blocker 
     const manageTextInput = (fieldId: string) => {
-        let element = document.getElementById(fieldId);
+        let element = document.getElementById(fieldId) as HTMLInputElement;
         setWidth(fieldId);
-        //props.updateBoardName(element.value);
-        console.log("manageTextInput is not implemented yet")
+        console.log(element.value)
+
+        let newBoard: Board
+        newBoard = {
+            ...board!,
+            boardName: element.value
+        }
+
+        dispatch(setSingleBoardInside(newBoard));
     }
 
     if (props.editMode === true) {
@@ -35,6 +54,7 @@ export const BoardName = (props: any) => {
                     className="board-name board-name-input"
                     defaultValue={props.boardName}
                     onInput={() => manageTextInput("IDboardName" + props.boardID)}
+                    maxLength={60}
                 />
             </label>
         )

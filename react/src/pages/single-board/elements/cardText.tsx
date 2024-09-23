@@ -9,6 +9,7 @@ import { Card } from '../../../app/fetch-data/dataTypes';
 
 
 
+import { setCardInside, } from "./../singleBoardSlice"
 
 
 
@@ -20,6 +21,7 @@ interface canvasProps {
 
 export default function CardTextComponent(props: canvasProps) {
     const activeDragValue = useAppSelector((state) => state.drag)
+    const dispatch = useAppDispatch()
 
     const [element, setElement] = useState<Card>({
         ...props.card,
@@ -29,7 +31,7 @@ export default function CardTextComponent(props: canvasProps) {
 
     //update width and height of a card (cardFocus is moving)
     useEffect(() => {
-        if(activeDragValue.elementType === "card"){
+        if (activeDragValue.elementType === "card") {
             setTextPosition();
         }
 
@@ -73,7 +75,15 @@ export default function CardTextComponent(props: canvasProps) {
     }, [activeDragValue]);
 
 
-
+    const manageTextInput= (fieldId: string) => {
+        let newCard:Card;
+        let element = document.getElementById(fieldId) as HTMLTextAreaElement;
+        newCard= {
+            ...props.card,
+            text: element!.value,
+        }
+        dispatch(setCardInside(newCard));
+    }
 
     const setTextPosition = () => {
 
@@ -87,12 +97,15 @@ export default function CardTextComponent(props: canvasProps) {
     }
 
     return (
-        <p
+        <textarea
             key={props.card.cardID.toString()}
-            className='text-element'
-            style={{ 'top': element.y, 'left': element.x, 'width': element.width - 10, 'height': element.height - 40 }}
+            id={"textID" + props.card.cardID}
+            //className='text-element'
+            className="text-element card-field-input no-cursor strong"
+            style={{ 'top': element.y, 'left': element.x, 'width': element.width - 10, 'height': element.height - 10 }}
+            onInput={() => manageTextInput("textID" + props.card.cardID)}//
         >
             {element.text}
-        </p>
+        </textarea>
     );
 }

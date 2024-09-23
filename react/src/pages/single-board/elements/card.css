@@ -8,6 +8,36 @@
     z-index: 100;
 }
 
+.card-field-input {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border: 0px;
+    border-radius: 3px;
+    text-align: center;
+    resize: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.1px;
+    overflow: hidden;
+}
+
+
+.card-math-input {
+    width: 100%;
+    height: 100%;
+    background: rgb(195, 204, 206);
+    border: 0px;
+    border-radius: 3px;
+    text-align: center;
+    resize: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.1px;
+    overflow: hidden;
+}
 
 .drag-box {
     position: absolute;
