@@ -66,7 +66,7 @@ export default function ArrowComponent(props: canvasProps) {
                 } else if (rotation > 225 && rotation <= 315) {
                     xOnCard = activeDragValue.placeToLeftX + activeDragValue.width
                     yOnCard = activeDragValue.placeToTopY + activeDragValue.height / 2
-                } else if (rotation > 315 && rotation <= 360 && rotation >= 0 && rotation < 45) {
+                } else if (rotation > 315 && rotation <= 360 || rotation >= 0 && rotation < 45) {
                     xOnCard = activeDragValue.placeToLeftX + activeDragValue.width / 2
                     yOnCard = activeDragValue.placeToTopY + activeDragValue.height
 
@@ -127,7 +127,7 @@ export default function ArrowComponent(props: canvasProps) {
                 } else if (rotation > 225 && rotation <= 315) {
                     xOnCard = activeDragValue.placeToLeftX - 10
                     yOnCard = activeDragValue.placeToTopY + activeDragValue.height / 2
-                } else if (rotation > 315 && rotation <= 360 && rotation >= 0 && rotation < 45) {
+                } else if (rotation > 315 && rotation <= 360 || rotation >= 0 && rotation < 45) {
                     xOnCard = activeDragValue.placeToLeftX + activeDragValue.width / 2
                     yOnCard = activeDragValue.placeToTopY - 10
                 }
