@@ -11,8 +11,9 @@ import { BoardName } from "./boardName"
 import DragArrow from "./elements/arrow";
 import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
-import { Sidebar } from "./sidebar";
-import CardFocus from "./elements/cardFocus"
+import { Sidebar } from "./nav-bars/sidebar";
+import CardFocus from "./elements/cardFocus";
+import CardNavComponent from "./nav-bars/cardMoreNav"
 
 // from the redux slices 
 import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
@@ -179,6 +180,7 @@ export const SingleBoard = () => {
                                             card={card}
                                             saveCard={saveCard}
                                         />
+                                        
 
 
                                     )
@@ -192,6 +194,15 @@ export const SingleBoard = () => {
                                     card={card}
                                 />
                             ))}
+                            {data?.cardList.map(card => (
+                                    activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID && (
+                                        < CardNavComponent
+                                            key={"cardNavNr" + card.cardID}
+                                            card={card}
+                                        />
+                                    )
+                                ))}
+
 
 
 

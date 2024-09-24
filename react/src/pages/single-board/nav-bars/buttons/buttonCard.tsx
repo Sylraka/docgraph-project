@@ -1,26 +1,25 @@
 import { /*useState,*/ useEffect } from "react";
 
 import { useDrag, DragPreviewImage } from "react-dnd";
-import { ItemTypes } from "../dragConstants";
+import { ItemTypes } from "../../../../dragConstants";
 
-import arrowPreviewImg from "../images/newArrowPreview.png";
+import cardPreviewImg from "./../../../../images/newCardPreview.png";
 
-import arrowImg from "../images/arrow_01.svg"
+import cardImg from "./../../../../images/card.svg"
 import './buttons.css'
 
 
-export const ButtonArrow = () => {
+export const ButtonCard = () => {
 
 
 
   const handleButton = () => {
-    console.log("you clicked buttonArrow!")
+    console.log("you clicked buttonCard!")
   }
   
 //useDragHook
- // more info to usedrop in https://codesandbox.io/s/react-dnd-02-chess-board-and-lonely-knight-7buy2?from-embed=&file=/src/components/BoardSquare.js:394-653
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
-    type: ItemTypes.NEWARROW, //drop targets react to this type
+    type: ItemTypes.NEWCARD, //drop targets react to this type
     //item: { }, // information the drop targets have
     collect: (monitor) => ({
       //pick up informations from the monitor object and inject them in this dragging source (usedrag)
@@ -35,14 +34,14 @@ export const ButtonArrow = () => {
 
   return (
     <>
-    <DragPreviewImage connect={preview} src={arrowPreviewImg} />
+    <DragPreviewImage connect={preview} src={cardPreviewImg} />
 
     <div 
     ref={dragRef}  
     className="sidebar-button" 
     onClick={handleButton} 
     >
-      <img className="sidebar-button-img" alt="new card" src={arrowImg} />
+      <img className="sidebar-button-img" alt="new card" src={cardImg} />
       
     </div>
     </>
