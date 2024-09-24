@@ -10,7 +10,7 @@ import { Card } from '../../../app/fetch-data/dataTypes';
 
 
 import { setCardInside, } from "./../singleBoardSlice"
-import {removeFocusElement} from "./focusSlice"
+
 
 
 interface canvasProps {
@@ -75,18 +75,14 @@ export default function CardTextComponent(props: canvasProps) {
     }, [activeDragValue]);
 
 
-    const manageTextInput = (value: string, fieldId: string) => {
-        let newCard: Card;
-        // let element = document.getElementById(fieldId) ;
-        newCard = {
+    const manageTextInput= (fieldId: string) => {
+        let newCard:Card;
+        let element = document.getElementById(fieldId) as HTMLTextAreaElement;
+        newCard= {
             ...props.card,
-            text: value,
+            text: element!.value,
         }
         dispatch(setCardInside(newCard));
-        setElement(prevElement => ({
-            ...prevElement,
-            text: value
-        }))
     }
 
     const setTextPosition = () => {
@@ -100,10 +96,6 @@ export default function CardTextComponent(props: canvasProps) {
         }
     }
 
-    const klickAtTextarea = () =>{
-        dispatch(removeFocusElement())
-    }
-
     return (
         <textarea
             key={props.card.cardID.toString()}
@@ -111,11 +103,9 @@ export default function CardTextComponent(props: canvasProps) {
             //className='text-element'
             className="text-element card-field-input no-cursor strong"
             style={{ 'top': element.y, 'left': element.x, 'width': element.width - 10, 'height': element.height - 10 }}
-            onChange={(event) => manageTextInput(event.target.value, "textID" + props.card.cardID)}//
-            onClick={klickAtTextarea}
-            value={element.text}
+            onInput={() => manageTextInput("textID" + props.card.cardID)}//
         >
-
+            {element.text}
         </textarea>
     );
 }

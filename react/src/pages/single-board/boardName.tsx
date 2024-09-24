@@ -54,7 +54,7 @@ export const BoardName = (props: any) => {
                     className="board-name board-name-input"
                     defaultValue={props.boardName}
                     onInput={() => manageTextInput("IDboardName" + props.boardID)}
-                    maxLength={60}
+                    maxLength={70}
                 />
             </label>
         )
