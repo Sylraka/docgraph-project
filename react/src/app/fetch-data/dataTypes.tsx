@@ -1,8 +1,8 @@
 export interface Card {
-	math: object;
+	// math: object;
 	cardID: number;
 	//canvasNumber: number;
-	cardTypes: string[];
+	cardType: string;
 	text: string;
 	x: number;
 	y: number;

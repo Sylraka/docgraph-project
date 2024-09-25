@@ -29,7 +29,6 @@ interface DragElement extends Card {
 export default function CardComponent(props: canvasProps) {
     const dispatch = useAppDispatch()
     const activeDragValue = useAppSelector(state => state.drag)
-    const activeFocusValue = useAppSelector(state => state.focus)
 
     const [element, setElement] = useState<DragElement>({
         // the attributes the cards didnt have
@@ -101,14 +100,6 @@ export default function CardComponent(props: canvasProps) {
 
     }, [activeDragValue]);
 
-    // const handleWidthHeight = (newWidth: number, newHeight: number) => {
-    //     // setElement(prevElement => ({
-    //     //                 ...prevElement,
-    //     //                 width: prevElement.width + newWidth,
-    //     //                 height: prevElement.height + newHeight
-    //     //             }))
-    //     //             console.log(newWidth,newHeight )
-    // }
 
 
 

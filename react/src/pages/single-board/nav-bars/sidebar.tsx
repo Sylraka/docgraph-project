@@ -3,6 +3,7 @@ import "./sidebar.scss"
 
 import { ButtonArrow } from "./buttons/buttonArrow"
 import { ButtonCard } from "./buttons/buttonCard"
+import { ButtonCardMath } from "./buttons/buttonCardMath"
 
 export const Sidebar = () => {
 
@@ -14,6 +15,7 @@ export const Sidebar = () => {
         <div className="sidebar">
             <ButtonArrow />
             <ButtonCard />
+            <ButtonCardMath />
         </div>
     )
 }

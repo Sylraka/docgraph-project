@@ -2,10 +2,10 @@
 import { Card, Board, Arrow } from './fetch-data/dataTypes';
 
 export const newCardData: Card = {
-    math: {
-        mathText: "mathText",
-        height: 100
-    },
+    // math: {
+    //     mathText: "mathText",
+    //     height: 100
+    // },
     cardID: -1,//are filled in rootBoards
     //canvasNumber: number;
     cardTypes: ['primitive'],
@@ -16,7 +16,21 @@ export const newCardData: Card = {
     height: 100
 
 }
+export const newCardMathData: Card = {
+    // math: {
+    //     mathText: "mathText",
+    //     height: 100
+    // },
+    cardID: -1,//are filled in rootBoards
+    //canvasNumber: number;
+    cardTypes: ['math'],
+    text: "math text",
+    x: 1,
+    y: 1,
+    width: 200,
+    height: 100
 
+}
 
 export const newArrowData: Arrow = {
     arrowID: -1,//are filled in rootBoards

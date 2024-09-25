@@ -13,7 +13,7 @@ import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
 import { Sidebar } from "./nav-bars/sidebar";
 import CardFocus from "./elements/cardFocus";
-import CardNavComponent from "./nav-bars/cardMoreNav"
+import CardMath from  "./elements/card-math/cardMath"
 
 // from the redux slices 
 import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
@@ -103,7 +103,7 @@ export const SingleBoard = () => {
 
     // more info to usedrop in https://codesandbox.io/s/react-dnd-02-chess-board-and-lonely-knight-7buy2?from-embed=&file=/src/components/BoardSquare.js:394-653
     const [, dropRef] = useDrop({
-        accept: [ItemTypes.NEWCARD, ItemTypes.NEWARROW],
+        accept: [ItemTypes.NEWCARD, ItemTypes.NEWARROW, ItemTypes.NEWCARDMATH],
         //TODO: get the cursorCoords and add them to newCardData
 
         drop: (item, monitor) => {
@@ -116,6 +116,9 @@ export const SingleBoard = () => {
                 console.log("newArrow trigger")
                 dispatch(addNewArrowInside(newArrowData))
                 // props.boardState.handleArrowFunctions.newArrow(newArrowData());
+            } else if (monitor.getItemType() === 'newCardMath') {
+                console.log("newCard Math trigger")
+
             } else {
                 console.error("ItemType not found:", monitor.getItemType())
             }
@@ -180,7 +183,7 @@ export const SingleBoard = () => {
                                             card={card}
                                             saveCard={saveCard}
                                         />
-                                        
+
 
 
                                     )
@@ -189,19 +192,27 @@ export const SingleBoard = () => {
                             </svg>
 
                             {data?.cardList.map(card => (
-                                <CardText
+                                (card.cardType === "primitive" && <CardText
                                     key={"cardTextNr" + card.cardID}
                                     card={card}
                                 />
+                                )
                             ))}
                             {data?.cardList.map(card => (
+                                (card.cardType === "math" && <CardMath
+                                    key={"cardMathNr" + card.cardID}
+                                    card={card}
+                                />
+                                )
+                            ))}
+                            {/* {data?.cardList.map(card => (
                                     activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID && (
                                         < CardNavComponent
                                             key={"cardNavNr" + card.cardID}
                                             card={card}
                                         />
                                     )
-                                ))}
+                                ))} */}
 
 
 

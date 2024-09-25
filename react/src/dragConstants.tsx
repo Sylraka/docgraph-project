@@ -1,4 +1,6 @@
 export const ItemTypes = {
     NEWCARD: 'newCard',
-    NEWARROW: 'newArrow'
+    NEWARROW: 'newArrow',
+    NEWCARDMATH: 'newCardMath'
   }
+
