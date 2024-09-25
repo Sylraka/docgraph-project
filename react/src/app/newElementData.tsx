@@ -8,7 +8,7 @@ export const newCardData: Card = {
     // },
     cardID: -1,//are filled in rootBoards
     //canvasNumber: number;
-    cardTypes: ['primitive'],
+    cardType: 'primitive',
     text: "your text",
     x: 1,
     y: 1,
@@ -23,7 +23,7 @@ export const newCardMathData: Card = {
     // },
     cardID: -1,//are filled in rootBoards
     //canvasNumber: number;
-    cardTypes: ['math'],
+    cardType: 'math',
     text: "math text",
     x: 1,
     y: 1,

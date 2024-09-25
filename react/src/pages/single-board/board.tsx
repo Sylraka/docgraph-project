@@ -29,7 +29,7 @@ import {
 //for insert new elements
 import { useDrop } from "react-dnd";
 import { ItemTypes } from './../../dragConstants';
-import { newArrowData, newCardData } from './../../app/newElementData';
+import { newArrowData, newCardData, newCardMathData } from './../../app/newElementData';
 
 
 export const SingleBoard = () => {
@@ -118,7 +118,7 @@ export const SingleBoard = () => {
                 // props.boardState.handleArrowFunctions.newArrow(newArrowData());
             } else if (monitor.getItemType() === 'newCardMath') {
                 console.log("newCard Math trigger")
-
+                dispatch(addNewCardInside(newCardMathData))
             } else {
                 console.error("ItemType not found:", monitor.getItemType())
             }
@@ -205,14 +205,6 @@ export const SingleBoard = () => {
                                 />
                                 )
                             ))}
-                            {/* {data?.cardList.map(card => (
-                                    activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID && (
-                                        < CardNavComponent
-                                            key={"cardNavNr" + card.cardID}
-                                            card={card}
-                                        />
-                                    )
-                                ))} */}
 
 
 

@@ -4,6 +4,7 @@ import { MathJax } from "better-react-mathjax";
 
 import { useAppDispatch, useAppSelector } from "./../../../../app/hooks"
 import { Card } from '../../../../app/fetch-data/dataTypes';
+import { setCardInside, } from "./../../singleBoardSlice"
 
 import "../card.css"
 
@@ -75,11 +76,20 @@ const CardTextMath = (props: mathProps) => {
         }
     }
 
-    const manageTextInput = (fieldId: any) => {
-        let element = document.getElementById(fieldId);
 
+    const manageTextInput = (value: string, fieldId: string) => {
+        let newCard: Card;
+        // let element = document.getElementById(fieldId) ;
+        newCard = {
+            ...props.card,
+            text: value,
+        }
+        dispatch(setCardInside(newCard));
+        setElement(prevElement => ({
+            ...prevElement,
+            text: value
+        }))
     }
-
     //let mathString = "\\int_0^1 x^2\\ dx";
     //const [mathString, setMathString] = useState(props.cardTextInfos.mathText);
 
@@ -115,7 +125,8 @@ const CardTextMath = (props: mathProps) => {
                     id={"mathID" + props.card.cardID}
                     className="card-math-input no-cursor strong tooltip"
                     defaultValue={props.card.text}
-                    onInput={() => manageTextInput("mathID" + props.card.cardID)}
+                    onChange={(event) => manageTextInput(event.target.value, "mathID" + props.card.cardID)}
+                    // onInput={() => manageTextInput("mathID" + props.card.cardID)}
                     spellCheck="false"
                 ></textarea>
                 <div className="mathOutput">
@@ -123,7 +134,7 @@ const CardTextMath = (props: mathProps) => {
                         hideUntilTypeset={"first"}
                         inline
                         dynamic>
-                        {`$$${props.card.text}$$`}{/* $$ are needed for interpretation in math */}
+                        {`$$${element.text}$$`}{/* $$ are needed for interpretation in math */}
                     </MathJax>
                 </div>
             </div>
