@@ -6,6 +6,9 @@ import { useAppDispatch, useAppSelector } from "./../../../../app/hooks"
 import { Card } from '../../../../app/fetch-data/dataTypes';
 import { setCardInside, } from "./../../singleBoardSlice"
 
+import {removeFocusElement} from "../focusSlice"
+
+
 import "../card.css"
 
 interface mathProps {
@@ -105,7 +108,9 @@ const CardTextMath = (props: mathProps) => {
         setIsHovering(false);
     };
 
-
+    const klickAtTextarea = ()  => {
+        dispatch(removeFocusElement())
+    }
 
     return (
         <>{/* input fields have to be in one start/closing tag */}
@@ -128,6 +133,7 @@ const CardTextMath = (props: mathProps) => {
                     onChange={(event) => manageTextInput(event.target.value, "mathID" + props.card.cardID)}
                     // onInput={() => manageTextInput("mathID" + props.card.cardID)}
                     spellCheck="false"
+                    onClick={klickAtTextarea}
                 ></textarea>
                 <div className="mathOutput">
                     <MathJax

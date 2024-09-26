@@ -1,4 +1,6 @@
-# my-project-2024
+# docgraph
+a little mind-map-project.
+Write your docu in graph-form.
 
 ## Frontend
 use react-redux-toolkit

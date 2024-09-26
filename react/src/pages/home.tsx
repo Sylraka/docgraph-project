@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { fetchAllBoards } from "../app/fetch-data/allBoardsSlice"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { clearState } from "./single-board/singleBoardSlice"
+import { SavedBoards } from "./savedBoards"
+
+
+import { createNewBoard } from '../app/fetch-data/allBoardsSlice.js'
+import { newBoardData } from "../app/newBoardData.js"
 
 
 import "./../general-styles.css"
@@ -19,12 +24,32 @@ export const Home = () => {
     },
         []);
 
+        //await is onjly allowed in async methods
+    const handleCreateBoard = async () => {
+        const newBoard = newBoardData
+
+        try {
+            // Dispatch Thunk und warte auf die Antwort, 
+            const resultAction = await dispatch(createNewBoard(newBoard));
+
+            // Wenn der Thunk erfolgreich war, navigiere zu einer neuen Seite
+            if (createNewBoard.fulfilled.match(resultAction)) {
+                // Beispiel: Navigiere zur neuen Board-Seite nach erfolgreicher Erstellung
+                navigate(`/board/${resultAction.payload._id}`);
+            } else {
+                // Fehlerbehandlung
+                console.log('Error creating board:', resultAction.payload);
+            }
+
+        } catch (error) {
+            console.error("failed to create board")
+        }
+    }
+
     return (
         <div className='background'>
             <div className='placeholder-1'></div>
-            <button onClick={() => navigate('/pets')}>
-                Go to testdata with pets
-            </button>
+
 
 
 
@@ -34,13 +59,10 @@ export const Home = () => {
                     <p>find your information in the bricks</p>
                 </header>
                 <main className="flex-wrapper border-horizontal">
-                    <div className="brick flex-content">
-                        {/*<Link to={"/board/generateNewBoard"} className="brick-content">
-                            neues Board
-                            <br /><br /><br />
-                            <p className="plus">+</p>
-                        </Link>*/}
-
+                    <div className="brick flex-content "
+                        onClick={handleCreateBoard}>
+                        <p className="brick-content">create new board</p>
+    
                     </div>
                 </main >
 
@@ -63,65 +85,3 @@ export const Home = () => {
 }
 
 
-
-
-const SavedBoards = (props: { sortBy: number }) => {
-
-
-    // Using a query hook automatically fetches data and returns query values
-    //const { data, isError, isLoading, isSuccess } = useFetchBoardsQuery()
-    let data = useAppSelector(state => state.allBoards.boards)
-
-    /**
-    useEffect(() => {
-        getAllBoards().then(data => {
-            console.log(data)
-
-            switch (props.sortBy) {
-                case sortLabels.label1:
-                    //thats for string
-                    data.sort((a, b) => a._id > b._id ? 1 : -1)
-                    break;
-                case sortLabels.label2:
-                    //thats for int
-                    data.sort((a, b) => a.boardPosition.x - b.boardPosition.x)
-                    break;
-                default:
-                    console.error("sort by ", props.sortBy, " is not possible!");
-                    break;
-            }
-
-            setAllBoards({
-                boardList: data
-            })
-        })
-    }, [props.sortBy]);
-    */
-    return (
-        <>
-            {
-                data?.map((board: { _id: Key | null | undefined; boardName: string; }) => (
-
-                    <div key={board._id} className="brick flex-content">
-                        <Link to={{
-                            pathname: "/board/" + board._id
-                        }} className="brick-content">
-                            {board.boardName}
-                        </Link>
-
-                    </div>
-
-                ))
-            }
-        </>
-    )
-
-}
-
-/**
-      {data.map(({ _id, boardName }) => (
-        <blockquote key={_id}>
-          &ldquo;{boardName}&rdquo;
-        </blockquote>
-      ))}
-       */

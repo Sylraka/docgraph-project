@@ -21,8 +21,27 @@ export const fetchAllBoards = createAsyncThunk(
     }
 );
 
+export const createNewBoard = createAsyncThunk(
+    'data/postData',
+       //parameter of thunk: newBoard
+    async (newBoard: any) => {
+         // Baue den Pfad zum API-Endpunkt zusammen
+         const response = await fetch(`http://localhost:5100/api/boards`, {
+            method: 'POST', // HTTP-Methode, hier POST 
+            headers: {
+                'Content-Type': 'application/json', // Stelle sicher, dass der Content-Type auf JSON gesetzt ist
+            },
+            body: JSON.stringify(newBoard), // Konvertiere das Board-Objekt in einen JSON-String
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json(); // Parsen der JSON-Antwort
+        return data
+        console.log("data:", data)
 
-
+    }
+)
 
 
 
