@@ -4,9 +4,40 @@
     position: absolute;
     font-size: 12px;
     word-wrap: break-word;
-    margin: 6px 10px 10px 8px;
+    margin: 33px 10px 10px 36px;
+    z-index: 100;
 }
 
+.card-field-input {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border: 0px;
+    border-radius: 3px;
+    text-align: center;
+    resize: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.1px;
+    overflow: hidden;
+}
+
+
+.card-math-input {
+    width: 100%;
+    height: 50%;
+    background: rgb(195, 204, 206);
+    border: 0px;
+    border-radius: 3px;
+    text-align: center;
+    resize: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.1px;
+    overflow: hidden;
+}
 
 .drag-box {
     position: absolute;
@@ -22,4 +53,32 @@
     background-color: #fff;
     border-radius: 3px;
     min-height: 28px;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+/*.tooltip */
+.tooltiptext {
+    visibility: visible;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    font-size: 11px;
+    padding: 5px 0;
+    border-radius: 4px;
+    top: -80px;
+    left: 20px;
+
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
 }

@@ -3,19 +3,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export interface DragState {
     elementType: string,
     ID: number,
-    placeToTop: number,
-    placeToRight: number,
-    placeToBottom: number,
-    placeToLeft: number
+    placeToLeftX: number,
+    placeToTopY: number,
+    width: number,
+    height: number,
 }
 
 const initialState: DragState = {
     elementType: "",
     ID: -1,
-    placeToTop: -1,
-    placeToRight: -1,
-    placeToBottom: -1,
-    placeToLeft: -1
+    placeToLeftX: -1,
+    placeToTopY: -1,
+    width: -1,
+    height: -1,
 }
 
 const dragSlice = createSlice({
@@ -25,32 +25,24 @@ const dragSlice = createSlice({
         setActiveDragElement(state, action: PayloadAction<DragState>) {
             state.elementType = action.payload.elementType;
             state.ID = action.payload.ID;
-            if (action.payload.elementType === "card") {
-                state.placeToTop = action.payload.placeToTop;
-                state.placeToRight = action.payload.placeToRight;
-                state.placeToBottom = action.payload.placeToBottom;
-                state.placeToLeft = action.payload.placeToLeft;
-            }
-        },
-        moveActiveDragElement(state, action: PayloadAction<DragState>) {
-            if (action.payload.elementType === "card") {
-                state.placeToTop = action.payload.placeToTop;
-                state.placeToRight = action.payload.placeToRight;
-                state.placeToBottom = action.payload.placeToBottom;
-                state.placeToLeft = action.payload.placeToLeft;
-            }
+
+            state.placeToLeftX = action.payload.placeToLeftX;
+            state.placeToTopY = action.payload.placeToTopY;
+            state.width = action.payload.width;
+            state.height = action.payload.height;
+
         },
         removeActiveDrag(state) {
             state.elementType = "";
             state.ID = -1;
-            state.placeToTop = -1;
-            state.placeToRight = -1;
-            state.placeToBottom = -1;
-            state.placeToLeft = -1
+            state.placeToLeftX = -1;
+            state.placeToTopY = -1;
+            state.width = -1;
+            state.height = -1;
         }
     }
 });
 
 
-export const { setActiveDragElement, moveActiveDragElement, removeActiveDrag } = dragSlice.actions;
+export const { setActiveDragElement, removeActiveDrag } = dragSlice.actions;
 export default dragSlice.reducer;

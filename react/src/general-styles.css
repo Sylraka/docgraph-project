@@ -44,6 +44,7 @@
   width: 100%;
   height: 100%;
   color: white;
+  text-decoration: none;
 }
 
 .brick-content:hover {
@@ -60,7 +61,13 @@
   padding: 20px;
 }
 
+
+
 /*a a:visited a:link a:hover a:active{
   color: grey;
   text-decoration: none;
 }*/
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+}

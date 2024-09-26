@@ -2,216 +2,206 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Card, Arrow } from '../../../app/fetch-data/apiSlice';
+import { Card, Arrow } from '../../../app/fetch-data/dataTypes';
 import "./arrow.css";
 import SvgArrowHead from "./arrowHead"
+import ArrowFocus from "./arrowFocus"
 
 //we need that to read the state
-import { useAppSelector } from '../../../app/hooks'; // Pfad zu deinem custom Hook
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
+import { setActiveDragElement, removeActiveDrag } from "./dragSlice"
+import { setFocusElement, FocusState } from "./focusSlice"
+import { setArrowInside } from "../singleBoardSlice"
 
 
 interface canvasProps {
     arrow: Arrow;
-    cards: Card[];
     saveArrow: (param: Arrow) => void
 }
 
+interface anchorCanvas {
+    x: number,
+    y: number,
 
+}
+
+export interface DragElement extends Arrow {
+    active: boolean,
+    movedLeftX: number,
+    movedTopY: number,
+}
 
 
 export default function ArrowComponent(props: canvasProps) {
-    const singleCanvasSize = useAppSelector((state) => state.canvasSize)
-    const [arrow, setArrow] = useState<Arrow>({
-        ...props.arrow
+    const dispatch = useAppDispatch()
+    let activeDragValue = useAppSelector((state) => state.drag)
+    let activeFocusValue = useAppSelector((state) => state.focus)
+    let overCardState = useAppSelector((state) => state.overCard)
+
+    const [element, setElement] = useState<DragElement>({
+        ...props.arrow,
+        active: false,
+        movedLeftX: -1, // Initialwert für xOffset
+        movedTopY: -1, // Initialwert für yOffset
+
     });
 
 
+    //every time the activeDragSlice triggers a card-movement, the arrows render again
     useEffect(() => {
-        props.cards.map(card => {
-            if (arrow.anchorStart.onCard === card.cardID) {
+        let xOnCard = 0;
+        let yOnCard = 0;
+        let rotation = computeRotation(element.anchorStart.anchorCanvas, element.anchorEnd.anchorCanvas)
+        ///console.log("rotation",rotation)
+        //update arrow if card moves || update arrow if anchor moves
+        if ((activeDragValue.ID === element.anchorStart.onCard && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID && activeDragValue.elementType === "arrowAnchorStart")) {
+            //update arrow if card moves
+            if (activeDragValue.elementType === "card") {
+                if (rotation >= 45 && rotation <= 135) {
+                    xOnCard = activeDragValue.placeToLeftX
+                    yOnCard = activeDragValue.placeToTopY + activeDragValue.height / 2
+                } else if (rotation > 135 && rotation <= 225) {
+                    xOnCard = activeDragValue.placeToLeftX + activeDragValue.width / 2
+                    yOnCard = activeDragValue.placeToTopY
+                } else if (rotation > 225 && rotation <= 315) {
+                    xOnCard = activeDragValue.placeToLeftX + activeDragValue.width
+                    yOnCard = activeDragValue.placeToTopY + activeDragValue.height / 2
+                } else if (rotation > 315 && rotation <= 360 || rotation >= 0 && rotation < 45) {
+                    xOnCard = activeDragValue.placeToLeftX + activeDragValue.width / 2
+                    yOnCard = activeDragValue.placeToTopY + activeDragValue.height
 
-
-
-
-                if (card.canvasNumber === 1) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorStart: {
-                            ...prevArrow.anchorStart,
-                            anchorCanvas: {
-                                ...prevArrow.anchorStart.anchorCanvas,
-                                x: card.x,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
-                if (card.canvasNumber === 2) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorStart: {
-                            ...prevArrow.anchorStart,
-                            anchorCanvas: {
-                                ...prevArrow.anchorStart.anchorCanvas,
-                                x: card.x + singleCanvasSize.width,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
-                if (card.canvasNumber === 3) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorStart: {
-                            ...prevArrow.anchorStart,
-                            anchorCanvas: {
-                                ...prevArrow.anchorStart.anchorCanvas,
-                                x: card.x + singleCanvasSize.width * 2,
-                                y: card.y
-                            }
-                        }
-                    }))
                 }
 
-                props.saveArrow({
-                    ...arrow,
+                setElement((prevArrow) => ({
+                    ...prevArrow,
                     anchorStart: {
-                        ...arrow.anchorStart,
+                        ...prevArrow.anchorStart,
                         anchorCanvas: {
-                            ...arrow.anchorStart.anchorCanvas,
-                            x: card.x,
-                            y: card.y
+                            ...prevArrow.anchorStart.anchorCanvas,
+                            x: xOnCard,
+                            y: yOnCard
                         }
-                    },
-                })
-            }
-
-            if (arrow.anchorEnd.onCard === card.cardID) {
-
-
-                
-                if (card.canvasNumber === 1) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorEnd: {
-                            ...prevArrow.anchorEnd,
-                            anchorCanvas: {
-                                ...prevArrow.anchorEnd.anchorCanvas,
-                                x: card.x ,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
-                if (card.canvasNumber === 2) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorEnd: {
-                            ...prevArrow.anchorEnd,
-                            anchorCanvas: {
-                                ...prevArrow.anchorEnd.anchorCanvas,
-                                x: card.x + singleCanvasSize.width,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
-                if (card.canvasNumber === 3) {
-                    //point-operator is not allowed in typescript
-                    setArrow((prevArrow) => ({
-                        ...prevArrow,
-                        anchorEnd: {
-                            ...prevArrow.anchorEnd,
-                            anchorCanvas: {
-                                ...prevArrow.anchorEnd.anchorCanvas,
-                                x: card.x + singleCanvasSize.width * 2,
-                                y: card.y
-                            }
-                        }
-                    }))
-                }
-
-                props.saveArrow({
-                    ...arrow,
-                    anchorEnd: {
-                        ...arrow.anchorEnd,
-                        anchorCanvas: {
-                            ...arrow.anchorEnd.anchorCanvas,
-                            x: card.x,
-                            y: card.y
-                        }
-        
                     }
-                })
+                }))
+
+                //update arrow if anchor moves
+            } else if (activeDragValue.elementType === "arrowAnchorStart") {
+
+                setElement((prevArrow) => ({
+                    ...prevArrow,
+                    anchorStart: {
+                        ...prevArrow.anchorStart,
+                        onCard: overCardState.cardID,
+                        anchorCanvas: {
+                            ...prevArrow.anchorStart.anchorCanvas,
+                            x: activeDragValue.placeToLeftX,
+                            y: activeDragValue.placeToTopY,
+                        }
+                    }
+                }))
+
             }
-        });
+            //always save, overCardState is written in arrowFocus
+            props.saveArrow({
+                ...props.arrow,
+                anchorStart: {
+                    ...props.arrow.anchorStart,
+                    anchorCanvas: {
+                        ...props.arrow.anchorStart.anchorCanvas,
+                        x: xOnCard,
+                        y: yOnCard
+                    }
+                },
+            })
+        }
+        //update arrow if card moves || update arrow if anchor moves
+        if ((activeDragValue.ID === element.anchorEnd.onCard && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID && activeDragValue.elementType === "arrowAnchorEnd")) {
+            //update arrow if card moves
+            if (activeDragValue.elementType === "card") {
+                if (rotation >= 45 && rotation <= 135) {
+                    xOnCard = activeDragValue.placeToLeftX + activeDragValue.width + 10
+                    yOnCard = activeDragValue.placeToTopY + activeDragValue.height / 2
+                } else if (rotation > 135 && rotation <= 225) {
+                    xOnCard = activeDragValue.placeToLeftX + activeDragValue.width / 2
+                    yOnCard = activeDragValue.placeToTopY + activeDragValue.height + 10
+                } else if (rotation > 225 && rotation <= 315) {
+                    xOnCard = activeDragValue.placeToLeftX - 10
+                    yOnCard = activeDragValue.placeToTopY + activeDragValue.height / 2
+                } else if (rotation > 315 && rotation <= 360 || rotation >= 0 && rotation < 45) {
+                    xOnCard = activeDragValue.placeToLeftX + activeDragValue.width / 2
+                    yOnCard = activeDragValue.placeToTopY - 10
+                }
 
-    }, [props.cards, singleCanvasSize])
+                setElement((prevArrow) => ({
+                    ...prevArrow,
+                    anchorEnd: {
+                        ...prevArrow.anchorEnd,
+                        anchorCanvas: {
+                            ...prevArrow.anchorEnd.anchorCanvas,
+                            x: xOnCard,
+                            y: yOnCard
+                        }
+                    }
+                }))
+                //update arrow if anchor moves
+            } else if (activeDragValue.elementType === "arrowAnchorEnd") {
+                setElement((prevArrow) => ({
+                    ...prevArrow,
+                    anchorEnd: {
+                        ...prevArrow.anchorEnd,
+                        onCard: overCardState.cardID,
+                        anchorCanvas: {
+                            ...prevArrow.anchorEnd.anchorCanvas,
+                            x: activeDragValue.placeToLeftX,
+                            y: activeDragValue.placeToTopY,
+                        }
+                    }
+                }))
+            }
+            //always save, overCardState is written in arrowFocus
+            props.saveArrow({
+                ...props.arrow,
+                anchorEnd: {
+                    ...props.arrow.anchorEnd,
+                    anchorCanvas: {
+                        ...props.arrow.anchorEnd.anchorCanvas,
+                        x: xOnCard,
+                        y: yOnCard
+                    }
+
+                }
+            })
+        }
+
+    }, [activeDragValue])
+
+
+    // for the arrowHead
+    // 360/0 at bottom, 90 at left, 180 top, 270 right 
+    const computeRotation = (startPoint: anchorCanvas, endPoint: anchorCanvas) => {
+        //positive== right side, negative==left side
+        let differenceX = startPoint.x - endPoint.x;
+        let differenceY = startPoint.y - endPoint.y;
+
+        let rotation = Math.atan2(differenceX, differenceY); // range (-PI, PI]
+        rotation *= -1 * (180 / Math.PI)  // rads to degs, range (-180, 180]
+        rotation += 180;// range [0, 360)
+
+        //  console.log(rotation)
+        return (rotation);
+    }
 
 
 
 
-    
-    // function handlePointerDown(e: React.PointerEvent<SVGElement>) {
-    //     let newElements = elements.map(function (item, index2): DragElement {
-    //         if (index1 === index2) {
-    //             const el = e.currentTarget;
-    //             const bbox = e.currentTarget.getBoundingClientRect();
-    //             const x = e.clientX - bbox.left;
-    //             const y = e.clientY - bbox.top;
-    //             el.setPointerCapture(e.pointerId);
-    //             return { ...item, movedLeftX: x, movedTopY: y, active: true };
-    //         }
-    //         return item
-    //     });
-
-    //     setElements(newElements);
-    // }
-
-    // function handlePointerMove( e: React.PointerEvent<SVGElement>) {
-    //     let newElements = elements.map(function (item, index2): DragElement {
-    //         if (index1 === index2 && item.active === true) {
-    //             const bbox = e.currentTarget.getBoundingClientRect();
-    //             const x = e.clientX - bbox.left;
-    //             const y = e.clientY - bbox.top;
-
-    //             return {
-    //                 ...item,
-    //                 x: item.x - (item.movedLeftX - x),
-    //                 y: item.y - (item.movedTopY - y),
-    //             };
-    //         }
-    //         return item;
-    //     });
-    //     setElements(newElements);
-    // }
-
-    // function handlePointerUp(e: React.PointerEvent<SVGElement>) {
-    //     let newElements = elements.map(function (item, index2): DragElement {
-    //         if (index1 === index2) {
-    //             console.log("item: ", item)
-
-    //             //TODO: drag stop per canvas 1-3
-    //             // if(item.canvasNumber === 1){
-    //             //   if(item.x >= 100){
-    //             //     item.x=100;
-    //             //   }
-    //             // }
-    //             return { ...item, active: false, movedLeftX: -1, movedTopY: -1 };
-    //         }
-    //         return item;
-    //     });
-
-    //     setElements(newElements);
-    // }
 
 
-
+    // drags the hole arrow
+    function handlePointerDown(e: React.PointerEvent<SVGElement>) {
+        dispatch(setFocusElement({ elementType: "arrow", ID: props.arrow.arrowID }))
+        let newElement: DragElement;
+       
+    }
 
 
 
@@ -220,24 +210,33 @@ export default function ArrowComponent(props: canvasProps) {
         <>
 
             <g
-                key={arrow.arrowID}
+                key={"arrowGroupID" + element.arrowID}
+
             >
                 <line
-                    x1={arrow.anchorStart.anchorCanvas.x}
-                    y1={arrow.anchorStart.anchorCanvas.y}
-                    x2={arrow.anchorEnd.anchorCanvas.x}
-                    y2={arrow.anchorEnd.anchorCanvas.y}
+                    x1={element.anchorStart.anchorCanvas.x}
+                    y1={element.anchorStart.anchorCanvas.y}
+                    x2={element.anchorEnd.anchorCanvas.x}
+                    y2={element.anchorEnd.anchorCanvas.y}
                     stroke="#006666"
                     strokeWidth={3}
-                // onPointerDown={(event) => handlePointerDown(event)}
-                // onPointerUp={(event) => handlePointerUp(event)}
-                // onPointerMove={(event) => handlePointerMove(event)}
+                    onPointerDown={(event) => handlePointerDown(event)}
+                  //  onPointerUp={(event) => handlePointerUp(event)}
+                  //  onPointerMove={(event) => handlePointerMove(event)}
+                    id={"lineID" + element.arrowID}
                 />
 
                 <SvgArrowHead
-                    arrow={arrow}
+                    arrow={element}
+                    computeRotation={computeRotation}
                 />
+
+
+
+
+
             </g>
+
         </>
     );
 }

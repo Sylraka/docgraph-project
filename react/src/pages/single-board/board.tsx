@@ -1,23 +1,36 @@
 import { useEffect, useState } from "react"
 
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAppDispatch } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 
 import './board.scss';
+
+//show elements
 import DragCard from "./elements/card"
 import { BoardName } from "./boardName"
 import DragArrow from "./elements/arrow";
+import CardText from "./elements/cardText";
+import ArrowFocus from "./elements/arrowFocus"
+import { Sidebar } from "./nav-bars/sidebar";
+import CardFocus from "./elements/cardFocus";
+import CardMath from  "./elements/card-math/cardMath"
 
-import boardsApiSlice, { useFetchSingleBoardQuery } from "../../app/fetch-data/apiSlice"
-import { Card, Board, Arrow, useUpdateBoardMutation } from '../../app/fetch-data/apiSlice';
-import { setCanvasSize } from "./canvasSizeSlice";
+// from the redux slices 
+import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
+import { removeFocusElement } from "./elements/focusSlice"
+import {
+    fetchData, clearState,
+    setSingleBoardInside, setCardInside, setArrowInside,
+    updateBoardInDb,
+    addNewArrowInside, addNewCardInside,
+    deleteArrowInside, deleteCardInside
+} from "./singleBoardSlice"
 
+//for insert new elements
+import { useDrop } from "react-dnd";
+import { ItemTypes } from './../../dragConstants';
+import { newArrowData, newCardData, newCardMathData } from './../../app/newElementData';
 
-interface cardLists {
-    cardList1: Card[]
-    cardList2: Card[]
-    cardList3: Card[]
-}
 
 export const SingleBoard = () => {
     const navigate = useNavigate();
@@ -27,257 +40,207 @@ export const SingleBoard = () => {
 
     // extract Board-ID from path
     const boardId = location.pathname.split('/').pop() || 'IdNotDefined';
-    // Using a query hook automatically fetches data and returns query values
-    const { data, isError, isLoading, isSuccess } = useFetchSingleBoardQuery(boardId);
-    //umbenennung um namenskonflikte zu vermeiden
-    //returns a tuple with a function and an object
-    const [updateBoardMutation, { isLoading: updateIsLoading, isSuccess: updateIsSuccess, isError: updateIsError }] = useUpdateBoardMutation();
 
-    // const[canvasSize, setCanvasSize]=useState<{width: number, height:number}>({
-    //     width: -1,
-    //     height: -1
-    // })
+    let data = useAppSelector(state => state.singleBoard.board)
+    let activeFocusValue = useAppSelector((state) => state.focus)
 
 
-    const [cardLists, setCardLists] = useState<cardLists>({
-        cardList1: [],
-        cardList2: [],
-        cardList3: [],
+    useEffect(() => {
+        dispatch(fetchData(boardId))
+    }, [])
+
+
+    //to prevent "stale closure problem": have an old state if we didnt hear to activeFocusValue
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            //console.log("klick", event.key)
+            if (event.key === 'Backspace') {
+                console.log('Entf/Entfernen-Taste gedrückt, activeFocusValue:', activeFocusValue);
+                if (activeFocusValue.elementType === "arrow") {
+                    console.log("delete arrow")
+                    dispatch(deleteArrowInside(activeFocusValue.ID));
+                }
+                if (activeFocusValue.elementType === "card") {
+                    console.log("delete card")
+                    dispatch(deleteCardInside(activeFocusValue.ID))
+                }
+            }
+        };
+
+        // Event Listener hinzufügen
+        window.addEventListener('keydown', handleKeyDown);
+
+        // Cleanup-Funktion, um den Event Listener zu entfernen
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [activeFocusValue]);
+
+
+    const saveCard = (updatedCard: Card) => {
+        dispatch(setCardInside(updatedCard));
+
+    }
+
+    const saveArrow = (updatedArrow: Arrow) => {
+        dispatch(setArrowInside(updatedArrow));
+    }
+
+
+    const saveDBBoard = (updatedBoard: Board) => {
+        dispatch(updateBoardInDb(updatedBoard));
+    }
+
+
+    const handlePointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
+        const svg = event.target.toString()
+        if (svg === "[object SVGSVGElement]") {
+            console.log('SVG clicked, but not on an element!', svg);
+            dispatch(removeFocusElement())
+        }
+    }
+
+
+    // more info to usedrop in https://codesandbox.io/s/react-dnd-02-chess-board-and-lonely-knight-7buy2?from-embed=&file=/src/components/BoardSquare.js:394-653
+    const [, dropRef] = useDrop({
+        accept: [ItemTypes.NEWCARD, ItemTypes.NEWARROW, ItemTypes.NEWCARDMATH],
+        //TODO: get the cursorCoords and add them to newCardData
+
+        drop: (item, monitor) => {
+            console.log(item, monitor.getItemType())
+            if (monitor.getItemType() === 'newCard') {
+                console.log("newCard trigger")
+                dispatch(addNewCardInside(newCardData))
+                //props.boardState.handleCardFunctions.newCard(newCardData());
+            } else if (monitor.getItemType() === 'newArrow') {
+                console.log("newArrow trigger")
+                dispatch(addNewArrowInside(newArrowData))
+                // props.boardState.handleArrowFunctions.newArrow(newArrowData());
+            } else if (monitor.getItemType() === 'newCardMath') {
+                console.log("newCard Math trigger")
+                dispatch(addNewCardInside(newCardMathData))
+            } else {
+                console.error("ItemType not found:", monitor.getItemType())
+            }
+        }
     });
 
 
 
-    useEffect(() => {
-        let newCardList1: Card[] = [];
-        let newCardList2: Card[] = [];
-        let newCardList3: Card[] = [];
-
-        data?.cardList.forEach(card => {
-            if (card.canvasNumber === 1) {
-                newCardList1.push(card)
-            } else if (card.canvasNumber === 2) {
-                newCardList2.push(card)
-            } else if (card.canvasNumber === 3) {
-                newCardList3.push(card)
-            }
-
-        });
-
-        setCardLists({
-            cardList1: newCardList1,
-            cardList2: newCardList2,
-            cardList3: newCardList3,
-        })
-    }, [data?.cardList]);
-
-    //empty array, effect triggers by mount
-    useEffect(() => {
-
-        // Event-Listener hinzufügen
-        window.addEventListener('resize', handleResize);
-        handleResize()
-        const timer = setTimeout(() => {
-            // Dieser Code wird nach der Verzögerung ausgeführt
-            handleResize()
-          },100 );//1000=1sec
-        // Cleanup: Event-Listener entfernen, wenn die Komponente unmountet
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [])
-
-
-    const handleResize = () => {
-        const element = document.getElementById('fancy-canvas-wrapper-1')
-        const elementWidth = element?.offsetWidth; //oder element.clientWidth
-        const elementHeight = element?.offsetHeight;
-        console.log("resize!", elementWidth, elementHeight)
-        if (elementWidth !== undefined && elementHeight !== undefined) {
-            dispatch(setCanvasSize({ width: elementWidth, height: elementHeight }))
-        }
-    };
-
-    const saveCard = (updatedCard: Card) => {
-        let updatedCardList = data?.cardList.map(card => {
-            if (card.cardID === updatedCard.cardID) {
-                //    console.log("updated card:", updatedCard )
-                return {
-                    ...card,
-                    x: updatedCard.x,
-                    y: updatedCard.y
-                }
-            }
-            return card;
-        })
-
-        const updatedBoard: any = {
-            ...data,
-            cardList: updatedCardList
-        };
-        saveBoard(updatedBoard)
-    }
-
-    
-    const saveArrow = (updatedArrow: Arrow) => {
-        let updatedArrowList = data?.arrowList.map(arrow => {
-            if (arrow.arrowID === updatedArrow.arrowID) {
-                return {
-                    ...arrow,
-                    anchorStart: {
-                        ...arrow.anchorStart,
-                        onCard: updatedArrow.anchorStart.onCard,
-                        anchorCanvas: {
-                            canvasNumber: updatedArrow.anchorStart.anchorCanvas.canvasNumber,
-                            x: updatedArrow.anchorStart.anchorCanvas.x,
-                            y: updatedArrow.anchorStart.anchorCanvas.y
-                        }
-                    },
-                    anchorEnd: {
-                        ...arrow.anchorEnd,
-                        onCard: updatedArrow.anchorEnd.onCard,
-                        anchorCanvas: {
-                            canvasNumber: updatedArrow.anchorEnd.anchorCanvas.canvasNumber,
-                            x: updatedArrow.anchorEnd.anchorCanvas.x,
-                            y: updatedArrow.anchorEnd.anchorCanvas.y
-                        }
-                    }
-                }
-            }
-            return arrow;
-        })
-
-        const updatedBoard: any = {
-            ...data,
-            arrowList: updatedArrowList
-        };
-        saveBoard(updatedBoard)
-    }
-
-
-    const saveBoard = async (updatedBoard: Board) => {
-        try {
-
-            // Trigger die Mutation
-            const result = await updateBoardMutation(updatedBoard).unwrap();
-
-            // with updateboardmutation we cannot actualize the current state, so we have to trigger it manually
-            //"query" are the data wen can read or get with a GET
-            dispatch(
-                boardsApiSlice.util.updateQueryData('fetchSingleBoard', updatedBoard._id, (draft) => {
-                    // Lokalen Zustand des Boards mit den neuen Daten aktualisieren
-                    Object.assign(draft, updatedBoard);
-                })
-            );
-
-            //   console.log('Board updated successfully:', result);
-        } catch (error) {
-            console.error('Failed to update the board:', error);
-        }
-    }
-
-
-
-
-    if (isError) {
-        return (
-            <div>
-                <h1>There was an error!!!</h1>
+    // console.log(data);
+    return (
+        <>
+            <div className="board-name-wrapper">
+                <BoardName
+                    editMode={true}
+                    boardName={data?.boardName}
+                    boardID={data?._id}
+                />
+                {/*  updateBoardName={props.boardState.updateBoardName} */}
             </div>
-        )
-    }
-
-    if (isLoading) {
-        return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
-        )
-    }
-
-    if (isSuccess) {
-        // console.log(data);
-        return (
-            <>
-                <div className="board-name-wrapper">
-                    <BoardName
-                        editMode={true}
-                        boardName={data.boardName}
-                        boardID={data._id}
-                    />
-                    {/*  updateBoardName={props.boardState.updateBoardName} */}
-                </div>
 
 
-                <div className="canvas">
-                    <div className='flex-row'>
-                        {/* <Sidebar />*/}
+            <div className="canvas">
+                <div className='flex-row'>
+                    <Sidebar />
 
-                        <div className="three-canvas-container">
-                            <div className="flex-row" id="three-canvas-inner">
-                                <svg className='svg-canvas' >
-                                    {data?.arrowList.map(arrow => (
-                                        <DragArrow
+                    <div className="three-canvas-container">
+                        <div className="flex-row" id="three-canvas-inner">
+                            <svg className='svg-canvas' id="svg-canvas-id"
+                                onPointerDown={handlePointerDown}
+                                ref={dropRef}
+                            >
+                                {data?.arrowList.map(arrow => (
+                                    <DragArrow
+                                        key={"arrowNr" + arrow.arrowID}
+                                        arrow={arrow}
+                                        saveArrow={saveArrow}
+                                    />
+
+                                ))}
+                                {data?.cardList.map(card => (
+                                    <DragCard
+                                        key={"cardNr" + card.cardID}
+                                        card={card}
+                                        boardId={boardId}
+                                        saveCard={saveCard}
+                                    />
+                                ))}
+                                {data?.arrowList.map(arrow => (
+                                    activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID && (
+                                        <ArrowFocus
+                                            key={"arrowFocusNr" + arrow.arrowID}
                                             arrow={arrow}
-                                            cards={data?.cardList}
                                             saveArrow={saveArrow}
                                         />
+                                    )
 
-                                    ))}
-                                </svg>
-                                <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-1">
-                                    <div className='squares-wrapper flex-row' >
-                                        {cardLists.cardList1.map(card => (
-                                            <DragCard
-                                                card={card}
-                                                boardId={boardId}
-                                                saveCard={saveCard}
-                                            />
-                                        ))}
-                                    </div>
+                                ))}
+                                {data?.cardList.map(card => (
+                                    activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID && (
+                                        < CardFocus
+                                            key={"cardFocusNr" + card.cardID}
+                                            card={card}
+                                            saveCard={saveCard}
+                                        />
+
+
+
+                                    )
+                                ))}
+
+                            </svg>
+
+                            {data?.cardList.map(card => (
+                                (card.cardType === "primitive" && <CardText
+                                    key={"cardTextNr" + card.cardID}
+                                    card={card}
+                                />
+                                )
+                            ))}
+                            {data?.cardList.map(card => (
+                                (card.cardType === "math" && <CardMath
+                                    key={"cardMathNr" + card.cardID}
+                                    card={card}
+                                />
+                                )
+                            ))}
+
+
+
+
+
+                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-1">
+                                <div className='squares-wrapper flex-row' >
                                 </div>
-
-                                <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-2">
-                                    <div className='squares-wrapper'>
-                                        {cardLists.cardList2.map(card => (
-                                            <DragCard
-                                                card={card}
-                                                boardId={boardId}
-                                                saveCard={saveCard}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-
-
-
-                                <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-3">
-                                    <div className='squares-wrapper' >
-                                        {cardLists.cardList3.map(card => (
-                                            <DragCard
-                                                card={card}
-                                                boardId={boardId}
-                                                saveCard={saveCard}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-
                             </div>
+
+                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-2">
+                                <div className='squares-wrapper'>
+                                </div>
+                            </div>
+
+
+
+                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-3">
+                                <div className='squares-wrapper' >
+                                </div>
+                            </div>
+
                         </div>
-
-
-
                     </div>
 
 
+
                 </div>
 
 
-            </>
-        )
-    }
+            </div>
 
-    return null
+
+        </>
+    )
+
 }
 
 

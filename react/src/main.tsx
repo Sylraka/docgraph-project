@@ -5,6 +5,9 @@ import App from "./App"
 import { store } from "./app/store"
 import "./index.css"
 
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 const container = document.getElementById("root")
 
 if (container) {
@@ -12,9 +15,11 @@ if (container) {
 
   root.render(
     <React.StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <DndProvider backend={HTML5Backend}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </DndProvider>
     </React.StrictMode>,
   )
 } else {
