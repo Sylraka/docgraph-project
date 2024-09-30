@@ -11,12 +11,14 @@ import { SavedBoards } from "./savedBoards"
 import { createNewBoard } from '../app/fetch-data/allBoardsSlice.js'
 import { newBoardData } from "../app/newBoardData.js"
 
+import {MultiBoard} from "./multi-board/multi-board"
 
 import "./../general-styles.css"
 
 export const Home = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch()
+    const navigation = useAppSelector(state => state.navigation.nav)
 
     useEffect(() => {
         dispatch(fetchAllBoards())
@@ -45,7 +47,7 @@ export const Home = () => {
             console.error("failed to create board")
         }
     }
-
+    if (navigation==="home") {
     return (
         <div className='background'>
             <div className='placeholder-1'></div>
@@ -81,7 +83,11 @@ export const Home = () => {
 
 
         </div>
-    );
+    );} else {
+        return(
+            <MultiBoard/>
+        );
+    }
 }
 
 

@@ -13,7 +13,7 @@ import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
 import { Sidebar } from "./nav-bars/sidebar";
 import CardFocus from "./elements/cardFocus";
-import CardMath from  "./elements/card-math/cardMath"
+import CardMath from "./elements/card-math/cardMath"
 
 // from the redux slices 
 import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
@@ -25,6 +25,7 @@ import {
     addNewArrowInside, addNewCardInside,
     deleteArrowInside, deleteCardInside
 } from "./singleBoardSlice"
+import { setNavigationToSingleBoard } from "../../navigationSlice"
 
 //for insert new elements
 import { useDrop } from "react-dnd";
@@ -47,6 +48,7 @@ export const SingleBoard = () => {
 
     useEffect(() => {
         dispatch(fetchData(boardId))
+        dispatch(setNavigationToSingleBoard())
     }, [])
 
 

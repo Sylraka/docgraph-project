@@ -4,7 +4,7 @@ import "./general-styles.css"
 import { Pets } from "./former-code/pets/Pets"
 import { Home } from "./pages/home"
 import { SingleBoard } from "./pages/single-board/board"
-import Layout from "./layout-wrapper"
+import Layout from "./horizontal-nav"
 import { MathJaxContext } from "better-react-mathjax";
 //import WaitingForBoard from './pages/waitingForBoard';
 

@@ -1,0 +1,20 @@
+
+
+.svg-multi-board {
+    pointer-events: auto;
+    width: 2000px;  /* Initiale Breite, kann bei Bedarf dynamisch erweitert werden */
+    height: 2000px; /* Initiale Höhe */
+    background-image: url('../../images/caro.png'); /* Bild als Hintergrund */
+    background-repeat: repeat; /* Wiederholt das Bild */
+    background-size:2%; /* Standard: Bild in Originalgröße */
+}
+
+.svg-multi-board-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+}
