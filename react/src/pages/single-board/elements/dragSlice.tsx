@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface DragState {
     elementType: string,
-    ID: number,
+    ID: string,
     placeToLeftX: number,
     placeToTopY: number,
     width: number,
@@ -11,7 +11,7 @@ export interface DragState {
 
 const initialState: DragState = {
     elementType: "",
-    ID: -1,
+    ID: "",
     placeToLeftX: -1,
     placeToTopY: -1,
     width: -1,
@@ -34,7 +34,7 @@ const dragSlice = createSlice({
         },
         removeActiveDrag(state) {
             state.elementType = "";
-            state.ID = -1;
+            state.ID = "";
             state.placeToLeftX = -1;
             state.placeToTopY = -1;
             state.width = -1;

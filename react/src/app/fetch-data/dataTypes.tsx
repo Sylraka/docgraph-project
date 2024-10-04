@@ -37,7 +37,10 @@ export interface Board {
 	_id: string | undefined;
 	boardName: string;
 	boardType: string;
-	boardPosition: object;
+	boardPosition: {
+		x: number,
+		y: number
+	};
 	cardList: Card[];
 	arrowList: Arrow[];
 	cardIDCounter: number;

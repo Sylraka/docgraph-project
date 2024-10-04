@@ -36,14 +36,14 @@ export default function CardTextComponent(props: canvasProps) {
         }
 
 
-        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID) {
+        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 width: Math.max(prevElement.width + activeDragValue.width, 30),
                 height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 x: prevElement.x + activeDragValue.width,
@@ -51,7 +51,7 @@ export default function CardTextComponent(props: canvasProps) {
                 height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 y: prevElement.y + activeDragValue.height,
@@ -59,7 +59,7 @@ export default function CardTextComponent(props: canvasProps) {
                 height: Math.max(prevElement.height - activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 y: prevElement.y + activeDragValue.height,
@@ -91,7 +91,7 @@ export default function CardTextComponent(props: canvasProps) {
 
     const setTextPosition = () => {
 
-        if (activeDragValue.ID === props.card.cardID && activeDragValue.elementType === "card") {
+        if (activeDragValue.ID === props.card.cardID.toString() && activeDragValue.elementType === "card") {
             setElement((prevElement) => ({
                 ...prevElement,
                 x: activeDragValue.placeToLeftX + 60,

@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "./app/hooks"
 import { updateBoardInDb } from "./pages/single-board/singleBoardSlice"
 import { setNavigationToHome, setNavigationToSingleBoard, setNavigationToMultiBoard } from "./navigationSlice"
 
-
+import { updateBoardsInDb } from "./app/fetch-data/allBoardsSlice"
 
 import { Board } from './app/fetch-data/dataTypes'
 
@@ -18,6 +18,7 @@ import { Board } from './app/fetch-data/dataTypes'
 const Layout = () => {
   const dispatch = useAppDispatch()
   let data = useAppSelector(state => state.singleBoard.board)
+  let datas = useAppSelector(state => state.allBoards.boards)
 
   const location = useLocation();
   const boardId = location.pathname.split('/').pop() || 'IdNotDefined';
@@ -31,6 +32,12 @@ const Layout = () => {
   const saveDBBoard = (event: React.PointerEvent<HTMLButtonElement>, id: string) => {
 
     dispatch(updateBoardInDb(data!));
+
+  }
+
+  const saveDBBoards = (event: React.PointerEvent<HTMLButtonElement>, id: string) => {
+
+    dispatch(updateBoardsInDb(datas!));
 
   }
 
@@ -70,7 +77,21 @@ const Layout = () => {
                 <div className={'button-group'}> </div>
               </>}
 
-            {(navigation === "home" || navigation=== "multi-board") &&
+
+
+            {navigation === "multi-board" &&
+              <>
+                <button className={'button-general'}
+                  onPointerUp={(event) => saveDBBoards(event, boardId)}
+                >
+                  save Boards
+                </button>
+                <div className={'button-group'}> </div>
+              </>}
+
+
+
+            {(navigation === "home" || navigation === "multi-board") &&
               <>
                 <button
                   className={isMultiButtonOn === true ? 'button-radio-inactive' : 'button-radio-active'}

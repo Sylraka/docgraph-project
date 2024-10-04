@@ -5,4 +5,5 @@ const db = {};
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 db.boards = require("./board.model.js")(mongoose);
+db.multiboard = require("./multi-board.model.js")(mongoose);
 module.exports = db;

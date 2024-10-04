@@ -1,0 +1,347 @@
+[{
+  "boardName": "ML NLP FrameworksTEST",
+  "boardType": "",
+  "boardPosition": {
+    "x": 120,
+    "y": 130
+  }
+},
+{
+  "boardName": "Crawler",
+  "boardType": "",
+  "boardPosition": {
+    "x": 5,
+    "y": 0
+  }
+},
+{
+  "boardName": " statistische Klassifikation: generativer & diskriminativer Ansatz",
+  "boardType": "",
+  "boardPosition": {
+    "x": 43,
+    "y": 0
+  }
+},
+{
+  "boardName": "Text-zu-Bild-Generatoren, NLP vortrainierte Modelle",
+  "boardType": "",
+  "boardPosition": {
+    "x": 10,
+    "y": 0
+  }
+},
+{
+  "boardName": "ML Netzwerkarchitekturen Begriffe",
+  "boardType": "",
+  "boardPosition": {
+    "x": 11,
+    "y": 0
+  }
+},
+{
+  "boardName": "ML Netzwerkarchitekturen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 10,
+    "y": 0
+  }
+},
+{
+  "boardName": " (multiple) lineare Regression",
+  "boardType": "",
+  "boardPosition": {
+    "x": 39,
+    "y": 0
+  }
+},
+{
+  "boardName": "ML Modell&Verlust-/Kostenfunktion, Koeffizientenvektor, Residuen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 38,
+    "y": 0
+  }
+},
+{
+  "boardName": "multivariate Funktionen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 35,
+    "y": 0
+  }
+},
+{
+  "boardName": "binäre logistische - & multinominale logistische (Softmax) Regression",
+  "boardType": "",
+  "boardPosition": {
+    "x": 39,
+    "y": 0
+  }
+},
+{
+  "boardName": "ML Anwendungsfälle",
+  "boardType": "",
+  "boardPosition": {
+    "x": 10,
+    "y": 0
+  }
+},
+{
+  "boardName": "Wegweiser Infos in ML Folien",
+  "boardType": "",
+  "boardPosition": {
+    "x": 10,
+    "y": 0
+  }
+},
+{
+  "boardName": "ML Distanzmaße",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "boardName": "Statistik Kausale Netze, Bayes Netze",
+  "boardType": "",
+  "boardPosition": {
+    "x": 44,
+    "y": 0
+  }
+},
+{
+  "boardName": "Ideen für Features(hier)",
+  "boardType": "",
+  "boardPosition": {
+    "x": 4,
+    "y": 0
+  }
+},
+{
+  "boardName": "Mathe Ableitungs- bzw. Differenzierungssregeln",
+  "boardType": "",
+  "boardPosition": {
+    "x": 6,
+    "y": 0
+  }
+},
+{
+  "boardName": "Definitheit, Hermitesch, Konjugierte, Isometrie, Homogenität, Dreiecksungleichung",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "634c36a9a40319139e3053f2"
+  },
+  "boardName": "Matrizentypen, Eigenvektoren&Werte",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "boardName": "Räume, Basen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "boardName": "Mathe Symbole",
+  "boardType": "",
+  "boardPosition": {
+    "x": 6,
+    "y": 0
+  }
+},
+{
+  "boardName": "Pandas Befehle",
+  "boardType": "",
+  "boardPosition": {
+    "x": 7,
+    "y": 0
+  }
+},
+{
+  "boardName": "Häufigkeiten, Abhängigkeiten, Wahrscheinlichkeiten",
+  "boardType": "",
+  "boardPosition": {
+    "x": 45,
+    "y": 0
+  }
+},
+{
+  "boardName": "Statistik: Analyse Datensatz",
+  "boardType": "",
+  "boardPosition": {
+    "x": 47,
+    "y": 0
+  }
+},
+{
+  "boardName": "Normen: Beträge/Länge: euklidische Norm, Skalarprodukt, Frobeniusnorm,...",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "boardName": "Taylor-Polynom, Taylor-Reihe",
+  "boardType": "",
+  "boardPosition": {
+    "x": 41,
+    "y": 0
+  }
+},
+{
+  "boardName": "induktive Statistik: Statistisches Lernmodell, p-Wert, Hypothesentest, Chi-Quadrat-Test",
+  "boardType": "",
+  "boardPosition": {
+    "x": 48,
+    "y": 0
+  }
+},
+{
+  "boardName": "Statistik: Verteilungen, Binominalverteilung, Normalverteilung",
+  "boardType": "",
+  "boardPosition": {
+    "x": 49,
+    "y": 0
+  }
+},
+{
+  "boardName": "Kreisgleichung, Ellipsengleichung",
+  "boardType": "",
+  "boardPosition": {
+    "x": 39,
+    "y": 0
+  }
+},
+{
+  "boardName": "Lösung linearer Gleichungssysteme (opt3Numerik)",
+  "boardType": "",
+  "boardPosition": {
+    "x": 41,
+    "y": 0
+  }
+},
+{
+  "boardName": "Datenbanken",
+  "boardType": "",
+  "boardPosition": {
+    "x": 1,
+    "y": 0
+  }
+},
+{
+  "boardName": "Eigenvektoren im Detail",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "boardName": "Lösung LGS: direkte Zerlegungungen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 41,
+    "y": 0
+  }
+},
+{
+  "boardName": "Lösung LGS: iterative Zerlegungen/Splitting Verfahren",
+  "boardType": "",
+  "boardPosition": {
+    "x": 41,
+    "y": 0
+  }
+},
+{
+  "boardName": "Optimierungsverfahren (opt_4) und deren Methoden",
+  "boardType": "",
+  "boardPosition": {
+    "x": 42,
+    "y": 0
+  }
+},
+{
+  "boardName": "Mathe Umformungsregeln",
+  "boardType": "",
+  "boardPosition": {
+    "x": 6,
+    "y": 0
+  }
+},
+{
+  "boardName": "Maximum-Likelihood-Methode, Dichtefunktion",
+  "boardType": "",
+  "boardPosition": {
+    "x": 42,
+    "y": 0
+  }
+},
+{
+  "boardName": "ML Dimensionsreduktion: PCA, T-SNE",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "boardName": "ML Metriken",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "boardName": "Python",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "boardName": "Recommender Engines",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "boardName": "Mobilfunk Architekturen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "boardName": "Immutable State in JavaScript and Redux",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "boardName": "java",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+}]

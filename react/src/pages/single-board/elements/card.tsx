@@ -42,7 +42,7 @@ export default function CardComponent(props: canvasProps) {
 
 //update width and height of a card (cardFocus is moving)
     useEffect(() => {
-        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID) {
+        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 width: Math.max(prevElement.width + activeDragValue.width,30),
@@ -53,7 +53,7 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(props.card.width + activeDragValue.width, 30),
                 height:  Math.max(props.card.height + activeDragValue.height,30)
             })     
-        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 x:  prevElement.x + activeDragValue.width,
@@ -66,7 +66,7 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(props.card.width - activeDragValue.width, 30),
                 height:  Math.max(props.card.height + activeDragValue.height,30)
             })  
-        }else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID) {
+        }else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 y:  prevElement.y + activeDragValue.height,
@@ -79,7 +79,7 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(props.card.width + activeDragValue.width, 30),
                 height:  Math.max(props.card.height - activeDragValue.height,30)
             })  
-        }else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID) {
+        }else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 y:  prevElement.y + activeDragValue.height,
@@ -135,7 +135,7 @@ export default function CardComponent(props: canvasProps) {
                 //console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
                 dispatch(setActiveDragElement({
                     elementType: "card",
-                    ID: element.cardID,
+                    ID: element.cardID.toString(),
                     placeToTopY: placeToTop,
                     width: width,
                     height: height,
@@ -206,14 +206,6 @@ export default function CardComponent(props: canvasProps) {
                     rx="6"
                     id={element.cardID.toString()}
                 />
-                {/* {activeFocusValue.elementType === "card" && activeFocusValue.ID === props.card.cardID && (
-                    < CardFocus
-                        key={"cardFocusNr" + props.card.cardID}
-                        card={props.card}
-                        saveCard={props.saveCard}
-                        handleWidthHeight={handleWidthHeight}
-                    />
-                )} */}
             </g>
 
         </>

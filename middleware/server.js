@@ -17,12 +17,16 @@ const port = 5100;
 
 
 app.use(cors());
-app.use(express.json());
+//app.use(express.json());
 
+//increase payload-size to 10mb
+app.use(express.json({ limit: '10mb' }));//
 // Verbinden mit MongoDB
 //mongoose.connect('mongodb://localhost:27017/mydatabase', {
     //127.0.0.1
-mongoose.connect('mongodb://localhost:27017/graphProjectRuntime', {});
+mongoose.connect('mongodb://localhost:27017/graphProjectRuntime', {
+  
+});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -52,23 +56,23 @@ app.listen(port, () => {
 
 
 // Beispiel-Schema und Modell
-const itemSchema = new mongoose.Schema({
-  number: Number,
-  animal: String,
-});
+// const itemSchema = new mongoose.Schema({
+//   number: Number,
+//   animal: String,
+// });
 
 
-const Item = mongoose.model('Card', itemSchema);
+// const Item = mongoose.model('Card', itemSchema);
 
 // api-endpoint: will run when a get-request to ('/cards') comes in
-app.get('/cards', async (req, res) => {
-  try {
-    const items = await Item.find();
-    res.json(items);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+// app.get('/cards', async (req, res) => {
+//   try {
+//     const items = await Item.find();
+//     res.json(items);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
 
 
 

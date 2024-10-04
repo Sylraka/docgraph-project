@@ -31,14 +31,14 @@ const CardTextMath = (props: mathProps) => {
         }
 
 
-        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID) {
+        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 width: Math.max(prevElement.width + activeDragValue.width, 30),
                 height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 x: prevElement.x + activeDragValue.width,
@@ -46,7 +46,7 @@ const CardTextMath = (props: mathProps) => {
                 height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 y: prevElement.y + activeDragValue.height,
@@ -54,7 +54,7 @@ const CardTextMath = (props: mathProps) => {
                 height: Math.max(prevElement.height - activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 y: prevElement.y + activeDragValue.height,
@@ -70,7 +70,7 @@ const CardTextMath = (props: mathProps) => {
 
     const setTextPosition = () => {
 
-        if (activeDragValue.ID === props.card.cardID && activeDragValue.elementType === "card") {
+        if (activeDragValue.ID === props.card.cardID.toString() && activeDragValue.elementType === "card") {
             setElement((prevElement) => ({
                 ...prevElement,
                 x: activeDragValue.placeToLeftX + 60,

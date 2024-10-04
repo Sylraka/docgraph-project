@@ -4,10 +4,6 @@
   },
   "boardName": "ML NLP Frameworks",
   "boardType": "",
-  "boardPosition": {
-    "x": 110,
-    "y": 100
-  },
   "cardList": [
     {
       "cardType": "primitive",
@@ -295,10 +291,6 @@
   },
   "boardName": "Crawler",
   "boardType": "",
-  "boardPosition": {
-    "x": 5,
-    "y": 0
-  },
   "cardList": [
     {
       "cardType": "primitive",
@@ -497,10 +489,6 @@
   },
   "boardName": " statistische Klassifikation: generativer & diskriminativer Ansatz",
   "boardType": "",
-  "boardPosition": {
-    "x": 43,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -847,10 +835,6 @@
   },
   "boardName": "Text-zu-Bild-Generatoren, NLP vortrainierte Modelle",
   "boardType": "",
-  "boardPosition": {
-    "x": 10,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -930,10 +914,6 @@
   },
   "boardName": "ML Netzwerkarchitekturen Begriffe",
   "boardType": "",
-  "boardPosition": {
-    "x": 11,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -1257,10 +1237,6 @@
   },
   "boardName": "ML Netzwerkarchitekturen",
   "boardType": "",
-  "boardPosition": {
-    "x": 10,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -1679,10 +1655,6 @@
   },
   "boardName": " (multiple) lineare Regression",
   "boardType": "",
-  "boardPosition": {
-    "x": 39,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -1801,10 +1773,6 @@
   },
   "boardName": "ML Modell&Verlust-/Kostenfunktion, Koeffizientenvektor, Residuen",
   "boardType": "",
-  "boardPosition": {
-    "x": 38,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -2243,10 +2211,6 @@
   },
   "boardName": "multivariate Funktionen",
   "boardType": "",
-  "boardPosition": {
-    "x": 35,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -2418,10 +2382,6 @@
   },
   "boardName": "binäre logistische - & multinominale logistische (Softmax) Regression",
   "boardType": "",
-  "boardPosition": {
-    "x": 39,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 2,
@@ -2615,10 +2575,6 @@
   },
   "boardName": "ML Anwendungsfälle",
   "boardType": "",
-  "boardPosition": {
-    "x": 10,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -2836,10 +2792,6 @@
   },
   "boardName": "Wegweiser Infos in ML Folien",
   "boardType": "",
-  "boardPosition": {
-    "x": 10,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -3034,10 +2986,6 @@
   },
   "boardName": "ML Distanzmaße",
   "boardType": "",
-  "boardPosition": {
-    "x": 40,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -3185,10 +3133,6 @@
   },
   "boardName": "Statistik Kausale Netze, Bayes Netze",
   "boardType": "",
-  "boardPosition": {
-    "x": 44,
-    "y": 0
-  },
   "cardList": [
     {
       "cardType": "primitive",
@@ -3566,10 +3510,6 @@
   },
   "boardName": "Ideen für Features(hier)",
   "boardType": "",
-  "boardPosition": {
-    "x": 4,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -3694,10 +3634,6 @@
   },
   "boardName": "Mathe Ableitungs- bzw. Differenzierungssregeln",
   "boardType": "",
-  "boardPosition": {
-    "x": 6,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -4135,10 +4071,6 @@
   },
   "boardName": "Definitheit, Hermitesch, Konjugierte, Isometrie, Homogenität, Dreiecksungleichung",
   "boardType": "",
-  "boardPosition": {
-    "x": 40,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -4390,10 +4322,6 @@
   },
   "boardName": "Matrizentypen, Eigenvektoren&Werte",
   "boardType": "",
-  "boardPosition": {
-    "x": 40,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -4840,10 +4768,6 @@
   },
   "boardName": "Räume, Basen",
   "boardType": "",
-  "boardPosition": {
-    "x": 40,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -5189,10 +5113,6 @@
   },
   "boardName": "Mathe Symbole",
   "boardType": "",
-  "boardPosition": {
-    "x": 6,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -5567,10 +5487,6 @@
   },
   "boardName": "Pandas Befehle",
   "boardType": "",
-  "boardPosition": {
-    "x": 7,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -5641,10 +5557,6 @@
   },
   "boardName": "Häufigkeiten, Abhängigkeiten, Wahrscheinlichkeiten",
   "boardType": "",
-  "boardPosition": {
-    "x": 45,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -6199,10 +6111,6 @@
   },
   "boardName": "Statistik: Analyse Datensatz",
   "boardType": "",
-  "boardPosition": {
-    "x": 47,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 2,
@@ -6267,10 +6175,6 @@
   },
   "boardName": "Normen: Beträge/Länge: euklidische Norm, Skalarprodukt, Frobeniusnorm,...",
   "boardType": "",
-  "boardPosition": {
-    "x": 40,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 2,
@@ -6508,10 +6412,6 @@
   },
   "boardName": "Taylor-Polynom, Taylor-Reihe",
   "boardType": "",
-  "boardPosition": {
-    "x": 41,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -6585,10 +6485,6 @@
   },
   "boardName": "induktive Statistik: Statistisches Lernmodell, p-Wert, Hypothesentest, Chi-Quadrat-Test",
   "boardType": "",
-  "boardPosition": {
-    "x": 48,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -6984,10 +6880,6 @@
   },
   "boardName": "Statistik: Verteilungen, Binominalverteilung, Normalverteilung",
   "boardType": "",
-  "boardPosition": {
-    "x": 49,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -7324,10 +7216,6 @@
   },
   "boardName": "Kreisgleichung, Ellipsengleichung",
   "boardType": "",
-  "boardPosition": {
-    "x": 39,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -7445,10 +7333,6 @@
   },
   "boardName": "Lösung linearer Gleichungssysteme (opt3Numerik)",
   "boardType": "",
-  "boardPosition": {
-    "x": 41,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -7892,10 +7776,6 @@
   },
   "boardName": "Datenbanken",
   "boardType": "",
-  "boardPosition": {
-    "x": 1,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -7966,10 +7846,6 @@
   },
   "boardName": "Eigenvektoren im Detail",
   "boardType": "",
-  "boardPosition": {
-    "x": 40,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -8071,10 +7947,6 @@
   },
   "boardName": "Lösung LGS: direkte Zerlegungungen",
   "boardType": "",
-  "boardPosition": {
-    "x": 41,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -8380,10 +8252,6 @@
   },
   "boardName": "Lösung LGS: iterative Zerlegungen/Splitting Verfahren",
   "boardType": "",
-  "boardPosition": {
-    "x": 41,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -8699,10 +8567,6 @@
   },
   "boardName": "Optimierungsverfahren (opt_4) und deren Methoden",
   "boardType": "",
-  "boardPosition": {
-    "x": 42,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -8860,10 +8724,6 @@
   },
   "boardName": "Mathe Umformungsregeln",
   "boardType": "",
-  "boardPosition": {
-    "x": 6,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -9144,10 +9004,6 @@
   },
   "boardName": "Maximum-Likelihood-Methode, Dichtefunktion",
   "boardType": "",
-  "boardPosition": {
-    "x": 42,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -9368,10 +9224,6 @@
   },
   "boardName": "ML Dimensionsreduktion: PCA, T-SNE",
   "boardType": "",
-  "boardPosition": {
-    "x": 0,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -9473,10 +9325,6 @@
   },
   "boardName": "ML Metriken",
   "boardType": "",
-  "boardPosition": {
-    "x": 0,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -9541,10 +9389,6 @@
   },
   "boardName": "Python",
   "boardType": "",
-  "boardPosition": {
-    "x": 0,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -9677,10 +9521,6 @@
   },
   "boardName": "Recommender Engines",
   "boardType": "",
-  "boardPosition": {
-    "x": 0,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -9746,10 +9586,6 @@
   },
   "boardName": "Mobilfunk Architekturen",
   "boardType": "",
-  "boardPosition": {
-    "x": 0,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,
@@ -9913,10 +9749,6 @@
   },
   "boardName": "Immutable State in JavaScript and Redux",
   "boardType": "",
-  "boardPosition": {
-    "x": 0,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 2,
@@ -9955,10 +9787,6 @@
   },
   "boardName": "java",
   "boardType": "",
-  "boardPosition": {
-    "x": 0,
-    "y": 0
-  },
   "cardList": [
     {
       "cardID": 1,

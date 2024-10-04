@@ -37,19 +37,53 @@ export const createNewBoard = createAsyncThunk(
             throw new Error('Network response was not ok');
         }
         const data = await response.json(); // Parsen der JSON-Antwort
+        // das board wird als payload zurück gegeben
         return data
         console.log("data:", data)
 
     }
 )
 
+//  async Thunk zum Aktualisieren aller Boards
+export const updateBoardsInDb = createAsyncThunk(
+    'data/updateBoardsInDb', // Der Action-Typ
+    //parameter of thunk: updatedBoard
+    async (updatedBoards: Board[], { rejectWithValue }) => {
+        try {
+            // Baue den Pfad zum API-Endpunkt zusammen
+            const response = await fetch(`http://localhost:5100/api/boards/`, {
+                method: 'PUT', // HTTP-Methode, hier PUT für Updates
+                headers: {
+                    'Content-Type': 'application/json', // Stelle sicher, dass der Content-Type auf JSON gesetzt ist
+                },
+                body: JSON.stringify(updatedBoards), // Konvertiere das Board-Objekt in einen JSON-String
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json(); // Parsen der JSON-Antwort
+            console.log("data:", data)
+            return data; // Gib die aktualisierten Daten zurück
+        } catch (error) {
+            console.log(error)
+            //return rejectWithValue(error).payload; // Fehlerbehandlung
+        }
+    }
+);
 
 
 const boardsApiSlice = createSlice({
     name: "boardsApiSlice",
     initialState,
     reducers: {
-        
+        setBoard(state, action: PayloadAction<Board>) {
+            const boardIndex = state.boards?.findIndex(board => board._id === action.payload._id);
+            if (boardIndex !== undefined && state.boards !== undefined) {
+                state.boards[boardIndex] = action.payload;
+            }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -64,10 +98,15 @@ const boardsApiSlice = createSlice({
             .addCase(fetchAllBoards.rejected, (state, action) => {
                 // state.loading = false;
                 // state.error = action.error.message;
+            })            
+            .addCase(updateBoardsInDb.fulfilled, (state, action) => {
+                // state.loading = false;
+                state.boards = action.payload; // Daten in den State einfügen
             })
     }
 
 });
 
 
+export const { setBoard } = boardsApiSlice.actions;
 export default boardsApiSlice.reducer;

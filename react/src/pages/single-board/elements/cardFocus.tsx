@@ -140,7 +140,7 @@ export const CardFocus = (props: propTypes) => {
             setElementBottomLeft(newBottomLeft)
             dispatch(setActiveDragElement({
                 elementType: "cardAnchor" + location,
-                ID: props.card.cardID,
+                ID: props.card.cardID.toString(),
                 placeToLeftX: elementTopLeft.x,
                 placeToTopY: elementTopLeft.y,
                 width: x - elementTopLeft.offsetX,
@@ -172,7 +172,7 @@ export const CardFocus = (props: propTypes) => {
             setElementBottomRight(newBottomRight)
             dispatch(setActiveDragElement({
                 elementType: "cardAnchor" + location,
-                ID: props.card.cardID,
+                ID: props.card.cardID.toString(),
                 placeToLeftX: elementTopRight.x,
                 placeToTopY: elementTopRight.y,
                 width: x - elementTopRight.offsetX,
@@ -204,7 +204,7 @@ export const CardFocus = (props: propTypes) => {
             setElementBottomRight(newBottomRight)
             dispatch(setActiveDragElement({
                 elementType: "cardAnchor" + location,
-                ID: props.card.cardID,
+                ID: props.card.cardID.toString(),
                 placeToLeftX: elementBottomLeft.x,
                 placeToTopY: elementBottomLeft.y,
                 width: x - elementBottomLeft.offsetX,
@@ -238,7 +238,7 @@ export const CardFocus = (props: propTypes) => {
             // props.handleWidthHeight(x-elementBottomRight.offsetX, y-elementBottomRight.offsetY )
             dispatch(setActiveDragElement({
                 elementType: "cardAnchor" + location,
-                ID: props.card.cardID,
+                ID: props.card.cardID.toString(),
                 placeToLeftX: elementBottomRight.x,
                 placeToTopY: elementBottomRight.y,
                 width: x - elementBottomRight.offsetX,
