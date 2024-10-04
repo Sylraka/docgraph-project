@@ -24,7 +24,7 @@ module.exports = app => {
     // Retrieve all Boards
     router.get("/", boards.findAll);
     //update all boards, doesnt work
-    //router.put("/", boards.updateAll);
+    router.put("/", boards.updateAll);
 
     // Retrieve all published Boards
     //router.get("/published", boards.findAllPublished);

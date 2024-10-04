@@ -42,6 +42,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
   Board.find(condition)
+  .select("_id boardName boardPosition")
     .then(data => {
       res.send(data);
     })
@@ -90,31 +91,47 @@ exports.update = (req, res) => {
     });
 };
 
-//doesnt work because updateMany is for updating the same field in different entries
-// exports.updateAll = (req, res) => {
-//   //console.log(req.body);  // Überprüfe die Daten, die gesendet werden
-//   if (!req.body) {
-//     return res.status(400).send({
-//       message: "Data to update can not be empty!"
-//     });
-//   }
-//   // if i want to filter i can do that with condition
-//   const condition = {}; // Update all Boards, no Filter
-//   Board.updateMany(condition, { $set: req.body }, { multi: true })
-//     .then(data => {
-//       console.log(data)
-//       if (data.modifiedCount === 0) {
-//         res.status(404).send({
-//           message: `No Boards were updated. Perhaps there were no matches.`
-//         });
-//       } else res.send({ message: `${data.modifiedCount} Board(s) were updated successfully.` });
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message: err.message
-//       });
-//     });
-// };
+exports.updateAll = async (req, res) => {
+  //console.log(req.body);  // Überprüfe die Daten, die gesendet werden
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!"
+    });
+  }
+  const updatePromises = req.body.map(async (item) => {
+    const { _id, ...updateData } = item;  // Zerteile das Item in _id und die restlichen Daten
+
+    try {
+      const data = await Board.findByIdAndUpdate(_id, { $set: updateData }, { useFindAndModify: false});
+      if (!data) {
+        return {
+          id: _id,
+          message: `Cannot update Board with id=${_id}. Maybe Board was not found!`
+        };
+      } else {
+        return {
+          id: _id,
+          message: "Board was updated successfully."
+        };
+      }
+    } catch (err) {
+      return {
+        id: _id,
+        message: "Error updating Board with id=" + _id
+      };
+    }
+  });
+
+  // Warten auf alle Promises und senden der Antworten
+  try {
+    const results = await Promise.all(updatePromises);
+    res.send(results);  // Sende alle Ergebnisse zurück
+  } catch (error) {
+    res.status(500).send({
+      message: "An error occurred while updating boards."
+    });
+  }
+};
 
 
 // Delete a Board with the specified id in the request

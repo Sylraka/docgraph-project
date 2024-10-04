@@ -48,7 +48,7 @@ export const createNewBoard = createAsyncThunk(
 export const updateBoardsInDb = createAsyncThunk(
     'data/updateBoardsInDb', // Der Action-Typ
     //parameter of thunk: updatedBoard
-    async (updatedBoards: Board[], { rejectWithValue }) => {
+    async (updatedBoards: any, { rejectWithValue }) => {
         try {
             // Baue den Pfad zum API-Endpunkt zusammen
             const response = await fetch(`http://localhost:5100/api/boards/`, {
@@ -65,7 +65,7 @@ export const updateBoardsInDb = createAsyncThunk(
 
             const data = await response.json(); // Parsen der JSON-Antwort
             console.log("data:", data)
-            return data; // Gib die aktualisierten Daten zurück
+       //    return data; // Gib die aktualisierten Daten zurück
         } catch (error) {
             console.log(error)
             //return rejectWithValue(error).payload; // Fehlerbehandlung
@@ -98,11 +98,7 @@ const boardsApiSlice = createSlice({
             .addCase(fetchAllBoards.rejected, (state, action) => {
                 // state.loading = false;
                 // state.error = action.error.message;
-            })            
-            .addCase(updateBoardsInDb.fulfilled, (state, action) => {
-                // state.loading = false;
-                state.boards = action.payload; // Daten in den State einfügen
-            })
+            })  
     }
 
 });
