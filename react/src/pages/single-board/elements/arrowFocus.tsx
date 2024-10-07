@@ -5,10 +5,10 @@ import "./arrow.css"
 
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
-import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
-import overCardSlice, { setOverCard, removeOverCard } from "./overCardSlice"
+import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
+import overCardSlice, { setOverCard, removeOverCard } from "../../slices/overCardSlice"
 
-import { setArrowInside } from "../singleBoardSlice"
+import { setArrowInside } from "../../../app/fetch-data/singleBoardSlice"
 
 
 type propTypes = {

@@ -5,8 +5,8 @@ import { useEffect, useState } from "react"
 import "./buttons/buttons.css"
 
 import { useAppDispatch, useAppSelector } from "./app/hooks"
-import { updateBoardInDb } from "./pages/single-board/singleBoardSlice"
-import { setNavigationToHome, setNavigationToSingleBoard, setNavigationToMultiBoard } from "./navigationSlice"
+import { updateBoardInDb } from "./app/fetch-data/singleBoardSlice"
+import { setNavigationToHome, setNavigationToSingleBoard, setNavigationToMultiBoard } from "./pages/slices/navigationSlice"
 
 import { updateBoardsInDb } from "./app/fetch-data/allBoardsSlice"
 
@@ -67,27 +67,6 @@ const Layout = () => {
 
 
             <div className={'button-group'}> </div>
-            {navigation === "single-board" &&
-              <>
-                <button className={'button-general'}
-                  onPointerUp={(event) => saveDBBoard(event, boardId)}
-                >
-                  save Board
-                </button>
-                <div className={'button-group'}> </div>
-              </>}
-
-
-
-            {navigation === "multi-board" &&
-              <>
-                <button className={'button-general'}
-                  onPointerUp={(event) => saveDBBoards(event, boardId)}
-                >
-                  save Boards
-                </button>
-                <div className={'button-group'}> </div>
-              </>}
 
 
 
@@ -108,6 +87,28 @@ const Layout = () => {
                 </button>
               </>
             }
+
+            {navigation === "single-board" &&
+              <>
+                <button className={'button-general'}
+                  onPointerUp={(event) => saveDBBoard(event, boardId)}
+                >
+                  save Board
+                </button>
+                <div className={'button-group'}> </div>
+              </>}
+
+
+
+            {navigation === "multi-board" &&
+              <>
+                <div className={'button-group'}> </div>
+                <button className={'button-general'}
+                  onPointerUp={(event) => saveDBBoards(event, boardId)}
+                >
+                  save Boards
+                </button>
+              </>}
 
           </li>
           {/* <li>

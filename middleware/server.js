@@ -20,7 +20,7 @@ app.use(cors());
 //app.use(express.json());
 
 //increase payload-size to 10mb
-app.use(express.json({ limit: '10mb' }));//
+app.use(express.json());//
 // Verbinden mit MongoDB
 //mongoose.connect('mongodb://localhost:27017/mydatabase', {
     //127.0.0.1

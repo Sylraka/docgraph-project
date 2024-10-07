@@ -9,9 +9,9 @@ import ArrowFocus from "./arrowFocus"
 
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
-import { setActiveDragElement, removeActiveDrag } from "./dragSlice"
-import { setFocusElement, FocusState } from "./focusSlice"
-import { setArrowInside } from "../singleBoardSlice"
+import { setActiveDragElement, removeActiveDrag } from "../../slices/dragSlice"
+import { setFocusElement, FocusState } from "../../slices/focusSlice"
+import { setArrowInside } from "../../../app/fetch-data/singleBoardSlice"
 
 
 interface canvasProps {

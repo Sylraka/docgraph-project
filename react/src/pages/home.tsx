@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { fetchAllBoards } from "../app/fetch-data/allBoardsSlice"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { clearState } from "./single-board/singleBoardSlice"
+import { clearState } from "../app/fetch-data/singleBoardSlice"
 import { SavedBoards } from "./savedBoards"
 
 
 import { createNewBoard } from '../app/fetch-data/allBoardsSlice.js'
 import { newBoardData } from "../app/newBoardData.js"
 
-import {MultiBoard} from "./multi-board/multi-board"
+import {MultiBoard} from "./multi-board/multiBoard"
 
 import "./../general-styles.css"
 

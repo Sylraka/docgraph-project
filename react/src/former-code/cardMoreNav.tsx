@@ -10,7 +10,7 @@ import { Card } from '../app/fetch-data/dataTypes';
 
 
 
-import { setCardInside, } from "../pages/single-board/singleBoardSlice"
+import { setCardInside, } from "../app/fetch-data/singleBoardSlice"
 
 
 

@@ -6,9 +6,10 @@ import { useState, useEffect } from "react"
 
 import { useAppDispatch, useAppSelector } from "./../../app/hooks"
 import { Board } from '../../app/fetch-data/dataTypes';
+import { Link } from "react-router-dom";
 
-
-
+import "./multiBoard.css"
+import linkImg from "../../images/link.png"
 
 interface canvasProps {
     board: Board;
@@ -90,14 +91,15 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
         }))
     }
 
+
     const setTextPosition = () => {
 
         if (activeDragValue.ID === props.board._id && activeDragValue.elementType === "board") {
             setElement((prevElement) => ({
                 ...prevElement,
                 boardPosition: {
-                    x: activeDragValue.placeToLeftX + 60,
-                    y: activeDragValue.placeToTopY
+                    x: activeDragValue.placeToLeftX + 100,
+                    y: activeDragValue.placeToTopY + 50
                 }
             }))
         }
@@ -108,17 +110,27 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
     // }
 
     return (
-        <textarea
-            key={props.board._id}
-            id={"textID" + props.board._id}
-            //className='text-element'
-            className="text-element card-field-input no-cursor strong"
-            style={{ 'top': element.boardPosition.y, 'left': element.boardPosition.x, 'width': element.width - 10, 'height': element.height - 10 }}
-            onChange={(event) => manageTextInput(event.target.value, "textID" + props.board._id)}//
-            // onClick={klickAtTextarea}
-            value={element.boardName}
-        >
+        <>
+            <textarea
+                key={props.board._id}
+                id={"textID" + props.board._id}
+                //className='text-element'
+                className="multi-board-text-element text-element card-field-input"//
+                spellCheck="false"
+                style={{ 'top': element.boardPosition.y + (30), 'left': element.boardPosition.x - (element.width - 10), 'width': element.width, 'height': element.height }}
+                onChange={(event) => manageTextInput(event.target.value, "textID" + props.board._id)}//
+                // onClick={klickAtTextarea}
+                value={element.boardName}
+            >
+            </textarea>
+            <Link to={{
+                pathname: "/board/" + props.board._id
+            }} className="">
 
-        </textarea>
+                <img className="link-image" alt="go to board" src={linkImg}
+                    style={{ 'top': element.boardPosition.y + (85), 'left': element.boardPosition.x - 100 }}
+                />
+            </Link>
+        </>
     );
 }

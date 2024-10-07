@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-
+import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
 
 //for insert new elements
 import { useDrop } from "react-dnd";
-import { ItemTypes } from './../../dragConstants';
+import { ItemTypes } from '../../dragConstants';
 
 import { BoardMiniature } from "./boardMiniature";
-import  BoardMiniatureText  from "./boardMiniatureText"
-import "./multi-board.css"
+import BoardMiniatureText from "./boardMiniatureText"
+import "./multiBoard.css"
 
 export const MultiBoard = () => {
 
@@ -18,7 +18,7 @@ export const MultiBoard = () => {
 
 
     useEffect(() => {
-
+        dispatch(setNavigationToMultiBoard());
     }, [])
 
 
@@ -43,9 +43,9 @@ export const MultiBoard = () => {
 
                 </svg>
                 {data?.boards?.map(board => (
-                    <BoardMiniatureText 
-                    key={"boardTextNr" + board._id}
-                    board={board}
+                    <BoardMiniatureText
+                        key={"boardTextNr" + board._id}
+                        board={board}
                     />
                 ))}
             </div>

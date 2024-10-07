@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { fetchAllBoards } from "../app/fetch-data/allBoardsSlice"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
-import { clearState } from "./single-board/singleBoardSlice"
+import { clearState } from "../app/fetch-data/singleBoardSlice"
 
 
 

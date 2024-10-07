@@ -2,14 +2,14 @@ import { useState, useRef, useEffect } from "react";
 import { MathJax } from "better-react-mathjax";
 
 
-import { useAppDispatch, useAppSelector } from "./../../../../app/hooks"
-import { Card } from '../../../../app/fetch-data/dataTypes';
-import { setCardInside, } from "./../../singleBoardSlice"
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { Card } from '../../../app/fetch-data/dataTypes';
+import { setCardInside, } from "../../../app/fetch-data/singleBoardSlice"
 
-import {removeFocusElement} from "../focusSlice"
+import {removeFocusElement} from "../../slices/focusSlice"
 
 
-import "../card.css"
+import "./card.css"
 
 interface mathProps {
     card: Card;

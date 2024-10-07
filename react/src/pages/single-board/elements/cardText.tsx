@@ -9,8 +9,8 @@ import { Card } from '../../../app/fetch-data/dataTypes';
 
 
 
-import { setCardInside, } from "./../singleBoardSlice"
-import {removeFocusElement} from "./focusSlice"
+import { setCardInside, } from "../../../app/fetch-data/singleBoardSlice"
+import {removeFocusElement} from "../../slices/focusSlice"
 
 
 interface canvasProps {

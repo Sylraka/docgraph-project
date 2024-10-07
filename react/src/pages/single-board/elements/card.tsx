@@ -6,9 +6,9 @@ import './card.css';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
-import { setFocusElement } from "./focusSlice"
-import { setOverCard } from "./overCardSlice"
+import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
+import { setFocusElement } from "../../slices/focusSlice"
+import { setOverCard } from "../../slices/overCardSlice"
 
 import CardFocus from "./cardFocus"
 

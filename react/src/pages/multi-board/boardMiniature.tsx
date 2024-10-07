@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { Board } from '../../app/fetch-data/dataTypes';
 import {setBoard} from "../../app/fetch-data/allBoardsSlice"
 
+import {setActiveDragElement} from "./../slices/dragSlice"
 
 interface miniatureProps {
     board: Board,
@@ -59,14 +60,14 @@ export const BoardMiniature = (props: miniatureProps) => {
                 let height = cardBounds.height
                 let placeToLeft = cardBounds.left - parentNodeBounds.left;
                 //console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
-                // dispatch(setActiveDragElement({
-                //     elementType: "card",
-                //     ID: element.cardID,
-                //     placeToTopY: placeToTop,
-                //     width: width,
-                //     height: height,
-                //     placeToLeftX: placeToLeft
-                // }))
+                dispatch(setActiveDragElement({
+                    elementType: "board",
+                    ID: element._id!,
+                    placeToTopY: placeToTop,
+                    width: width,
+                    height: height,
+                    placeToLeftX: placeToLeft
+                }))
             }
 
 
@@ -89,6 +90,8 @@ export const BoardMiniature = (props: miniatureProps) => {
             setElement(newElement);
         }
     }
+
+
 
     function handlePointerUp(e: React.PointerEvent<SVGElement>) {
         let newElement: DragElement;
