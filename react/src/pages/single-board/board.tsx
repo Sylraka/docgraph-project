@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
@@ -128,6 +128,42 @@ export const SingleBoard = () => {
     });
 
 
+    const divRef = useRef<HTMLDivElement>(null); // Referenz auf das div-Element
+    const [isDragging, setIsDragging] = useState(false); // Zustand für das Ziehen
+    const [startPoint, setStartPoint] = useState({ x: 0, y: 0 }); // Startpunkt der Maus
+    const [scrollPosition, setScrollPosition] = useState({ left: 0, top: 0 }); // Scrollposition
+
+    // Rechtsklick-Event (startet das Ziehen)
+    const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.preventDefault(); // Verhindert das Standard-Kontextmenü
+        setIsDragging(true); // Setzt den Dragging-Zustand
+        setStartPoint({ x: event.clientX, y: event.clientY }); // Startposition der Maus
+        const div = divRef.current;
+        if (div) {
+            setScrollPosition({
+                left: div.scrollLeft,
+                top: div.scrollTop
+            });
+        }
+    };
+
+    // Bewegt das SVG, indem die Scrollposition des div geändert wird
+    const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+        if (isDragging) {
+            const div = divRef.current;
+            // Berechnung der neuen Scroll-Position relativ zur Mausbewegung
+            if (div) {
+                div.scrollLeft = scrollPosition.left - (event.clientX - startPoint.x);
+                div.scrollTop = scrollPosition.top - (event.clientY - startPoint.y);
+            }
+        }
+    };
+
+    // Beendet das Ziehen, wenn die Maus losgelassen wird
+    const handlePointerUp = () => {
+        setIsDragging(false); // Beendet den Dragging-Zustand
+    };
+
 
     // console.log(data);
     return (
@@ -146,8 +182,12 @@ export const SingleBoard = () => {
                 <div className='flex-row'>
                     <Sidebar />
 
-                    <div className="three-canvas-container">
-                        <div className="flex-row" id="three-canvas-inner">
+                    <div className="three-canvas-container"
+                                    ref={divRef}
+                                    onPointerMove={event => handlePointerMove(event)}
+                                    onPointerUp={handlePointerUp}
+                                    onContextMenu={event => handleRightClick(event)} // Rechtsklick-Event starten
+                    >
                             <svg className='svg-canvas' id="svg-canvas-id"
                                 onPointerDown={handlePointerDown}
                                 ref={dropRef}
@@ -207,30 +247,8 @@ export const SingleBoard = () => {
                                 />
                                 )
                             ))}
-
-
-
-
-
-                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-1">
-                                <div className='squares-wrapper flex-row' >
-                                </div>
-                            </div>
-
-                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-2">
-                                <div className='squares-wrapper'>
-                                </div>
-                            </div>
-
-
-
-                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-3">
-                                <div className='squares-wrapper' >
-                                </div>
-                            </div>
-
                         </div>
-                    </div>
+
 
 
 

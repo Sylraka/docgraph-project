@@ -110,7 +110,7 @@ export default function CardTextComponent(props: canvasProps) {
             id={"textID" + props.card.cardID}
             //className='text-element'
             className="text-element card-field-input no-cursor strong"
-            style={{ 'top': element.y, 'left': element.x, 'width': element.width - 10, 'height': element.height - 10 }}
+            style={{ 'top': element.y -15, 'left': element.x -78, 'width': element.width - 10, 'height': element.height - 10 }}
             onChange={(event) => manageTextInput(event.target.value, "textID" + props.card.cardID)}//
             onClick={klickAtTextarea}
             value={element.text}

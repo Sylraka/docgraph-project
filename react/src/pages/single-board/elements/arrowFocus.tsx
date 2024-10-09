@@ -118,7 +118,7 @@ const ArrowFocus = (props: propTypes) => {
                 //for updating the arrow, he is listening to dragState
                 newDragElement = {
                     elementType: "arrowAnchor" + location,
-                    ID: props.arrow.anchorStart.anchorID,
+                    ID: props.arrow.anchorStart.anchorID.toString(),
                     placeToLeftX: element.anchorStart.anchorCanvas.x,
                     placeToTopY: element.anchorStart.anchorCanvas.y,
                     width: 0,
@@ -142,7 +142,7 @@ const ArrowFocus = (props: propTypes) => {
                 //for updating the arrow, he is listening to dragState
                 newDragElement = {
                     elementType: "arrowAnchor" + location,
-                    ID: props.arrow.anchorEnd.anchorID,
+                    ID: props.arrow.anchorEnd.anchorID.toString(),
                     placeToLeftX: element.anchorEnd.anchorCanvas.x,
                     placeToTopY: element.anchorEnd.anchorCanvas.y,
                     width: 0,

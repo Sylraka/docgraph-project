@@ -54,7 +54,7 @@ export default function ArrowComponent(props: canvasProps) {
         let rotation = computeRotation(element.anchorStart.anchorCanvas, element.anchorEnd.anchorCanvas)
         ///console.log("rotation",rotation)
         //update arrow if card moves || update arrow if anchor moves
-        if ((activeDragValue.ID === element.anchorStart.onCard && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID && activeDragValue.elementType === "arrowAnchorStart")) {
+        if ((activeDragValue.ID === element.anchorStart.onCard.toString() && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID && activeDragValue.elementType === "arrowAnchorStart")) {
             //update arrow if card moves
             if (activeDragValue.elementType === "card") {
                 if (rotation >= 45 && rotation <= 135) {
@@ -115,7 +115,7 @@ export default function ArrowComponent(props: canvasProps) {
             })
         }
         //update arrow if card moves || update arrow if anchor moves
-        if ((activeDragValue.ID === element.anchorEnd.onCard && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID && activeDragValue.elementType === "arrowAnchorEnd")) {
+        if ((activeDragValue.ID === element.anchorEnd.onCard.toString() && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID && activeDragValue.elementType === "arrowAnchorEnd")) {
             //update arrow if card moves
             if (activeDragValue.elementType === "card") {
                 if (rotation >= 45 && rotation <= 135) {

@@ -115,7 +115,7 @@ const CardTextMath = (props: mathProps) => {
     return (
         <>{/* input fields have to be in one start/closing tag */}
             <div
-                style={{ 'top': element.y, 'left': element.x, 'width': element.width - 10, 'height': element.height - 10 }}
+                style={{ 'top': element.y-15, 'left': element.x-78, 'width': element.width - 10, 'height': element.height - 10 }}
                 className="text-element">
                 {isHovering && <span className="tooltiptext">
                     \\\int_0^1 für sum <br />
