@@ -7,6 +7,8 @@ import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
 import { useDrop } from "react-dnd";
 import { ItemTypes } from '../../dragConstants';
 
+import { Sidebar } from "./nav-bar/multiSidebar";
+
 import { BoardMiniature } from "./boardMiniature";
 import BoardMiniatureText from "./boardMiniatureText"
 import "./multiBoard.css"
@@ -29,7 +31,8 @@ export const MultiBoard = () => {
     return (
         <>
             <div className="svg-multi-board-wrapper">
-                <div style={{ 'width': "100px", 'height': "100px" }}></div>
+            <Sidebar />
+                {/* <div style={{ 'width': "100px", 'height': "100px" }}></div> */}
                 <svg
                     style={{ 'width': "2000px", 'height': "2000px" }}
                     className="svg-multi-board">
@@ -48,7 +51,10 @@ export const MultiBoard = () => {
                         board={board}
                     />
                 ))}
+  
             </div>
+
+
 
 
         </>

@@ -11,7 +11,7 @@ import { BoardName } from "./boardName"
 import DragArrow from "./elements/arrow";
 import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
-import { Sidebar } from "./nav-bars/sidebar";
+import { Sidebar } from "./nav-bar/sidebar";
 import CardFocus from "./elements/cardFocus";
 import CardMath from "./elements/cardMath"
 
