@@ -3,7 +3,7 @@ module.exports = mongoose => {
     // see https://mongoosejs.com/docs/schematypes.html
     {
       boardName: String,
-      boardType: String,
+      boardRubrics: Array,
       boardPosition: Object,
       cardList: Array,
       arrowList: Array,
@@ -13,12 +13,6 @@ module.exports = mongoose => {
     },
     { timestamps: true }
   );
-  //change _id to id
-  /* schema.method("toJSON", function () {
-    const { __v, _id, ...object } = this.toObject();
-    object.id = _id;
-    return object;
-  }); */
   const Board = mongoose.model("board", schema);
   return Board;
 };

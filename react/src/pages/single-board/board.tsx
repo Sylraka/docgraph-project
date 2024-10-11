@@ -209,7 +209,7 @@ export const SingleBoard = () => {
                                     />
                                 ))}
                                 {data?.arrowList.map(arrow => (
-                                    activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID && (
+                                    activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID.toString() && (
                                         <ArrowFocus
                                             key={"arrowFocusNr" + arrow.arrowID}
                                             arrow={arrow}
@@ -219,7 +219,7 @@ export const SingleBoard = () => {
 
                                 ))}
                                 {data?.cardList.map(card => (
-                                    activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID && (
+                                    activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID.toString() && (
                                         < CardFocus
                                             key={"cardFocusNr" + card.cardID}
                                             card={card}

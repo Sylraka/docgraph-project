@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface FocusState {
     elementType: string,
-    ID: number,
+    ID: string,
 }
 
 const initialState: FocusState = {
     elementType: "",
-    ID: -1,
+    ID: "",
 }
 
 
@@ -22,7 +22,7 @@ const focusSlice = createSlice({
 
         removeFocusElement(state) {
             state.elementType = "";
-            state.ID = -1;
+            state.ID = "";
         },
     }
     

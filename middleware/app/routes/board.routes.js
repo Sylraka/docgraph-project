@@ -20,21 +20,27 @@ module.exports = app => {
     const boards = require("../controllers/board.controller.js");
     var router = require("express").Router();
     // Create a new Board
-    router.post("/", boards.create);
+    router.post("/boards/", boards.create);
     // Retrieve all Boards
-    router.get("/", boards.findAll);
+    router.get("/boards/", boards.findAll);
     //update all boards, doesnt work
-    router.put("/", boards.updateAll);
+    router.put("/boards/", boards.updateAll);
 
     // Retrieve all published Boards
     //router.get("/published", boards.findAllPublished);
     // Retrieve a single Board with id
-    router.get("/:id", boards.findOne);
+    router.get("/boards/:id", boards.findOne);
     // Update a Board with id
-    router.put("/:id", boards.update);
+    router.put("/boards/:id", boards.update);
     // Delete a Board with id
-    router.delete("/:id", boards.delete);
+    router.delete("/boards/:id", boards.delete);
     // delete all Boards (doesn't needed)
-   //router.delete("/", boards.deleteAll);
-    app.use('/api/boards', router);
+   //router.delete("boards/", boards.deleteAll);
+
+   const arrows = require("../controllers/multiBoardArrows.controller.js");
+   router.post("/arrows", arrows.create)
+   router.get("/arrows", arrows.findAll)
+   router.put("/arrows", arrows.updateAll)
+   
+   app.use('/api', router);
   };

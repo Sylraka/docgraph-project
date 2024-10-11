@@ -1,5 +1,5 @@
 
-import { Card, Board, Arrow } from './fetch-data/dataTypes';
+import { Card, Board, Arrow, multiBoardArrow } from './fetch-data/dataTypes';
 
 export const newCardData: Card = {
     // math: {
@@ -55,3 +55,23 @@ export const newArrowData: Arrow = {
     }
 
 }
+
+export const newMultiBoardArrowData = {
+    arrowType: 'oneHead',
+    anchorStart: {
+        onCard: "",
+        boardRubrics: [],
+        x: 100,
+        y: 300
+
+    },
+    anchorEnd: {
+        onCard: "",
+        boardRubrics: [],
+        x: 100,
+        y: 200
+
+    }
+
+}
+

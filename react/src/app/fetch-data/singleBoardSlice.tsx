@@ -74,16 +74,16 @@ const singleBoardInsideSlice = createSlice({
                 state.board.arrowList[arrowIndex] = action.payload;
             }
         },
-        deleteCardInside(state, action: PayloadAction<number>) {
+        deleteCardInside(state, action: PayloadAction<String>) {
             if (state.board !== undefined) {
                 //fills all cards in cardlist where not having the cardid we want to delete
-                state.board.cardList = state.board?.cardList.filter(card => card.cardID !== action.payload)
+                state.board.cardList = state.board?.cardList.filter(card => card.cardID.toString() !== action.payload)
             }
         },
-        deleteArrowInside(state, action: PayloadAction<number>) {
+        deleteArrowInside(state, action: PayloadAction<String>) {
             if (state.board !== undefined) {
                 //fills all arrows in arrowlist where not having the arrowid we want to delete
-                state.board.arrowList = state.board?.arrowList.filter(arrow => arrow.arrowID !== action.payload)
+                state.board.arrowList = state.board?.arrowList.filter(arrow => arrow.arrowID.toString() !== action.payload)
             }
         },
         addNewCardInside(state, action: PayloadAction<Card>) {

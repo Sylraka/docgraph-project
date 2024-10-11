@@ -36,7 +36,7 @@ export interface Arrow {
 export interface Board {
 	_id: string | undefined;
 	boardName: string;
-	boardType: string;
+	boardRubrics: String[];
 	boardPosition: {
 		x: number,
 		y: number
@@ -46,6 +46,26 @@ export interface Board {
 	cardIDCounter: number;
 	arrowIDCounter: number;
 	anchorIDCounter: number;
+	createdAt: string | undefined;
+	updatedAt: string | undefined;
+	__v: number | undefined;
+}
+
+export interface multiBoardArrow {
+	_id: string | undefined;
+    arrowType: String,
+    anchorStart: {
+        onCard: String,
+        boardRubrics: String[],
+        x: number,
+        y: number
+    },
+    anchorEnd: {
+        onCard: String,
+        boardRubrics: String[],
+        x: number,
+        y: number
+    }
 	createdAt: string | undefined;
 	updatedAt: string | undefined;
 	__v: number | undefined;

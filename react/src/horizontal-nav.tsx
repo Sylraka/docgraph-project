@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react"
 
-import "./buttons/buttons.css"
+import "./pages/single-board/nav-bar/buttons/buttons.css";
 
 import { useAppDispatch, useAppSelector } from "./app/hooks"
 import { updateBoardInDb } from "./app/fetch-data/singleBoardSlice"

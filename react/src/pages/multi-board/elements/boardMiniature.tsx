@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 
-import { Board } from '../../app/fetch-data/dataTypes';
-import {setBoard} from "../../app/fetch-data/allBoardsSlice"
+import { Board } from '../../../app/fetch-data/dataTypes';
+import {setBoard} from "../../../app/fetch-data/allBoardsSlice"
 
-import {setActiveDragElement} from "./../slices/dragSlice"
+import {setActiveDragElement} from "../../slices/dragSlice"
 
 interface miniatureProps {
     board: Board,

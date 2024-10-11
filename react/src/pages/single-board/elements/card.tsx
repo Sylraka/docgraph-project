@@ -105,7 +105,7 @@ export default function CardComponent(props: canvasProps) {
 
 
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
-        dispatch(setFocusElement({ elementType: "card", ID: props.card.cardID }))
+        dispatch(setFocusElement({ elementType: "card", ID: props.card.cardID.toString() }))
         let newElement: DragElement;
         const el = e.currentTarget;
         const bbox = e.currentTarget.getBoundingClientRect();

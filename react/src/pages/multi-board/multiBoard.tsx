@@ -6,24 +6,56 @@ import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
 //for insert new elements
 import { useDrop } from "react-dnd";
 import { ItemTypes } from '../../dragConstants';
+import { createNewArrow } from "../../app/fetch-data/multiBoardArrowSlice"
+import { createNewBoard } from "../../app/fetch-data/allBoardsSlice"
+import { newMultiBoardArrowData } from "../../app/newElementData"
+import { newBoardData } from "../../app/newBoardData"
 
 import { Sidebar } from "./nav-bar/multiSidebar";
 
-import { BoardMiniature } from "./boardMiniature";
-import BoardMiniatureText from "./boardMiniatureText"
+import { BoardMiniature } from "./elements/boardMiniature";
+import BoardMiniatureText from "./elements/boardMiniatureText"
 import "./multiBoard.css"
+
+import { ArrowComponent } from "./elements/multiBoardArrow"
+
+
 
 export const MultiBoard = () => {
 
     const dispatch = useAppDispatch()
     let data = useAppSelector(state => state.allBoards)
-
+    let arrows = useAppSelector(state => state.multiBoardArrow)
 
     useEffect(() => {
         dispatch(setNavigationToMultiBoard());
     }, [])
 
+    const [, dropRef] = useDrop({
+        accept: [ItemTypes.NEWMULTIBOARDARROW, ItemTypes.NEWBOARD],
+        //TODO: get the cursorCoords and add them to newCardData
 
+        drop: (item, monitor) => {
+            console.log(item, monitor.getItemType())
+            if (monitor.getItemType() === 'newMultiBoardArrow') {
+                console.log("newMultiBoardArrow trigger")
+                dispatch(createNewArrow(newMultiBoardArrowData))
+                //props.boardState.handleCardFunctions.newCard(newCardData());
+            }
+            else if (monitor.getItemType() === 'newBoard') {
+                console.log("newBoard trigger")
+                dispatch(createNewBoard(newBoardData))
+                // props.boardState.handleArrowFunctions.newArrow(newArrowData());
+            }
+            //} 
+            else {
+                console.error("ItemType not found:", monitor.getItemType())
+            }
+        }
+    });
+
+
+    //for moving the whole canvas
     const divRef = useRef<HTMLDivElement>(null); // Referenz auf das div-Element
     const [isDragging, setIsDragging] = useState(false); // Zustand für das Ziehen
     const [startPoint, setStartPoint] = useState({ x: 0, y: 0 }); // Startpunkt der Maus
@@ -74,6 +106,7 @@ export const MultiBoard = () => {
                 <Sidebar />
                 {/* <div style={{ 'width': "100px", 'height': "100px" }}></div> */}
                 <svg
+                    ref={dropRef}
                     style={{ 'width': "2000px", 'height': "2000px" }}
                     className="svg-multi-board">
                     {data?.boards?.map(board => (
@@ -81,8 +114,14 @@ export const MultiBoard = () => {
                             key={"boardNr" + board._id}
                             board={board}
                         />
-
                     ))}
+
+                    {arrows?.multiBoardArrows?.map(arrow=>
+                        <ArrowComponent
+                        key={"multiBoardArrowNr" + arrow._id}
+                        arrow={arrow}
+                        />
+                    )}
 
                 </svg>
                 {data?.boards?.map(board => (

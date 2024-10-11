@@ -1,7 +1,6 @@
 const db = require("../models");
 const Board = db.boards;
 
-
 // Create and Save a new Board
 exports.create = (req, res) => {
   // Validate request
@@ -14,7 +13,7 @@ exports.create = (req, res) => {
   // Create a Board
   const board = new Board({
     boardName: req.body.boardName,
-    boardType: req.body.boardType,
+    boardRubrics: req.body.boardRubrics,
     boardPosition: req.body.boardPosition,
     cardList: req.body.cardList,
     arrowList: req.body.arrowList,
@@ -42,7 +41,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
   Board.find(condition)
-  .select("_id boardName boardPosition")
+  .select("_id boardName boardPosition boardRubrics")
     .then(data => {
       res.send(data);
     })
@@ -92,14 +91,14 @@ exports.update = (req, res) => {
 };
 
 exports.updateAll = async (req, res) => {
-  //console.log(req.body);  // Überprüfe die Daten, die gesendet werden
+  //console.log(req.body);  
   if (!req.body) {
     return res.status(400).send({
       message: "Data to update can not be empty!"
     });
   }
   const updatePromises = req.body.map(async (item) => {
-    const { _id, ...updateData } = item;  // Zerteile das Item in _id und die restlichen Daten
+    const { _id, ...updateData } = item;  // split the Item in _id and the rest
 
     try {
       const data = await Board.findByIdAndUpdate(_id, { $set: updateData }, { useFindAndModify: false});

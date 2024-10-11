@@ -20,7 +20,7 @@ export const ButtonArrow = () => {
 //useDragHook
  // more info to usedrop in https://codesandbox.io/s/react-dnd-02-chess-board-and-lonely-knight-7buy2?from-embed=&file=/src/components/BoardSquare.js:394-653
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
-    type: ItemTypes.NEWARROW, //drop targets react to this type
+    type: ItemTypes.NEWMULTIBOARDARROW, //drop targets react to this type
     //item: { }, // information the drop targets have
     collect: (monitor) => ({
       //pick up informations from the monitor object and inject them in this dragging source (usedrag)
@@ -28,9 +28,9 @@ export const ButtonArrow = () => {
     }),
   }));
 
-  useEffect(() => {
+//   useEffect(() => {
 
-  }, [isDragging]);
+//   }, [isDragging]);
 
 
   return (
@@ -42,7 +42,7 @@ export const ButtonArrow = () => {
     className="sidebar-button" 
     onClick={handleButton} 
     >
-      <img className="sidebar-button-img" alt="new card" src={arrowImg} />
+      <img className="sidebar-button-img" alt="new arrow" src={arrowImg} />
       
     </div>
     </>

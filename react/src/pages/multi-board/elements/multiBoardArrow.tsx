@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { Card, Arrow } from '../../../app/fetch-data/dataTypes';
-import "./arrow.css";
-import SvgArrowHead from "./arrowHead"
-import ArrowFocus from "./arrowFocus"
+import { Board, multiBoardArrow } from '../../../app/fetch-data/dataTypes';
+import "../../single-board/elements/arrow.css";
+//import SvgArrowHead from "./arrowHead"
+//import ArrowFocus from "./arrowFocus"
 
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
@@ -13,26 +13,27 @@ import { setActiveDragElement, removeActiveDrag } from "../../slices/dragSlice"
 import { setFocusElement, FocusState } from "../../slices/focusSlice"
 import { setArrowInside } from "../../../app/fetch-data/singleBoardSlice"
 
+import { updateArrowsInDb, setBoard } from "../../../app/fetch-data/multiBoardArrowSlice"
 
 interface canvasProps {
-    arrow: Arrow;
-    saveArrow: (param: Arrow) => void
+    arrow: multiBoardArrow;
 }
 
 interface anchorCanvas {
+    onCard: String,
+    boardRubrics: String[],
     x: number,
     y: number,
-
 }
 
-export interface DragElement extends Arrow {
+export interface DragElement extends multiBoardArrow {
     active: boolean,
     movedLeftX: number,
     movedTopY: number,
 }
 
 
-export default function ArrowComponent(props: canvasProps) {
+export function ArrowComponent(props: canvasProps) {
     const dispatch = useAppDispatch()
     let activeDragValue = useAppSelector((state) => state.drag)
     let activeFocusValue = useAppSelector((state) => state.focus)
@@ -51,10 +52,10 @@ export default function ArrowComponent(props: canvasProps) {
     useEffect(() => {
         let xOnCard = 0;
         let yOnCard = 0;
-        let rotation = computeRotation(element.anchorStart.anchorCanvas, element.anchorEnd.anchorCanvas)
+        let rotation = computeRotation(element.anchorStart, element.anchorEnd)
         ///console.log("rotation",rotation)
         //update arrow if card moves || update arrow if anchor moves
-        if ((activeDragValue.ID === element.anchorStart.onCard.toString() && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID.toString() && activeDragValue.elementType === "arrowAnchorStart")) {
+        if ((activeDragValue.ID === element.anchorStart.onCard.toString() && activeDragValue.elementType === "card") || (activeFocusValue.ID.toString() === element._id && activeDragValue.elementType === "arrowAnchorStart")) {
             //update arrow if card moves
             if (activeDragValue.elementType === "card") {
                 if (rotation >= 45 && rotation <= 135) {
@@ -76,11 +77,9 @@ export default function ArrowComponent(props: canvasProps) {
                     ...prevArrow,
                     anchorStart: {
                         ...prevArrow.anchorStart,
-                        anchorCanvas: {
-                            ...prevArrow.anchorStart.anchorCanvas,
-                            x: xOnCard,
-                            y: yOnCard
-                        }
+                        x: xOnCard,
+                        y: yOnCard
+
                     }
                 }))
 
@@ -91,31 +90,26 @@ export default function ArrowComponent(props: canvasProps) {
                     ...prevArrow,
                     anchorStart: {
                         ...prevArrow.anchorStart,
-                        onCard: overCardState.cardID,
-                        anchorCanvas: {
-                            ...prevArrow.anchorStart.anchorCanvas,
-                            x: activeDragValue.placeToLeftX,
-                            y: activeDragValue.placeToTopY,
-                        }
+                        onCard: overCardState.cardID.toString(),//TODO
+                        x: activeDragValue.placeToLeftX,
+                        y: activeDragValue.placeToTopY,
                     }
                 }))
 
             }
             //always save, overCardState is written in arrowFocus
-            props.saveArrow({
+            dispatch(updateArrowsInDb({
                 ...props.arrow,
                 anchorStart: {
                     ...props.arrow.anchorStart,
-                    anchorCanvas: {
-                        ...props.arrow.anchorStart.anchorCanvas,
-                        x: xOnCard,
-                        y: yOnCard
-                    }
+                    x: xOnCard,
+                    y: yOnCard
                 },
-            })
+            }))
+
         }
         //update arrow if card moves || update arrow if anchor moves
-        if ((activeDragValue.ID === element.anchorEnd.onCard.toString() && activeDragValue.elementType === "card") || (activeFocusValue.ID === element.arrowID.toString() && activeDragValue.elementType === "arrowAnchorEnd")) {
+        if ((activeDragValue.ID === element.anchorEnd.onCard.toString() && activeDragValue.elementType === "card") || (activeFocusValue.ID.toString() === element._id && activeDragValue.elementType === "arrowAnchorEnd")) {
             //update arrow if card moves
             if (activeDragValue.elementType === "card") {
                 if (rotation >= 45 && rotation <= 135) {
@@ -136,11 +130,8 @@ export default function ArrowComponent(props: canvasProps) {
                     ...prevArrow,
                     anchorEnd: {
                         ...prevArrow.anchorEnd,
-                        anchorCanvas: {
-                            ...prevArrow.anchorEnd.anchorCanvas,
-                            x: xOnCard,
-                            y: yOnCard
-                        }
+                        x: xOnCard,
+                        y: yOnCard
                     }
                 }))
                 //update arrow if anchor moves
@@ -149,28 +140,22 @@ export default function ArrowComponent(props: canvasProps) {
                     ...prevArrow,
                     anchorEnd: {
                         ...prevArrow.anchorEnd,
-                        onCard: overCardState.cardID,
-                        anchorCanvas: {
-                            ...prevArrow.anchorEnd.anchorCanvas,
-                            x: activeDragValue.placeToLeftX,
-                            y: activeDragValue.placeToTopY,
-                        }
+                        onCard: overCardState.cardID.toString(),//TODO
+                        x: activeDragValue.placeToLeftX,
+                        y: activeDragValue.placeToTopY,
+
                     }
                 }))
             }
             //always save, overCardState is written in arrowFocus
-            props.saveArrow({
+            dispatch(updateArrowsInDb({
                 ...props.arrow,
                 anchorEnd: {
                     ...props.arrow.anchorEnd,
-                    anchorCanvas: {
-                        ...props.arrow.anchorEnd.anchorCanvas,
-                        x: xOnCard,
-                        y: yOnCard
-                    }
-
-                }
-            })
+                    x: xOnCard,
+                    y: yOnCard
+                },
+            }))
         }
 
     }, [activeDragValue])
@@ -198,9 +183,9 @@ export default function ArrowComponent(props: canvasProps) {
 
     // drags the hole arrow
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
-        dispatch(setFocusElement({ elementType: "arrow", ID: props.arrow.arrowID.toString() }))
+        dispatch(setFocusElement({ elementType: "arrow", ID: props.arrow._id! }))
         let newElement: DragElement;
-       
+
     }
 
 
@@ -210,26 +195,26 @@ export default function ArrowComponent(props: canvasProps) {
         <>
 
             <g
-                key={"arrowGroupID" + element.arrowID}
+                key={"arrowGroupID" + element._id}
 
             >
                 <line
-                    x1={element.anchorStart.anchorCanvas.x}
-                    y1={element.anchorStart.anchorCanvas.y}
-                    x2={element.anchorEnd.anchorCanvas.x}
-                    y2={element.anchorEnd.anchorCanvas.y}
+                    x1={element.anchorStart.x}
+                    y1={element.anchorStart.y}
+                    x2={element.anchorEnd.x}
+                    y2={element.anchorEnd.y}
                     stroke="#006666"
                     strokeWidth={3}
                     onPointerDown={(event) => handlePointerDown(event)}
-                  //  onPointerUp={(event) => handlePointerUp(event)}
-                  //  onPointerMove={(event) => handlePointerMove(event)}
-                    id={"lineID" + element.arrowID}
+                    //  onPointerUp={(event) => handlePointerUp(event)}
+                    //  onPointerMove={(event) => handlePointerMove(event)}
+                    id={"lineID" + element._id}
                 />
 
-                <SvgArrowHead
+                {/* <SvgArrowHead
                     arrow={element}
                     computeRotation={computeRotation}
-                />
+                /> */}
 
 
 

@@ -3,7 +3,13 @@
     "$oid": "633858cf10ff1a53060fec2e"
   },
   "boardName": "ML NLP Frameworks",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 1147.046875,
+    "y": 780.4921875
+  },
   "cardList": [
     {
       "cardType": "primitive",
@@ -281,7 +287,7 @@
     "$date": "2022-10-01T15:12:15.517Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:28:05.920Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -290,7 +296,13 @@
     "$oid": "63385aae10ff1a53060fec32"
   },
   "boardName": "Crawler",
-  "boardType": "",
+  "boardRubrics": [
+    "Programming"
+  ],
+  "boardPosition": {
+    "x": 289.08984375,
+    "y": 1570.4921875
+  },
   "cardList": [
     {
       "cardType": "primitive",
@@ -479,7 +491,7 @@
     "$date": "2022-10-01T15:20:14.360Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:28:21.585Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -488,7 +500,15 @@
     "$oid": "6338853010ff1a53060fec4f"
   },
   "boardName": " statistische Klassifikation: generativer & diskriminativer Ansatz",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Statistic",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 1093.140625,
+    "y": 272.86328125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -825,7 +845,7 @@
     "$date": "2022-10-01T18:21:36.614Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:31:51.700Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -834,7 +854,13 @@
     "$oid": "63388ae710ff1a53060fec56"
   },
   "boardName": "Text-zu-Bild-Generatoren, NLP vortrainierte Modelle",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 1349.171875,
+    "y": 631.234375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -904,7 +930,7 @@
     "$date": "2022-10-01T18:45:59.330Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:32:18.889Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -913,7 +939,13 @@
     "$oid": "63388e1d10ff1a53060fec6a"
   },
   "boardName": "ML Netzwerkarchitekturen Begriffe",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 1378.92578125,
+    "y": 1100.74609375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -1227,7 +1259,7 @@
     "$date": "2022-10-01T15:13:14.360Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:35:38.854Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -1236,7 +1268,13 @@
     "$oid": "633891e810ff1a53060fec73"
   },
   "boardName": "ML Netzwerkarchitekturen",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 883.6484375,
+    "y": 946.2890625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -1645,7 +1683,7 @@
     "$date": "2022-10-01T19:15:52.676Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:44:02.038Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -1654,7 +1692,14 @@
     "$oid": "633bcc276af81199cba86a78"
   },
   "boardName": " (multiple) lineare Regression",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 1442.984375,
+    "y": 1332.26953125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -1763,7 +1808,7 @@
     "$date": "2022-10-04T06:01:11.185Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:45:41.904Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -1772,7 +1817,14 @@
     "$oid": "633c3fc16af81199cba86a7e"
   },
   "boardName": "ML Modell&Verlust-/Kostenfunktion, Koeffizientenvektor, Residuen",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 1602.7265625,
+    "y": 1093.5625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -2201,7 +2253,7 @@
     "$date": "2022-10-04T14:14:25.894Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:52:07.134Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -2210,7 +2262,15 @@
     "$oid": "633dae426af81199cba86a86"
   },
   "boardName": "multivariate Funktionen",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Optimierung",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 936.05859375,
+    "y": 771.7265625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -2372,7 +2432,7 @@
     "$date": "2022-10-05T16:18:10.219Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:54:10.193Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -2381,7 +2441,14 @@
     "$oid": "63451141a40319139e305378"
   },
   "boardName": "binäre logistische - & multinominale logistische (Softmax) Regression",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 1362.42578125,
+    "y": 1219.97265625
+  },
   "cardList": [
     {
       "cardID": 2,
@@ -2565,7 +2632,7 @@
     "$date": "2022-10-11T06:46:26.314Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:56:05.120Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -2574,7 +2641,13 @@
     "$oid": "63451f79a40319139e305388"
   },
   "boardName": "ML Anwendungsfälle",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 1338.546875,
+    "y": 974.71484375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -2782,201 +2855,7 @@
     "$date": "2022-10-11T07:47:05.422Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T12:57:51.676Z"
-  },
-  "__v": 0
-},
-{
-  "_id": {
-    "$oid": "63452ddda40319139e305399"
-  },
-  "boardName": "Wegweiser Infos in ML Folien",
-  "boardType": "",
-  "cardList": [
-    {
-      "cardID": 1,
-      "cardType": "primitive",
-      "text": "Laubenheimer Kapitel 2: Daten",
-      "x": 268.46875,
-      "y": 315.8984375,
-      "width": 200,
-      "height": 42
-    },
-    {
-      "cardID": 2,
-      "cardType": "primitive",
-      "text": "S21: Datenqualität",
-      "x": 777.40234375,
-      "y": 695.01171875,
-      "width": 200,
-      "height": 42
-    },
-    {
-      "cardType": "primitive",
-      "text": "Bilddaten: S4",
-      "x": 781.94140625,
-      "y": 552.3671875,
-      "width": 200,
-      "height": 42,
-      "cardID": 3
-    },
-    {
-      "cardType": "primitive",
-      "text": "OCR : s2",
-      "x": 764.66015625,
-      "y": 119.99609375,
-      "width": 200,
-      "height": 42,
-      "cardID": 4
-    },
-    {
-      "cardType": "primitive",
-      "text": "Game Analytics: Smurf Detection",
-      "x": 907.3203125,
-      "y": 338.14453125,
-      "width": 200,
-      "height": 42,
-      "cardID": 6
-    },
-    {
-      "cardType": "primitive",
-      "text": "NLP Datengrundlage S9-15",
-      "x": 697.078125,
-      "y": 243.3359375,
-      "width": 200,
-      "height": 42,
-      "cardID": 7
-    },
-    {
-      "cardType": "primitive",
-      "text": "Laubenheimer Kaptiel 3: Maße",
-      "x": 628.37109375,
-      "y": 382.796875,
-      "width": 200,
-      "height": 42,
-      "cardID": 8
-    }
-  ],
-  "arrowList": [
-    {
-      "arrowID": 1,
-      "arrowTypes": [
-        "oneHead"
-      ],
-      "anchorStart": {
-        "anchorID": 1,
-        "onCard": 1,
-        "anchorCanvas": {
-          "x": 498.0078125,
-          "y": 352.12890625
-        }
-      },
-      "anchorEnd": {
-        "anchorID": 2,
-        "onCard": 2,
-        "anchorCanvas": {
-          "x": 892.171875,
-          "y": 685.01171875
-        }
-      }
-    },
-    {
-      "arrowID": 2,
-      "arrowTypes": [
-        "oneHead"
-      ],
-      "anchorStart": {
-        "anchorID": 3,
-        "onCard": 1,
-        "anchorCanvas": {
-          "x": 498.0078125,
-          "y": 352.12890625
-        }
-      },
-      "anchorEnd": {
-        "anchorID": 4,
-        "onCard": 4,
-        "anchorCanvas": {
-          "x": 753.78515625,
-          "y": 156.2890625
-        }
-      }
-    },
-    {
-      "arrowID": 3,
-      "arrowTypes": [
-        "oneHead"
-      ],
-      "anchorStart": {
-        "anchorID": 5,
-        "onCard": 1,
-        "anchorCanvas": {
-          "x": 498.0078125,
-          "y": 352.12890625
-        }
-      },
-      "anchorEnd": {
-        "anchorID": 6,
-        "onCard": 3,
-        "anchorCanvas": {
-          "x": 772.16796875,
-          "y": 588.3671875
-        }
-      }
-    },
-    {
-      "arrowID": 4,
-      "arrowTypes": [
-        "oneHead"
-      ],
-      "anchorStart": {
-        "anchorID": 7,
-        "onCard": 1,
-        "anchorCanvas": {
-          "x": 498.0078125,
-          "y": 352.12890625
-        }
-      },
-      "anchorEnd": {
-        "anchorID": 8,
-        "onCard": 6,
-        "anchorCanvas": {
-          "x": 897.546875,
-          "y": 374.375
-        }
-      }
-    },
-    {
-      "arrowID": 5,
-      "arrowTypes": [
-        "oneHead"
-      ],
-      "anchorStart": {
-        "anchorID": 9,
-        "onCard": 1,
-        "anchorCanvas": {
-          "x": 498.0078125,
-          "y": 352.12890625
-        }
-      },
-      "anchorEnd": {
-        "anchorID": 10,
-        "onCard": 7,
-        "anchorCanvas": {
-          "x": 687.078125,
-          "y": 279.56640625
-        }
-      }
-    }
-  ],
-  "cardIDCounter": 9,
-  "arrowIDCounter": 6,
-  "anchorIDCounter": 11,
-  "createdAt": {
-    "$date": "2022-10-11T08:48:29.981Z"
-  },
-  "updatedAt": {
-    "$date": "2024-09-27T12:58:20.564Z"
+    "$date": "2024-10-10T13:17:40.244Z"
   },
   "__v": 0
 },
@@ -2985,7 +2864,14 @@
     "$oid": "63453145a40319139e30539e"
   },
   "boardName": "ML Distanzmaße",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 1554.578125,
+    "y": 960.0546875
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -3123,7 +3009,7 @@
     "$date": "2022-10-11T09:03:01.789Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:00:47.177Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -3132,7 +3018,14 @@
     "$oid": "63465614a40319139e3053a3"
   },
   "boardName": "Statistik Kausale Netze, Bayes Netze",
-  "boardType": "",
+  "boardRubrics": [
+    "Math",
+    "Statistic"
+  ],
+  "boardPosition": {
+    "x": 404.7109375,
+    "y": 373.3828125
+  },
   "cardList": [
     {
       "cardType": "primitive",
@@ -3500,7 +3393,7 @@
     "$date": "2022-10-12T05:52:20.853Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:06:28.773Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -3509,7 +3402,13 @@
     "$oid": "63465a0ba40319139e3053a9"
   },
   "boardName": "Ideen für Features(hier)",
-  "boardType": "",
+  "boardRubrics": [
+    "Personally"
+  ],
+  "boardPosition": {
+    "x": 291.1484375,
+    "y": 264.7109375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -3624,7 +3523,7 @@
     "$date": "2022-10-12T06:09:15.783Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:08:45.208Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -3633,7 +3532,13 @@
     "$oid": "63482c15a40319139e3053d2"
   },
   "boardName": "Mathe Ableitungs- bzw. Differenzierungssregeln",
-  "boardType": "",
+  "boardRubrics": [
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 180.93359375,
+    "y": 868.296875
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -4061,7 +3966,7 @@
     "$date": "2022-10-13T15:17:41.393Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:21:01.356Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -4069,8 +3974,15 @@
   "_id": {
     "$oid": "634bd25ca40319139e3053ea"
   },
-  "boardName": "Definitheit, Hermitesch, Konjugierte, Isometrie, Homogenität, Dreiecksungleichung",
-  "boardType": "",
+  "boardName": "Definitheit, Hermitesch, Konjugierte, Isometrie, Homogenität",
+  "boardRubrics": [
+    "Math",
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 1107.828125,
+    "y": 587.71875
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -4312,7 +4224,7 @@
     "$date": "2022-10-16T09:43:56.530Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:25:26.705Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -4321,7 +4233,14 @@
     "$oid": "634c36a9a40319139e3053f2"
   },
   "boardName": "Matrizentypen, Eigenvektoren&Werte",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 901.53515625,
+    "y": 1150.2109375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -4758,7 +4677,7 @@
     "$date": "2022-10-16T16:51:53.348Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:35:22.391Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -4767,7 +4686,14 @@
     "$oid": "634c4581a40319139e305409"
   },
   "boardName": "Räume, Basen",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 667.4453125,
+    "y": 533.17578125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -5103,7 +5029,7 @@
     "$date": "2022-10-16T17:55:13.194Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:39:54.051Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -5112,7 +5038,13 @@
     "$oid": "634d0e67a40319139e305416"
   },
   "boardName": "Mathe Symbole",
-  "boardType": "",
+  "boardRubrics": [
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 175.44140625,
+    "y": 774.37890625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -5477,7 +5409,7 @@
     "$date": "2022-10-17T08:12:23.514Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:47:21.060Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -5486,7 +5418,15 @@
     "$oid": "634f91f5a40319139e305438"
   },
   "boardName": "Pandas Befehle",
-  "boardType": "",
+  "boardRubrics": [
+    "Programming",
+    "Machine Learning",
+    "Statistic"
+  ],
+  "boardPosition": {
+    "x": 1402.84765625,
+    "y": 303.671875
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -5547,7 +5487,7 @@
     "$date": "2022-10-19T05:58:13.976Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T13:47:38.099Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -5556,7 +5496,14 @@
     "$oid": "634fa859a40319139e305440"
   },
   "boardName": "Häufigkeiten, Abhängigkeiten, Wahrscheinlichkeiten",
-  "boardType": "",
+  "boardRubrics": [
+    "Math",
+    "Statistic"
+  ],
+  "boardPosition": {
+    "x": 631.9375,
+    "y": 363.90234375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -6101,7 +6048,7 @@
     "$date": "2022-10-19T07:33:45.208Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T14:47:46.672Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -6110,7 +6057,14 @@
     "$oid": "63564193fd64ac4dcf5ebcb5"
   },
   "boardName": "Statistik: Analyse Datensatz",
-  "boardType": "",
+  "boardRubrics": [
+    "Statistic",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 883.37109375,
+    "y": 239.171875
+  },
   "cardList": [
     {
       "cardID": 2,
@@ -6165,7 +6119,7 @@
     "$date": "2022-10-24T07:41:07.750Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T14:48:27.342Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -6173,8 +6127,15 @@
   "_id": {
     "$oid": "635bac86fd64ac4dcf5ebce3"
   },
-  "boardName": "Normen: Beträge/Länge: euklidische Norm, Skalarprodukt, Frobeniusnorm,...",
-  "boardType": "",
+  "boardName": "Normen: Beträge/Länge: euklidische Norm, Skalarprodukt,,...",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 478.1640625,
+    "y": 166.72265625
+  },
   "cardList": [
     {
       "cardID": 2,
@@ -6402,7 +6363,7 @@
     "$date": "2022-10-28T10:18:46.975Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T14:52:45.982Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -6411,7 +6372,13 @@
     "$oid": "635fe6defd64ac4dcf5ebcea"
   },
   "boardName": "Taylor-Polynom, Taylor-Reihe",
-  "boardType": "",
+  "boardRubrics": [
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 399.7734375,
+    "y": 881.63671875
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -6475,7 +6442,7 @@
     "$date": "2022-10-31T15:16:46.462Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T14:55:26.027Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -6483,8 +6450,15 @@
   "_id": {
     "$oid": "63628d31fd64ac4dcf5ebcf3"
   },
-  "boardName": "induktive Statistik: Statistisches Lernmodell, p-Wert, Hypothesentest, Chi-Quadrat-Test",
-  "boardType": "",
+  "boardName": "induktive Statistik: p-Wert, Hypothesentest, Chi-Quadrat-Test",
+  "boardRubrics": [
+    "Math",
+    "Statistic"
+  ],
+  "boardPosition": {
+    "x": 396.90625,
+    "y": 992.06640625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -6870,7 +6844,7 @@
     "$date": "2022-11-02T15:30:57.319Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:10:56.993Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -6879,7 +6853,14 @@
     "$oid": "6363cdaffd64ac4dcf5ebd10"
   },
   "boardName": "Statistik: Verteilungen, Binominalverteilung, Normalverteilung",
-  "boardType": "",
+  "boardRubrics": [
+    "Statistic",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 1051.05859375,
+    "y": 426.93359375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -7206,7 +7187,7 @@
     "$date": "2022-11-03T14:18:23.285Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:14:20.180Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -7215,7 +7196,14 @@
     "$oid": "636a73b6fd64ac4dcf5ebd28"
   },
   "boardName": "Kreisgleichung, Ellipsengleichung",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 385.01953125,
+    "y": 558.203125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -7323,7 +7311,7 @@
     "$date": "2022-11-08T15:20:22.592Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:15:33.679Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -7332,7 +7320,14 @@
     "$oid": "636cedc3fd64ac4dcf5ebd32"
   },
   "boardName": "Lösung linearer Gleichungssysteme (opt3Numerik)",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 696.42578125,
+    "y": 878.44140625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -7766,7 +7761,7 @@
     "$date": "2022-11-10T12:25:39.721Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:20:53.828Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -7775,7 +7770,13 @@
     "$oid": "636e2082fd64ac4dcf5ebd4a"
   },
   "boardName": "Datenbanken",
-  "boardType": "",
+  "boardRubrics": [
+    "Programming"
+  ],
+  "boardPosition": {
+    "x": 650.41015625,
+    "y": 1608.1953125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -7836,7 +7837,7 @@
     "$date": "2022-11-11T10:14:26.440Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:21:31.226Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -7845,7 +7846,14 @@
     "$oid": "637355e0fd64ac4dcf5ebd55"
   },
   "boardName": "Eigenvektoren im Detail",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 286.37109375,
+    "y": 466.7109375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -7937,7 +7945,7 @@
     "$date": "2022-11-15T09:03:28.717Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:22:08.517Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -7946,7 +7954,14 @@
     "$oid": "6375f519fd64ac4dcf5ebd5d"
   },
   "boardName": "Lösung LGS: direkte Zerlegungungen",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 686.671875,
+    "y": 985.9453125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -8242,7 +8257,7 @@
     "$date": "2022-11-17T08:47:21.187Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:24:25.872Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -8251,7 +8266,14 @@
     "$oid": "6377860dfd64ac4dcf5ebd74"
   },
   "boardName": "Lösung LGS: iterative Zerlegungen/Splitting Verfahren",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 722.43359375,
+    "y": 762.9375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -8557,7 +8579,7 @@
     "$date": "2022-11-18T13:18:05.752Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:26:41.136Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -8566,7 +8588,15 @@
     "$oid": "63779b89fd64ac4dcf5ebd87"
   },
   "boardName": "Optimierungsverfahren (opt_4) und deren Methoden",
-  "boardType": "",
+  "boardRubrics": [
+    "Optimierung",
+    "Math",
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 508.34765625,
+    "y": 775.89453125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -8714,7 +8744,7 @@
     "$date": "2022-11-18T14:49:45.888Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:28:43.214Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -8723,7 +8753,13 @@
     "$oid": "637ba2d9fd64ac4dcf5ebdab"
   },
   "boardName": "Mathe Umformungsregeln",
-  "boardType": "",
+  "boardRubrics": [
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 171.35546875,
+    "y": 665.890625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -8994,7 +9030,7 @@
     "$date": "2022-11-21T16:10:01.720Z"
   },
   "updatedAt": {
-    "$date": "2024-09-27T15:33:17.373Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -9003,7 +9039,15 @@
     "$oid": "637d0228fd64ac4dcf5ebdc5"
   },
   "boardName": "Maximum-Likelihood-Methode, Dichtefunktion",
-  "boardType": "",
+  "boardRubrics": [
+    "Statistic",
+    "Math",
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 1053.984375,
+    "y": 158.2109375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -9214,7 +9258,7 @@
     "$date": "2022-11-22T17:08:56.130Z"
   },
   "updatedAt": {
-    "$date": "2024-09-28T13:33:59.934Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -9223,7 +9267,14 @@
     "$oid": "639979563af9c5702d5e4603"
   },
   "boardName": "ML Dimensionsreduktion: PCA, T-SNE",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 1115.703125,
+    "y": 977.609375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -9315,7 +9366,7 @@
     "$date": "2022-12-14T07:20:54.313Z"
   },
   "updatedAt": {
-    "$date": "2024-09-28T13:33:49.788Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -9324,7 +9375,14 @@
     "$oid": "639cab583af9c5702d5e4639"
   },
   "boardName": "ML Metriken",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning",
+    "Math"
+  ],
+  "boardPosition": {
+    "x": 1088.9453125,
+    "y": 873.3359375
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -9379,7 +9437,7 @@
     "$date": "2022-12-16T17:31:04.987Z"
   },
   "updatedAt": {
-    "$date": "2024-09-28T13:32:26.552Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -9388,7 +9446,13 @@
     "$oid": "63b2e97c3af9c5702d5e4659"
   },
   "boardName": "Python",
-  "boardType": "",
+  "boardRubrics": [
+    "Programming"
+  ],
+  "boardPosition": {
+    "x": 295.40625,
+    "y": 1318.87890625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -9511,7 +9575,7 @@
     "$date": "2023-01-02T14:26:04.423Z"
   },
   "updatedAt": {
-    "$date": "2024-09-28T13:31:52.671Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -9520,7 +9584,13 @@
     "$oid": "63b6e93b3af9c5702d5e4665"
   },
   "boardName": "Recommender Engines",
-  "boardType": "",
+  "boardRubrics": [
+    "Machine Learning"
+  ],
+  "boardPosition": {
+    "x": 928.7109375,
+    "y": 514.76953125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -9576,7 +9646,7 @@
     "$date": "2023-01-05T15:14:03.109Z"
   },
   "updatedAt": {
-    "$date": "2024-09-28T13:31:13.602Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -9585,7 +9655,13 @@
     "$oid": "641ec8f03d5d8caee6d84107"
   },
   "boardName": "Mobilfunk Architekturen",
-  "boardType": "",
+  "boardRubrics": [
+    "Mobilfunk"
+  ],
+  "boardPosition": {
+    "x": 629.84375,
+    "y": 1443.1640625
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -9739,7 +9815,7 @@
     "$date": "2023-03-25T10:12:00.263Z"
   },
   "updatedAt": {
-    "$date": "2024-09-28T13:30:27.653Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -9748,7 +9824,13 @@
     "$oid": "641ecd3b3d5d8caee6d84110"
   },
   "boardName": "Immutable State in JavaScript and Redux",
-  "boardType": "",
+  "boardRubrics": [
+    "Programming"
+  ],
+  "boardPosition": {
+    "x": 311.63671875,
+    "y": 1667.70703125
+  },
   "cardList": [
     {
       "cardID": 2,
@@ -9777,7 +9859,7 @@
     "$date": "2023-03-25T10:30:19.304Z"
   },
   "updatedAt": {
-    "$date": "2024-09-28T13:29:28.859Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 },
@@ -9786,7 +9868,13 @@
     "$oid": "651a7e85575853bf5229fedd"
   },
   "boardName": "java",
-  "boardType": "",
+  "boardRubrics": [
+    "Programming"
+  ],
+  "boardPosition": {
+    "x": 312.16796875,
+    "y": 1447.64453125
+  },
   "cardList": [
     {
       "cardID": 1,
@@ -9815,7 +9903,7 @@
     "$date": "2023-10-02T08:25:41.121Z"
   },
   "updatedAt": {
-    "$date": "2024-09-28T13:28:47.677Z"
+    "$date": "2024-10-10T13:17:40.245Z"
   },
   "__v": 0
 }]

@@ -20,7 +20,7 @@ export const ButtonBoard = () => {
   
 //useDragHook
   const [{ isDragging }, dragRef, preview] = useDrag(() => ({
-    type: ItemTypes.NEWCARD, //drop targets react to this type
+    type: ItemTypes.NEWBOARD, //drop targets react to this type
     //item: { }, // information the drop targets have
     collect: (monitor) => ({
       //pick up informations from the monitor object and inject them in this dragging source (usedrag)
@@ -28,9 +28,9 @@ export const ButtonBoard = () => {
     }),
   }));
 
-  useEffect(() => {
+//   useEffect(() => {
 
-  }, [isDragging]);
+//   }, [isDragging]);
 
 
   return (

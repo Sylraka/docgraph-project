@@ -4,14 +4,14 @@
 import { useState, useEffect } from "react"
 
 
-import { useAppDispatch, useAppSelector } from "./../../app/hooks"
-import { Board } from '../../app/fetch-data/dataTypes';
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { Board } from '../../../app/fetch-data/dataTypes';
 import { Link } from "react-router-dom";
 
-import "./multiBoard.css"
-import linkImg from "../../images/link.png"
+import "../multiBoard.css"
+import linkImg from "../../../images/link.png"
 
-import { setBoard } from "./../../app/fetch-data/allBoardsSlice";
+import { setBoard } from "../../../app/fetch-data/allBoardsSlice";
 
 interface canvasProps {
     board: Board;
@@ -124,7 +124,7 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
                 //className='text-element'
                 className="multi-board-text-element text-element card-field-input"//
                 spellCheck="false"
-                style={{ 'top': element.boardPosition.y - 70, 'left': element.boardPosition.x - (element.width - 10), 'width': element.width, 'height': element.height }}
+                style={{ 'top': element.boardPosition.y - 75, 'left': element.boardPosition.x - (element.width - 10), 'width': element.width, 'height': element.height }}
                 onChange={(event) => manageTextInput(event.target.value, "textID" + props.board._id)}//
                 // onClick={klickAtTextarea}
                 value={element.boardName}
