@@ -53,16 +53,16 @@ export interface Board {
 
 export interface multiBoardArrow {
 	_id: string | undefined;
-    arrowType: String,
+    arrowType: string,
     anchorStart: {
-        onCard: String,
-        boardRubrics: String[],
+        onCard: string,
+        boardRubrics: string[],
         x: number,
         y: number
     },
     anchorEnd: {
-        onCard: String,
-        boardRubrics: String[],
+        onCard: string,
+        boardRubrics: string[],
         x: number,
         y: number
     }

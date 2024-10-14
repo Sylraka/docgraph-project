@@ -1,147 +1,170 @@
-import { useEffect, useState, useRef } from "react"
+import { FC, useMemo, useState, useEffect } from "react";
 
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
-
-//for insert new elements
-import { useDrop } from "react-dnd";
-import { ItemTypes } from '../../dragConstants';
-import { createNewArrow } from "../../app/fetch-data/multiBoardArrowSlice"
-import { createNewBoard } from "../../app/fetch-data/allBoardsSlice"
-import { newMultiBoardArrowData } from "../../app/newElementData"
-import { newBoardData } from "../../app/newBoardData"
-
-import { Sidebar } from "./nav-bar/multiSidebar";
-
-import { BoardMiniature } from "./elements/boardMiniature";
-import BoardMiniatureText from "./elements/boardMiniatureText"
-import "./multiBoard.css"
-
-import { ArrowComponent } from "./elements/multiBoardArrow"
+import {
+    SimulationNodeDatum,
+    SimulationLinkDatum,
+    forceSimulation,
+    forceLink,
+    forceCenter,
+    forceManyBody,
+    forceCollide
+} from "d3-force";
 
 
 
-export const MultiBoard = () => {
+interface CustomNode extends SimulationNodeDatum {
+    id: string;
+    name: string;
+}
 
-    const dispatch = useAppDispatch()
-    let data = useAppSelector(state => state.allBoards)
-    let arrows = useAppSelector(state => state.multiBoardArrow)
+interface CustomLink extends SimulationLinkDatum<CustomNode> {
+    strength: number;
+}
 
-    useEffect(() => {
-        dispatch(setNavigationToMultiBoard());
-    }, [])
+const getId = (node: { id: any; }) => node.id;
 
-    const [, dropRef] = useDrop({
-        accept: [ItemTypes.NEWMULTIBOARDARROW, ItemTypes.NEWBOARD],
-        //TODO: get the cursorCoords and add them to newCardData
-
-        drop: (item, monitor) => {
-            console.log(item, monitor.getItemType())
-            if (monitor.getItemType() === 'newMultiBoardArrow') {
-                console.log("newMultiBoardArrow trigger")
-                dispatch(createNewArrow(newMultiBoardArrowData))
-                //props.boardState.handleCardFunctions.newCard(newCardData());
-            }
-            else if (monitor.getItemType() === 'newBoard') {
-                console.log("newBoard trigger")
-                dispatch(createNewBoard(newBoardData))
-                // props.boardState.handleArrowFunctions.newArrow(newArrowData());
-            }
-            //} 
-            else {
-                console.error("ItemType not found:", monitor.getItemType())
-            }
-        }
-    });
-
-
-    //for moving the whole canvas
-    const divRef = useRef<HTMLDivElement>(null); // Referenz auf das div-Element
-    const [isDragging, setIsDragging] = useState(false); // Zustand für das Ziehen
-    const [startPoint, setStartPoint] = useState({ x: 0, y: 0 }); // Startpunkt der Maus
-    const [scrollPosition, setScrollPosition] = useState({ left: 0, top: 0 }); // Scrollposition
-
-    // Rechtsklick-Event (startet das Ziehen)
-    const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        event.preventDefault(); // Verhindert das Standard-Kontextmenü
-        setIsDragging(true); // Setzt den Dragging-Zustand
-        setStartPoint({ x: event.clientX, y: event.clientY }); // Startposition der Maus
-        const div = divRef.current;
-        if (div) {
-            setScrollPosition({
-                left: div.scrollLeft,
-                top: div.scrollTop
-            });
-        }
-    };
-
-    // Bewegt das SVG, indem die Scrollposition des div geändert wird
-    const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-        if (isDragging) {
-            const div = divRef.current;
-            // Berechnung der neuen Scroll-Position relativ zur Mausbewegung
-            if (div) {
-                div.scrollLeft = scrollPosition.left - (event.clientX - startPoint.x);
-                div.scrollTop = scrollPosition.top - (event.clientY - startPoint.y);
-            }
-        }
-    };
-
-    // Beendet das Ziehen, wenn die Maus losgelassen wird
-    const handlePointerUp = () => {
-        setIsDragging(false); // Beendet den Dragging-Zustand
-    };
-
-
-
-    // console.log(data);
-    return (
-        <>
-            <div className="svg-multi-board-wrapper"
-                ref={divRef}
-                onPointerMove={event => handlePointerMove(event)}
-                onPointerUp={handlePointerUp}
-                onContextMenu={event => handleRightClick(event)} // Rechtsklick-Event starten
-            >
-                <Sidebar />
-                {/* <div style={{ 'width': "100px", 'height': "100px" }}></div> */}
-                <svg
-                    ref={dropRef}
-                    style={{ 'width': "2000px", 'height': "2000px" }}
-                    className="svg-multi-board">
-                    {data?.boards?.map(board => (
-                        <BoardMiniature
-                            key={"boardNr" + board._id}
-                            board={board}
-                        />
-                    ))}
-
-                    {arrows?.multiBoardArrows?.map(arrow=>
-                        <ArrowComponent
-                        key={"multiBoardArrowNr" + arrow._id}
-                        arrow={arrow}
-                        />
-                    )}
-
-                </svg>
-                {data?.boards?.map(board => (
-                    <BoardMiniatureText
-                        key={"boardTextNr" + board._id}
-                        board={board}
-                    />
-                ))}
-
-            </div>
-
-
-
-
-        </>
-    )
-
+function d3Map<T, U>(
+    data: T[],
+    keyAccessor: (datum: T) => string,
+    valueAccessor: (datum: T) => U
+): Map<string, U> {
+    return new Map(
+        Array.from(data, (datum) => [keyAccessor(datum), valueAccessor(datum)])
+    );
 }
 
 
+export const MultiBoard = () => {
+    // Daten aus dem Redux-Store abrufen
+    const boardData = useAppSelector(state => state.allBoards.boards);  // z.B. [{_id: "1", boardName: "Board1"}, {...}]
+    const linkData = useAppSelector(state => state.multiBoardArrow.multiBoardArrows);    // z.B. [{source: "1", target: "2", strength: 1}, {...}]
+
+    // Konvertiere Boards zu Nodes und Links zu CustomLinks
+    const initNodes: CustomNode[] = useMemo(() => {
+        if (!boardData) return []; // Fallback auf leeres Array, wenn boardData undefined ist
+        return boardData?.map((board: any) => ({
+            id: board._id,  // `_id` von den Boards aus dem Redux-Store
+            name: board.boardName,  // `boardName` wird der Knoten-Name
+        }));  // Fallback: leeres Array, wenn `boardData` undefined ist;
+    }, [boardData]);
+
+    const initLinks: CustomLink[] = useMemo(() => {
+        if (!linkData) return []; // Fallback auf leeres Array, wenn linkData undefined ist
+        return linkData?.map((link: any) => ({
+            source: link.anchorStart.onCard,  // `source` ist die ID des Quellknotens
+            target: link.anchorEnd.onCard,  // `target` ist die ID des Zielknotens
+            strength: 3,  // Link-Stärke
+        }));
+    }, [linkData]);
 
 
 
+
+    const newLinks = useMemo(() => {
+        const sources = initLinks.map((link) => link.source);
+        const targets = initLinks.map((link) => link.target);
+        const nodesMap = d3Map(initNodes, getId, (d) => d);
+
+        const newLinks: CustomLink[] = initLinks.map((_, i) => ({
+            source: nodesMap.get(sources[i].toString()),
+            target: nodesMap.get(targets[i].toString()),
+            strength: _.strength,
+        }));
+        return newLinks;
+    }, [initNodes]);
+
+    const [nodes, setNodes] = useState<CustomNode[]>(initNodes);
+    const [links, setLinks] = useState<CustomLink[]>(newLinks);
+    const RADIUS = 8;
+    const LINK_WIDTH = 3;
+    const LINK_DISTANCE = 30;
+    const FORCE_RADIUS_FACTOR = 1.5;
+    const NODE_STRENGTH = -50;
+    const WIDTH = 1200;
+    const HEIGTH = 1000;
+
+    // Funktion für das Umbrechen des Textes nach 20 Zeichen
+    const wrapText = (text: string, maxLength: number) => {
+        const regex = new RegExp(`(.{1,${maxLength}})(\\s|$)`, 'g');
+        return text.match(regex)?.join('\n') || text;
+    };
+
+
+    useEffect(() => {
+        const simulation = forceSimulation<CustomNode, CustomLink>(initNodes)
+            .force(
+                "link",
+                forceLink<CustomNode, CustomLink>(newLinks)
+                    .id((d) => d.id)
+                    .distance(LINK_DISTANCE)
+            )
+            .force("center", forceCenter(WIDTH / 2, HEIGTH / 2).strength(0.05))
+            .force("charge", forceManyBody().strength(NODE_STRENGTH))
+            .force("collision", forceCollide(RADIUS * FORCE_RADIUS_FACTOR));
+
+        // update state on every frame
+        simulation.on("tick", () => {
+            setNodes([...simulation.nodes()]);
+            setLinks([...newLinks]);
+        });
+
+        return () => {
+            simulation.stop();
+        };
+    }, [newLinks, initNodes]);
+
+    return (
+        <svg height={HEIGTH} width={WIDTH}>
+
+            {links.map((link) => {
+                const { source, target } = link;
+                const modSource = source as CustomNode;
+                const modTarget = target as CustomNode;
+
+                return (
+                    <line
+                        key={`${modSource.id}-${modTarget.id}`}
+                        stroke="white"
+                        strokeWidth={3}
+                        strokeOpacity={1}
+                        x1={modSource.x}
+                        y1={modSource.y}
+                        x2={modTarget.x}
+                        y2={modTarget.y}
+                    />
+                );
+            })}
+            {nodes.map((node) => (
+                <g key={node.id} transform={`translate(${node.x},${node.y})`}>
+                    <ellipse
+                        rx="120"
+                        ry="30"
+                        stroke="white"
+                        strokeWidth={1}
+                        fill="white"
+                    />
+
+                    <text
+                        textAnchor="middle"
+                        dy="-200"  // Position des Textes oberhalb des Knotens
+                        fill="black"
+                    >
+                        {wrapText(node.name, 40).split('\n').map((line, i) => (
+                            <tspan x="0" dy={`${i === 0 ? 0 : 1.2}em`} key={i}>
+                                {line}
+                            </tspan>
+                        ))}
+                    </text>
+                    {/* Link to the node's detail page */}
+                    <foreignObject x="30"y="20" width="50" height="20">
+                        <Link to={`/board/${node.id}`} style={{ color: 'blue', textDecoration: 'underline' }}>
+                            Details
+                        </Link>
+                    </foreignObject>
+                </g>
+            ))}
+        </svg>
+    );
+};
