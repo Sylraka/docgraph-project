@@ -6,7 +6,7 @@ import { fetchAllBoards } from "../app/fetch-data/allBoardsSlice"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { clearState } from "../app/fetch-data/singleBoardSlice"
 import { SavedBoards } from "./savedBoards"
-
+import { fetchAllArrows } from "../app/fetch-data/multiBoardArrowSlice"
 
 import { createNewBoard } from '../app/fetch-data/allBoardsSlice.js'
 import { newBoardData } from "../app/newBoardData.js"
@@ -23,6 +23,7 @@ export const Home = () => {
     useEffect(() => {
         dispatch(fetchAllBoards())
         dispatch(clearState())
+        dispatch(fetchAllArrows())
     },
         []);
 

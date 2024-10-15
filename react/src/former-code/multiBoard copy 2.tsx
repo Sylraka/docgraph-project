@@ -1,27 +1,27 @@
 import { useEffect, useState, useRef } from "react"
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
+import { setNavigationToMultiBoard } from "../pages/slices/navigationSlice"
 
 //for insert new elements
 import { useDrop } from "react-dnd";
-import { ItemTypes } from '../../dragConstants';
-import { createNewArrow, multiBoardArrowState } from "../../app/fetch-data/multiBoardArrowSlice"
-import { boardsApiState, createNewBoard } from "../../app/fetch-data/allBoardsSlice"
-import { newMultiBoardArrowData } from "../../app/newElementData"
-import { newBoardData } from "../../app/newBoardData"
+import { ItemTypes } from '../dragConstants';
+import { createNewArrow, multiBoardArrowState } from "../app/fetch-data/multiBoardArrowSlice"
+import { boardsApiState, createNewBoard } from "../app/fetch-data/allBoardsSlice"
+import { newMultiBoardArrowData } from "../app/newElementData"
+import { newBoardData } from "../app/newBoardData"
 
-import { Sidebar } from "./nav-bar/multiSidebar";
+import { Sidebar } from "../pages/multi-board/nav-bar/multiSidebar";
 
-import { BoardMiniature } from "./elements/boardMiniature";
-import BoardMiniatureText from "./elements/boardMiniatureText"
+import { BoardMiniature } from "../pages/multi-board/elements/boardMiniature";
+import BoardMiniatureText from "../pages/multi-board/elements/boardMiniatureText"
 import "./multiBoard.css"
 
-import { ArrowComponent } from "./elements/multiBoardArrow"
-import { fetchAllArrows } from "../../app/fetch-data/multiBoardArrowSlice"
+import { ArrowComponent } from "../pages/multi-board/elements/multiBoardArrow"
+import { fetchAllArrows } from "../app/fetch-data/multiBoardArrowSlice"
 
 import cytoscape, { Core, EdgeSingular, NodeSingular } from 'cytoscape';
-import { Board } from "../../app/fetch-data/dataTypes";
+import { Board } from "../app/fetch-data/dataTypes";
 
 
 

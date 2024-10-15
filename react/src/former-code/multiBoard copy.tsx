@@ -1,24 +1,24 @@
 import { useEffect, useState, useRef } from "react"
 
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
-import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
+import { useAppDispatch, useAppSelector } from "../app/hooks"
+import { setNavigationToMultiBoard } from "../pages/slices/navigationSlice"
 
 //for insert new elements
 import { useDrop } from "react-dnd";
-import { ItemTypes } from '../../dragConstants';
-import { createNewArrow } from "../../app/fetch-data/multiBoardArrowSlice"
-import { createNewBoard } from "../../app/fetch-data/allBoardsSlice"
-import { newMultiBoardArrowData } from "../../app/newElementData"
-import { newBoardData } from "../../app/newBoardData"
+import { ItemTypes } from '../dragConstants';
+import { createNewArrow } from "../app/fetch-data/multiBoardArrowSlice"
+import { createNewBoard } from "../app/fetch-data/allBoardsSlice"
+import { newMultiBoardArrowData } from "../app/newElementData"
+import { newBoardData } from "../app/newBoardData"
 
-import { Sidebar } from "./nav-bar/multiSidebar";
+import { Sidebar } from "../pages/multi-board/nav-bar/multiSidebar";
 
-import { BoardMiniature } from "./elements/boardMiniature";
-import BoardMiniatureText from "./elements/boardMiniatureText"
+import { BoardMiniature } from "../pages/multi-board/elements/boardMiniature";
+import BoardMiniatureText from "../pages/multi-board/elements/boardMiniatureText"
 import "./multiBoard.css"
 
-import { ArrowComponent } from "./elements/multiBoardArrow"
-import { fetchAllArrows } from "../../app/fetch-data/multiBoardArrowSlice"
+import { ArrowComponent } from "../pages/multi-board/elements/multiBoardArrow"
+import { fetchAllArrows } from "../app/fetch-data/multiBoardArrowSlice"
 
 
 export const MultiBoard = () => {
@@ -102,8 +102,8 @@ export const MultiBoard = () => {
                 onPointerUp={handlePointerUp}
                 onContextMenu={event => handleRightClick(event)} // Rechtsklick-Event starten
             >
-                {/* <Sidebar />´ */}
-                {/* <svg
+                <Sidebar />´ */}
+                 <svg
                     ref={dropRef}
                     style={{ 'width': "2000px", 'height': "2000px" }}
                     className="svg-multi-board">
@@ -127,7 +127,7 @@ export const MultiBoard = () => {
                         key={"boardTextNr" + board._id}
                         board={board}
                     />
-                ))} */}
+                ))}
 
             </div>
 
