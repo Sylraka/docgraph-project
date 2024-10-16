@@ -5,6 +5,7 @@ import { Board } from '../../../app/fetch-data/dataTypes';
 import {setBoard} from "../../../app/fetch-data/allBoardsSlice"
 
 import {setActiveDragElement} from "../../slices/dragSlice"
+import { setFocusElement } from "../../slices/focusSlice";
 
 interface miniatureProps {
     board: Board,
@@ -32,7 +33,7 @@ export const BoardMiniature = (props: miniatureProps) => {
 
 
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
-        // dispatch(setFocusElement({ elementType: "card", ID: props.card.cardID }))
+        dispatch(setFocusElement({ elementType: "board", ID: props.board._id! }))
         let newElement: DragElement;
         const el = e.currentTarget;
         const bbox = e.currentTarget.getBoundingClientRect();

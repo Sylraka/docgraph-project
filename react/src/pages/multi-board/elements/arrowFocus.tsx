@@ -74,28 +74,28 @@ export const ArrowFocus = (props: propTypes) => {
         if (element.active === true) {
 
             // manually pointer-enter-event over a little offset in all four corners, tracks overCardStatus
-            let rectElement;
+            let ellipseElement;
             const elementUnderPointer1 = document.elementFromPoint(event.clientX + 10, event.clientY + 10);
             const elementUnderPointer2 = document.elementFromPoint(event.clientX - 10, event.clientY + 10);
             const elementUnderPointer3 = document.elementFromPoint(event.clientX + 10, event.clientY - 10);
             const elementUnderPointer4 = document.elementFromPoint(event.clientX - 10, event.clientY - 10);
 
-            if (elementUnderPointer1 && elementUnderPointer1.tagName === 'rect') {
-                rectElement = elementUnderPointer1
-            } else if (elementUnderPointer2 && elementUnderPointer2.tagName === 'rect') {
-                rectElement = elementUnderPointer2
-            } else if (elementUnderPointer3 && elementUnderPointer3.tagName === 'rect') {
-                rectElement = elementUnderPointer3
-            } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'rect') {
-                rectElement = elementUnderPointer4
+            if (elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
+                ellipseElement = elementUnderPointer1
+            } else if (elementUnderPointer2 && elementUnderPointer2.tagName === 'ellipse') {
+                ellipseElement = elementUnderPointer2
+            } else if (elementUnderPointer3 && elementUnderPointer3.tagName === 'ellipse') {
+                ellipseElement = elementUnderPointer3
+            } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'ellipse') {
+                ellipseElement = elementUnderPointer4
             } else {
-                rectElement = undefined
+                ellipseElement = undefined
             }
 
             let id: String;
-            if (rectElement !== undefined) {
-                id = rectElement.id;
-                console.log('Pointer entered rectangle nr', id);
+            if (ellipseElement !== undefined) {
+                id = ellipseElement.id;
+                console.log('Pointer entered ellipse nr', id);
                 dispatch(setOverCard(id))
             } else {
                 dispatch(removeOverCard())

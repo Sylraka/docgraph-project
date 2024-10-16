@@ -17,12 +17,15 @@ import { Sidebar } from "./nav-bar/multiSidebar";
 
 import { BoardMiniature } from "./elements/boardMiniature";
 import BoardMiniatureText from "./elements/boardMiniatureText"
+import { BoardMiniatureFocus } from "./elements/boardMiniatureFocus";
+
 import "./multiBoard.css"
 
 import { ArrowComponent } from "./elements/multiBoardArrow"
 import { fetchAllArrows } from "../../app/fetch-data/multiBoardArrowSlice"
 
-import {ArrowFocus} from "./elements/arrowFocus"
+import { ArrowFocus } from "./elements/arrowFocus"
+import { removeFocusElement } from "../slices/focusSlice";
 
 
 export const MultiBoard = () => {
@@ -98,7 +101,13 @@ export const MultiBoard = () => {
         setIsDragging(false); // Beendet den Dragging-Zustand
     };
 
-
+    const handlePointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
+        const svg = event.target.toString()
+        if (svg === "[object SVGSVGElement]") {
+            console.log('SVG clicked, but not on an element!', svg);
+            dispatch(removeFocusElement())
+        }
+    }
 
     // console.log(data);
     return (
@@ -111,6 +120,7 @@ export const MultiBoard = () => {
             >
                 <Sidebar />
                 <svg
+                    onPointerDown={event => handlePointerDown(event)}
                     ref={dropRef}
                     style={{ 'width': "2000px", 'height': "2000px" }}
                     className="svg-multi-board">
@@ -137,14 +147,14 @@ export const MultiBoard = () => {
                         )
 
                     ))}
-                    {/* {data?.cardList.map(card => (
-                        activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID.toString() && (
-                            < CardFocus
-                                key={"cardFocusNr" + card.cardID}
-                                card={card}
+                    {data?.boards?.map(board => (
+                        activeFocusValue.elementType === "board" && activeFocusValue.ID === board._id! && (
+                            < BoardMiniatureFocus
+                                key={"boardMiniatireFocusNr" + board._id}
+                                board={board}
                             />
                         )
-                    ))} */}
+                    ))}
                 </svg>
                 {data?.boards?.map(board => (
                     <BoardMiniatureText
