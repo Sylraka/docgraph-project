@@ -79,19 +79,6 @@ export const SingleBoard = () => {
     }, [activeFocusValue]);
 
 
-    const saveCard = (updatedCard: Card) => {
-        dispatch(setCardInside(updatedCard));
-
-    }
-
-    const saveArrow = (updatedArrow: Arrow) => {
-        dispatch(setArrowInside(updatedArrow));
-    }
-
-
-    const saveDBBoard = (updatedBoard: Board) => {
-        dispatch(updateBoardInDb(updatedBoard));
-    }
 
 
     const handlePointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
@@ -196,7 +183,7 @@ export const SingleBoard = () => {
                                     <DragArrow
                                         key={"arrowNr" + arrow.arrowID}
                                         arrow={arrow}
-                                        saveArrow={saveArrow}
+                                    //    saveArrow={saveArrow}
                                     />
 
                                 ))}
@@ -205,7 +192,7 @@ export const SingleBoard = () => {
                                         key={"cardNr" + card.cardID}
                                         card={card}
                                         boardId={boardId}
-                                        saveCard={saveCard}
+                                       // saveCard={saveCard}
                                     />
                                 ))}
                                 {data?.arrowList.map(arrow => (
@@ -213,7 +200,6 @@ export const SingleBoard = () => {
                                         <ArrowFocus
                                             key={"arrowFocusNr" + arrow.arrowID}
                                             arrow={arrow}
-                                            saveArrow={saveArrow}
                                         />
                                     )
 
@@ -223,7 +209,6 @@ export const SingleBoard = () => {
                                         < CardFocus
                                             key={"cardFocusNr" + card.cardID}
                                             card={card}
-                                            saveCard={saveCard}
                                         />
 
 

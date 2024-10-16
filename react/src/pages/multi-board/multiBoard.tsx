@@ -7,11 +7,13 @@ import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
 import { useDrop } from "react-dnd";
 import { ItemTypes } from '../../dragConstants';
 import { createNewArrow } from "../../app/fetch-data/multiBoardArrowSlice"
-import { createNewBoard } from "../../app/fetch-data/allBoardsSlice"
+import { createNewBoard, fetchAllBoards } from "../../app/fetch-data/allBoardsSlice"
 import { newMultiBoardArrowData } from "../../app/newElementData"
 import { newBoardData } from "../../app/newBoardData"
+import { clearState } from "../../app/fetch-data/singleBoardSlice";
 
 import { Sidebar } from "./nav-bar/multiSidebar";
+
 
 import { BoardMiniature } from "./elements/boardMiniature";
 import BoardMiniatureText from "./elements/boardMiniatureText"
@@ -20,16 +22,21 @@ import "./multiBoard.css"
 import { ArrowComponent } from "./elements/multiBoardArrow"
 import { fetchAllArrows } from "../../app/fetch-data/multiBoardArrowSlice"
 
+import {ArrowFocus} from "./elements/arrowFocus"
+
 
 export const MultiBoard = () => {
 
     const dispatch = useAppDispatch()
     let data = useAppSelector(state => state.allBoards)
     let arrows = useAppSelector(state => state.multiBoardArrow)
+    let activeFocusValue = useAppSelector((state) => state.focus)
 
     useEffect(() => {
         dispatch(setNavigationToMultiBoard());
         dispatch(fetchAllArrows())
+        dispatch(fetchAllBoards())
+        dispatch(clearState())
     }, [])
 
     const [, dropRef] = useDrop({
@@ -103,7 +110,7 @@ export const MultiBoard = () => {
                 onContextMenu={event => handleRightClick(event)} // Rechtsklick-Event starten
             >
                 <Sidebar />
-                 <svg
+                <svg
                     ref={dropRef}
                     style={{ 'width': "2000px", 'height': "2000px" }}
                     className="svg-multi-board">
@@ -114,13 +121,30 @@ export const MultiBoard = () => {
                         />
                     ))}
 
-                    {arrows?.multiBoardArrows?.map(arrow=>
+                    {arrows?.multiBoardArrows?.map(arrow =>
                         <ArrowComponent
-                        key={"multiBoardArrowNr" + arrow._id}
-                        arrow={arrow}
+                            key={"multiBoardArrowNr" + arrow._id}
+                            arrow={arrow}
                         />
                     )}
 
+                    {arrows?.multiBoardArrows?.map(arrow => (
+                        activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow._id && (
+                            <ArrowFocus
+                                key={"multiBoardArrowFocusNr" + arrow._id}
+                                arrow={arrow}
+                            />
+                        )
+
+                    ))}
+                    {/* {data?.cardList.map(card => (
+                        activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID.toString() && (
+                            < CardFocus
+                                key={"cardFocusNr" + card.cardID}
+                                card={card}
+                            />
+                        )
+                    ))} */}
                 </svg>
                 {data?.boards?.map(board => (
                     <BoardMiniatureText

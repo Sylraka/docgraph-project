@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 
-import { Arrow } from '../../../app/fetch-data/dataTypes';
-import "./arrow.css"
+import { multiBoardArrow } from '../../../app/fetch-data/dataTypes';
+import "../../single-board/elements/arrow.css";
 
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
 import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
 import overCardSlice, { setOverCard, removeOverCard } from "../../slices/overCardSlice"
 
-import { setArrowInside } from "../../../app/fetch-data/singleBoardSlice"
+import { setArrowInside } from "../../../app/fetch-data/multiBoardArrowSlice"
 
 
 type propTypes = {
-    arrow: Arrow,
+    arrow: multiBoardArrow,
 };
-interface DragElement extends Arrow {
+interface DragElement extends multiBoardArrow {
     active: boolean;
     offsetX: number;
     offsetY: number;
@@ -22,8 +22,7 @@ interface DragElement extends Arrow {
 
 
 
-//TODO make arrowhead as marker-element: https://developer.mozilla.org/en-US/docs/Web/SVG/Element/marker
-const ArrowFocus = (props: propTypes) => {
+export const ArrowFocus = (props: propTypes) => {
     const overCardState = useAppSelector((state) => state.overCard)
     const dispatch = useAppDispatch()
 
@@ -100,8 +99,8 @@ const ArrowFocus = (props: propTypes) => {
                 dispatch(setOverCard(id))
             } else {
                 dispatch(removeOverCard())
-               // console.log('pointer is free')
-               console.log("arrowID:", element.arrowID)
+                // console.log('pointer is free')
+                console.log("arrowID:", element._id)
             }
 
 
@@ -117,9 +116,9 @@ const ArrowFocus = (props: propTypes) => {
                 //for updating the arrow, he is listening to dragState
                 newDragElement = {
                     elementType: "arrowAnchor" + location,
-                    ID: props.arrow.anchorStart.anchorID.toString(),
-                    placeToLeftX: element.anchorStart.anchorCanvas.x,
-                    placeToTopY: element.anchorStart.anchorCanvas.y,
+                    ID: "dragStart" + props.arrow._id!,
+                    placeToLeftX: element.anchorStart.x,
+                    placeToTopY: element.anchorStart.y,
                     width: 0,
                     height: 0,
                 };
@@ -129,11 +128,10 @@ const ArrowFocus = (props: propTypes) => {
                     ...element,
                     anchorStart: {
                         ...element.anchorStart,
-                        anchorCanvas: {
-                            ...element.anchorStart.anchorCanvas,
-                            x: element.anchorStart.anchorCanvas.x - (element.offsetX - x),
-                            y: element.anchorStart.anchorCanvas.y - (element.offsetY - y),
-                        }
+                        ...element.anchorStart,
+                        x: element.anchorStart.x - (element.offsetX - x),
+                        y: element.anchorStart.y - (element.offsetY - y),
+
                     }
                 };
 
@@ -141,9 +139,9 @@ const ArrowFocus = (props: propTypes) => {
                 //for updating the arrow, he is listening to dragState
                 newDragElement = {
                     elementType: "arrowAnchor" + location,
-                    ID: props.arrow.anchorEnd.anchorID.toString(),
-                    placeToLeftX: element.anchorEnd.anchorCanvas.x,
-                    placeToTopY: element.anchorEnd.anchorCanvas.y,
+                    ID: "dragEnd" + props.arrow._id!,
+                    placeToLeftX: element.anchorEnd.x,
+                    placeToTopY: element.anchorEnd.y,
                     width: 0,
                     height: 0,
                 };
@@ -153,17 +151,16 @@ const ArrowFocus = (props: propTypes) => {
                     ...element,
                     anchorEnd: {
                         ...element.anchorEnd,
-                        anchorCanvas: {
-                            ...element.anchorEnd.anchorCanvas,
-                            x: element.anchorEnd.anchorCanvas.x - (element.offsetX - x),
-                            y: element.anchorEnd.anchorCanvas.y - (element.offsetY - y),
-                        }
+                        x: element.anchorEnd.x - (element.offsetX - x),
+                        y: element.anchorEnd.y - (element.offsetY - y),
                     }
-                };
-            }
+                }
+            };
+
 
             dispatch(setActiveDragElement(newDragElement))
             setElement(newElement);
+
         }
     }
 
@@ -176,7 +173,7 @@ const ArrowFocus = (props: propTypes) => {
         setElement(newElement);
 
 
-        console.log("overCardState",overCardState)
+        console.log("overCardState", overCardState)
 
 
         if (location === "Start") {
@@ -184,12 +181,10 @@ const ArrowFocus = (props: propTypes) => {
                 ...element,
                 anchorStart: {
                     ...element.anchorStart,
-                    onCard: Number(overCardState.cardID),
-                    anchorCanvas: {
-                        ...element.anchorStart.anchorCanvas,
-                        x: element.anchorStart.anchorCanvas.x,
-                        y: element.anchorStart.anchorCanvas.y,
-                    }
+                    onCard: overCardState.cardID.toString(),
+                    x: element.anchorStart.x,
+                    y: element.anchorStart.y,
+
                 }
             }));
         } else {
@@ -197,14 +192,13 @@ const ArrowFocus = (props: propTypes) => {
                 ...element,
                 anchorEnd: {
                     ...element.anchorEnd,
-                    onCard: Number(overCardState.cardID),
-                    anchorCanvas: {
-                        ...element.anchorEnd.anchorCanvas,
-                        x: element.anchorEnd.anchorCanvas.x,
-                        y: element.anchorEnd.anchorCanvas.y,
-                    }
+                    onCard: overCardState.cardID.toString(),
+                    x: element.anchorEnd.x,
+                    y: element.anchorEnd.y,
+
                 }
             }));
+
         }
 
 
@@ -219,8 +213,8 @@ const ArrowFocus = (props: propTypes) => {
             >
                 <circle
                     r="6"
-                    cx={element.anchorStart.anchorCanvas.x}
-                    cy={element.anchorStart.anchorCanvas.y}
+                    cx={element.anchorStart.x}
+                    cy={element.anchorStart.y}
                     fill='#3399ff'
                     stroke='white'
                     strokeWidth='1'
@@ -233,8 +227,8 @@ const ArrowFocus = (props: propTypes) => {
 
                 <circle
                     r="6"
-                    cx={element.anchorEnd.anchorCanvas.x}
-                    cy={element.anchorEnd.anchorCanvas.y}
+                    cx={element.anchorEnd.x}
+                    cy={element.anchorEnd.y}
                     fill='#3399ff'
                     stroke='white'
                     strokeWidth='1'
@@ -254,4 +248,3 @@ const ArrowFocus = (props: propTypes) => {
     );
 };
 
-export default ArrowFocus;

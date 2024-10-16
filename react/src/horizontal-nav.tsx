@@ -5,10 +5,11 @@ import { useEffect, useState } from "react"
 import "./pages/single-board/nav-bar/buttons/buttons.css";
 
 import { useAppDispatch, useAppSelector } from "./app/hooks"
-import { updateBoardInDb } from "./app/fetch-data/singleBoardSlice"
 import { setNavigationToHome, setNavigationToSingleBoard, setNavigationToMultiBoard } from "./pages/slices/navigationSlice"
 
+import { updateBoardInDb } from "./app/fetch-data/singleBoardSlice"
 import { updateBoardsInDb } from "./app/fetch-data/allBoardsSlice"
+import {updateArrowsInDb} from "./app/fetch-data/multiBoardArrowSlice"
 
 import { Board } from './app/fetch-data/dataTypes'
 
@@ -19,6 +20,7 @@ const Layout = () => {
   const dispatch = useAppDispatch()
   let data = useAppSelector(state => state.singleBoard.board)
   let datas = useAppSelector(state => state.allBoards.boards)
+  let multiArrows = useAppSelector(state => state.multiBoardArrow.multiBoardArrows)
 
   const location = useLocation();
   const boardId = location.pathname.split('/').pop() || 'IdNotDefined';
@@ -38,6 +40,7 @@ const Layout = () => {
   const saveDBBoards = (event: React.PointerEvent<HTMLButtonElement>, id: string) => {
 
     dispatch(updateBoardsInDb(datas!));
+    dispatch(updateArrowsInDb(multiArrows))
 
   }
 

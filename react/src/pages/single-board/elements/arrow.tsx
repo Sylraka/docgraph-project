@@ -16,7 +16,6 @@ import { setArrowInside } from "../../../app/fetch-data/singleBoardSlice"
 
 interface canvasProps {
     arrow: Arrow;
-    saveArrow: (param: Arrow) => void
 }
 
 interface anchorCanvas {
@@ -91,7 +90,7 @@ export default function ArrowComponent(props: canvasProps) {
                     ...prevArrow,
                     anchorStart: {
                         ...prevArrow.anchorStart,
-                        onCard: overCardState.cardID,
+                        onCard: Number(overCardState.cardID),
                         anchorCanvas: {
                             ...prevArrow.anchorStart.anchorCanvas,
                             x: activeDragValue.placeToLeftX,
@@ -102,7 +101,7 @@ export default function ArrowComponent(props: canvasProps) {
 
             }
             //always save, overCardState is written in arrowFocus
-            props.saveArrow({
+            setArrowInside({
                 ...props.arrow,
                 anchorStart: {
                     ...props.arrow.anchorStart,
@@ -149,7 +148,7 @@ export default function ArrowComponent(props: canvasProps) {
                     ...prevArrow,
                     anchorEnd: {
                         ...prevArrow.anchorEnd,
-                        onCard: overCardState.cardID,
+                        onCard: Number(overCardState.cardID),
                         anchorCanvas: {
                             ...prevArrow.anchorEnd.anchorCanvas,
                             x: activeDragValue.placeToLeftX,
@@ -159,7 +158,7 @@ export default function ArrowComponent(props: canvasProps) {
                 }))
             }
             //always save, overCardState is written in arrowFocus
-            props.saveArrow({
+            setArrowInside({
                 ...props.arrow,
                 anchorEnd: {
                     ...props.arrow.anchorEnd,

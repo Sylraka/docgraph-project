@@ -1,22 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface OverCardState {
-    cardID: number,
+    cardID: String,
 }
 
 const initialState: OverCardState = {
-    cardID: -1,
+    cardID: "",
 }
 
 const overCardSlice = createSlice({
     name: "overCard",
     initialState,
     reducers: {
-        setOverCard(state, action: PayloadAction<number>) {
+        setOverCard(state, action: PayloadAction<String>) {
             state.cardID = action.payload;
         },
         removeOverCard(state) {
-            state.cardID = -1;
+            state.cardID = "";
         }
     }
 });

@@ -14,7 +14,6 @@ import { aC } from "vitest/dist/reporters-LqC_WI4d.js";
 
 type propTypes = {
     card: Card,
-    saveCard: (param: Card) => void,
     //handleWidthHeight:(newWidth: number, newHeight: number) => void
 };
 

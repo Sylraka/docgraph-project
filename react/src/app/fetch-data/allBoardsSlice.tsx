@@ -22,7 +22,7 @@ export const fetchAllBoards = createAsyncThunk(
 );
 
 export const createNewBoard = createAsyncThunk(
-    'data/postData',
+    'data/postDataNewBoard',
        //parameter of thunk: newBoard
     async (newBoard: any) => {
          // Baue den Pfad zum API-Endpunkt zusammen
@@ -99,6 +99,14 @@ const boardsApiSlice = createSlice({
                 // state.loading = false;
                 // state.error = action.error.message;
             })  
+            .addCase(createNewBoard.fulfilled, (state, action) => {
+                // we cannot mutate the action-payload-object, so we make a new object
+                const newCard = {
+                    ...action.payload,
+                }
+                //concat returns a new array, no modification inplace
+                state.boards = state.boards!.concat(newCard)
+            })
     }
 
 });

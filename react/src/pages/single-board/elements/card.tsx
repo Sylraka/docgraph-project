@@ -9,13 +9,13 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
 import { setFocusElement } from "../../slices/focusSlice"
 import { setOverCard } from "../../slices/overCardSlice"
+import { setCardInside } from "../../../app/fetch-data/singleBoardSlice";
 
 import CardFocus from "./cardFocus"
 
 interface canvasProps {
     card: Card,
     boardId: string,
-    saveCard: (param: Card) => void,
 }
 
 
@@ -48,7 +48,7 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(prevElement.width + activeDragValue.width,30),
                 height: Math.max(prevElement.height + activeDragValue.height,30)
             }))
-            props.saveCard({
+            setCardInside({
                 ...props.card,
                 width: Math.max(props.card.width + activeDragValue.width, 30),
                 height:  Math.max(props.card.height + activeDragValue.height,30)
@@ -60,7 +60,7 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(prevElement.width - activeDragValue.width, 30),
                 height: Math.max(prevElement.height + activeDragValue.height,30)
             }))
-            props.saveCard({
+            setCardInside({
                 ...props.card,
                 x:  props.card.x + activeDragValue.width,
                 width: Math.max(props.card.width - activeDragValue.width, 30),
@@ -73,7 +73,7 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(prevElement.width + activeDragValue.width, 30),
                 height: Math.max(prevElement.height - activeDragValue.height,30)
             }))
-            props.saveCard({
+            setCardInside({
                 ...props.card,
                 y:  props.card.x + activeDragValue.height,
                 width: Math.max(props.card.width + activeDragValue.width, 30),
@@ -87,7 +87,7 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(prevElement.width - activeDragValue.width, 30),
                 height: Math.max(prevElement.height - activeDragValue.height,30)
             }))
-            props.saveCard({
+            setCardInside({
                 ...props.card,
                 x:  props.card.x + activeDragValue.width,
                 y:  props.card.x + activeDragValue.height,
@@ -170,7 +170,7 @@ export default function CardComponent(props: canvasProps) {
 
         setElement(newElement);
 
-        props.saveCard({
+        setCardInside({
             ...props.card,
             x: element.x,
             y: element.y

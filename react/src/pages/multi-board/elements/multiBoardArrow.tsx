@@ -4,16 +4,15 @@ import React, { useState, useEffect } from 'react';
 
 import { Board, multiBoardArrow } from '../../../app/fetch-data/dataTypes';
 import "../../single-board/elements/arrow.css";
-//import SvgArrowHead from "./arrowHead"
+import SvgArrowHead from "./arrowHead"
 //import ArrowFocus from "./arrowFocus"
 
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
 import { setActiveDragElement, removeActiveDrag } from "../../slices/dragSlice"
 import { setFocusElement, FocusState } from "../../slices/focusSlice"
-import { setArrowInside } from "../../../app/fetch-data/singleBoardSlice"
 
-import { updateArrowsInDb, setBoard } from "../../../app/fetch-data/multiBoardArrowSlice"
+import { updateArrowsInDb, setArrowInside } from "../../../app/fetch-data/multiBoardArrowSlice"
 
 interface canvasProps {
     arrow: multiBoardArrow;
@@ -98,7 +97,7 @@ export function ArrowComponent(props: canvasProps) {
 
             }
             //always save, overCardState is written in arrowFocus
-            dispatch(updateArrowsInDb({
+            dispatch(setArrowInside({
                 ...props.arrow,
                 anchorStart: {
                     ...props.arrow.anchorStart,
@@ -148,7 +147,7 @@ export function ArrowComponent(props: canvasProps) {
                 }))
             }
             //always save, overCardState is written in arrowFocus
-            dispatch(updateArrowsInDb({
+            dispatch(setArrowInside({
                 ...props.arrow,
                 anchorEnd: {
                     ...props.arrow.anchorEnd,
@@ -211,10 +210,10 @@ export function ArrowComponent(props: canvasProps) {
                     id={"lineID" + element._id}
                 />
 
-                {/* <SvgArrowHead
+                <SvgArrowHead
                     arrow={element}
                     computeRotation={computeRotation}
-                /> */}
+                />
 
 
 

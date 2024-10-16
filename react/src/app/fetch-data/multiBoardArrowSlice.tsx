@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { multiBoardArrow } from "./dataTypes"
 
 export interface multiBoardArrowState {
-    multiBoardArrows: multiBoardArrow [] | undefined
+    multiBoardArrows: multiBoardArrow[] | undefined
 }
 
 const initialState: multiBoardArrowState = {
@@ -16,17 +16,17 @@ export const fetchAllArrows = createAsyncThunk(
     async (thunkAPI) => {
         const response = await fetch(`http://localhost:5100/api/arrows`);
         const data = await response.json();
-       // console.log(data)
+        // console.log(data)
         return data; // Das zurückgegebene Ergebnis wird in den Fulfilled-State übernommen
     }
 );
 
 export const createNewArrow = createAsyncThunk(
-    'data/postData',
-       //parameter of thunk: newArrow
+    'data/postDataNewArrow',
+    //parameter of thunk: newArrow
     async (newArrow: any) => {
-         // Baue den Pfad zum API-Endpunkt zusammen
-         const response = await fetch(`http://localhost:5100/api/arrows`, {
+        // Baue den Pfad zum API-Endpunkt zusammen
+        const response = await fetch(`http://localhost:5100/api/arrows`, {
             method: 'POST', // HTTP-Methode, hier POST 
             headers: {
                 'Content-Type': 'application/json', // Stelle sicher, dass der Content-Type auf JSON gesetzt ist
@@ -64,7 +64,7 @@ export const updateArrowsInDb = createAsyncThunk(
 
             const data = await response.json(); // Parsen der JSON-Antwort
             console.log("data:", data)
-       //    return data; // Gib die aktualisierten Daten zurück
+            //    return data; // Gib die aktualisierten Daten zurück
         } catch (error) {
             console.log(error)
             //return rejectWithValue(error).payload; // Fehlerbehandlung
@@ -77,7 +77,7 @@ const arrowsApiSlice = createSlice({
     name: "arrowsApiSlice",
     initialState,
     reducers: {
-        setBoard(state, action: PayloadAction<multiBoardArrow>) {
+        setArrowInside(state, action: PayloadAction<multiBoardArrow>) {
             const arrowIndex = state.multiBoardArrows?.findIndex(arrow => arrow._id === action.payload._id);
             if (arrowIndex !== undefined && state.multiBoardArrows !== undefined) {
                 state.multiBoardArrows[arrowIndex] = action.payload;
@@ -97,11 +97,19 @@ const arrowsApiSlice = createSlice({
             .addCase(fetchAllArrows.rejected, (state, action) => {
                 // state.loading = false;
                 // state.error = action.error.message;
-            })  
+            })
+            .addCase(createNewArrow.fulfilled, (state, action) => {
+                // we cannot mutate the action-payload-object, so we make a new object
+                const newArrow = {
+                    ...action.payload,
+                }
+                //concat returns a new array, no modification inplace
+                state.multiBoardArrows = state.multiBoardArrows!.concat(newArrow)
+            })
     }
 
 });
 
 
-export const { setBoard } = arrowsApiSlice.actions;
+export const { setArrowInside } = arrowsApiSlice.actions;
 export default arrowsApiSlice.reducer;
