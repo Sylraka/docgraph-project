@@ -12,6 +12,7 @@ import "../multiBoard.css"
 import linkImg from "../../../images/link.png"
 
 import { setBoard } from "../../../app/fetch-data/allBoardsSlice";
+import { removeFocusElement } from "../../slices/focusSlice";
 
 interface canvasProps {
     board: Board;
@@ -112,9 +113,9 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
         }
     }
 
-    // const klickAtTextarea = () => {
-    //     dispatch(removeFocusElement())
-    // }
+    const klickAtTextarea = () => {
+        dispatch(removeFocusElement())
+    }
 
     return (
         <>
@@ -126,7 +127,7 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
                 spellCheck="false"
                 style={{ 'top': element.boardPosition.y - 75, 'left': element.boardPosition.x - (element.width - 10), 'width': element.width, 'height': element.height }}
                 onChange={(event) => manageTextInput(event.target.value, "textID" + props.board._id)}//
-                // onClick={klickAtTextarea}
+                 onClick={klickAtTextarea}
                 value={element.boardName}
             >
             </textarea>
