@@ -73,6 +73,26 @@ export const updateBoardsInDb = createAsyncThunk(
     }
 );
 
+export const deleteBoardFromDb = createAsyncThunk(
+    'data/deleteBoardFromDb',
+    async (boardID: string, { rejectWithValue }) => {
+        try {
+            // Baue den Pfad zum API-Endpunkt mit dem Arrow-ID zusammen
+            const response = await fetch(`http://localhost:5100/api/boards/${boardID}`, {
+                method: 'DELETE',
+            });
+            //console.log(response)
+            if (!response.ok) {
+                throw new Error(`Network response was not ok ${response.statusText}`);
+            }
+
+            return boardID; // Arrow-ID wird als Payload zurückgegeben, um sie aus dem Redux-State zu entfernen
+        } catch (error) {
+            console.log(error)
+        }
+    }
+);
+
 
 const boardsApiSlice = createSlice({
     name: "boardsApiSlice",
@@ -84,6 +104,12 @@ const boardsApiSlice = createSlice({
                 state.boards[boardIndex] = action.payload;
             }
         },
+        // deleteBoardInside(state, action: PayloadAction<String>) {
+        //     if (state.boards !== undefined) {
+        //         //fills all boards in boardLiust where not having the arrowid we want to delete
+        //         state.boards = state.boards?.filter(board => board._id !== action.payload)
+        //     }
+        // },
     },
     extraReducers: (builder) => {
         builder
@@ -107,6 +133,13 @@ const boardsApiSlice = createSlice({
                 //concat returns a new array, no modification inplace
                 state.boards = state.boards!.concat(newCard)
             })
+            .addCase(deleteBoardFromDb.fulfilled, (state, action) => {
+                if (state.boards !== undefined) {
+                    //fills all boards in boardlist where not having the arrowid we want to delete
+                    state.boards = state.boards?.filter(board => board._id !== action.payload)
+                }
+            })
+
     }
 
 });

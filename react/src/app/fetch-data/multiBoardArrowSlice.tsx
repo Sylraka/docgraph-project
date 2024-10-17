@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { multiBoardArrow } from "./dataTypes"
+import { deleteArrowInside } from './singleBoardSlice';
 
 export interface multiBoardArrowState {
     multiBoardArrows: multiBoardArrow[] | undefined
@@ -72,6 +73,25 @@ export const updateArrowsInDb = createAsyncThunk(
     }
 );
 
+export const deleteArrowFromDb = createAsyncThunk(
+    'data/deleteArrowFromDb',
+    async (arrowId: string, { rejectWithValue }) => {
+        try {
+            // Baue den Pfad zum API-Endpunkt mit dem Arrow-ID zusammen
+            const response = await fetch(`http://localhost:5100/api/arrows/${arrowId}`, {
+                method: 'DELETE',
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            return arrowId; // Arrow-ID wird als Payload zurückgegeben, um sie aus dem Redux-State zu entfernen
+        } catch (error) {
+            console.log(error)
+        }
+    }
+);
 
 const arrowsApiSlice = createSlice({
     name: "arrowsApiSlice",
@@ -105,6 +125,12 @@ const arrowsApiSlice = createSlice({
                 }
                 //concat returns a new array, no modification inplace
                 state.multiBoardArrows = state.multiBoardArrows!.concat(newArrow)
+            })
+            .addCase(deleteArrowFromDb.fulfilled, (state, action) => {
+                if (state.multiBoardArrows !== undefined) {
+                    //fills all boards in boardlist where not having the arrowid we want to delete
+                    state.multiBoardArrows = state.multiBoardArrows?.filter(arrow => arrow._id !== action.payload)
+                }
             })
     }
 

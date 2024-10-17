@@ -6,8 +6,8 @@ import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
 //for insert new elements
 import { useDrop } from "react-dnd";
 import { ItemTypes } from '../../dragConstants';
-import { createNewArrow } from "../../app/fetch-data/multiBoardArrowSlice"
-import { createNewBoard, fetchAllBoards } from "../../app/fetch-data/allBoardsSlice"
+import { createNewArrow, deleteArrowFromDb } from "../../app/fetch-data/multiBoardArrowSlice"
+import { createNewBoard, deleteBoardFromDb, fetchAllBoards } from "../../app/fetch-data/allBoardsSlice"
 import { newMultiBoardArrowData } from "../../app/newElementData"
 import { newBoardData } from "../../app/newBoardData"
 import { clearState } from "../../app/fetch-data/singleBoardSlice";
@@ -108,6 +108,52 @@ export const MultiBoard = () => {
             dispatch(removeFocusElement())
         }
     }
+
+    //to prevent "stale closure problem": have an old state if we didnt hear to activeFocusValue
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            //console.log("klick", event.key)
+            if (event.key === 'Backspace') {
+                console.log('Entf/Entfernen-Taste gedrückt, activeFocusValue:', activeFocusValue);
+                if (activeFocusValue.elementType === "arrow") {
+                    // Öffnet ein Bestätigungsdialog
+                    const confirmed = window.confirm("Are you sure you want to delete this arrow?");
+
+                    if (confirmed) {
+                        // Der Benutzer hat "OK" geklickt
+                        console.log("delete arrow")
+                        dispatch(deleteArrowFromDb(activeFocusValue.ID));
+                    } else {
+                        // Der Benutzer hat "Abbrechen" geklickt
+                        console.log("Aktion abgebrochen");
+                    }
+
+                }
+                if (activeFocusValue.elementType === "board") {
+                    // Öffnet ein Bestätigungsdialog
+                    const confirmed = window.confirm("Are you sure you want to delete this board?");
+
+                    if (confirmed) {
+                        // Der Benutzer hat "OK" geklickt
+                        console.log("delete board")
+                        dispatch(deleteBoardFromDb(activeFocusValue.ID))
+                    } else {
+                        // Der Benutzer hat "Abbrechen" geklickt
+                        console.log("Aktion abgebrochen");
+                    }
+
+                }
+            }
+        };
+
+        // Event Listener hinzufügen
+        window.addEventListener('keydown', handleKeyDown);
+
+        // Cleanup-Funktion, um den Event Listener zu entfernen
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [activeFocusValue]);
 
     // console.log(data);
     return (

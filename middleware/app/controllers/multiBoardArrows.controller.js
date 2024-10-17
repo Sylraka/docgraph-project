@@ -50,6 +50,26 @@ exports.findAll = (req, res) => {
       });
   };
 
+  exports.delete = async (req, res) => {
+    try {
+        const arrowId = req.params.id; // Die ID des zu löschenden Arrows wird aus der URL entnommen
+
+        // Versuche, den Arrow in der Datenbank zu finden und zu löschen
+        const deletedArrow = await Arrow.findByIdAndDelete(arrowId);
+      console.log(deletedArrow)
+        if (!deletedArrow) {
+            // Wenn der Arrow mit der angegebenen ID nicht gefunden wurde
+            return res.status(404).json({ message: 'Arrow not found' });
+        }
+
+        // Erfolgreiche Löschung
+        return res.status(200).json({ message: 'Arrow successfully deleted', arrowId });
+    } catch (error) {
+        // Wenn ein Fehler aufgetreten ist, sende eine Fehlermeldung zurück
+        return res.status(500).json({ message: 'Error deleting arrow', error: error.message });
+    }
+};
+
   //save all 
   exports.updateAll = async (req, res) => {
     //console.log(req.body);  

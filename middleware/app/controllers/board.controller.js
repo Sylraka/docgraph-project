@@ -133,10 +133,11 @@ exports.updateAll = async (req, res) => {
 };
 
 
+
 // Delete a Board with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-  Board.findByIdAndRemove(id)
+  Board.findByIdAndDelete(id)
     .then(data => {
       if (!data) {
         res.status(404).send({
