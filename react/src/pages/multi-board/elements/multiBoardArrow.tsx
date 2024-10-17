@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Board, multiBoardArrow } from '../../../app/fetch-data/dataTypes';
 import "../../single-board/elements/arrow.css";
-import SvgArrowHead from "./arrowHead"
+import SvgArrowHead from "./multiBoardArrowHead"
 //import ArrowFocus from "./arrowFocus"
 
 //we need that to read the state
@@ -54,9 +54,9 @@ export function ArrowComponent(props: canvasProps) {
         let rotation = computeRotation(element.anchorStart, element.anchorEnd)
         ///console.log("rotation",rotation)
         //update arrow if card moves || update arrow if anchor moves
-        if ((activeDragValue.ID === element.anchorStart.onCard.toString() && activeDragValue.elementType === "card") || (activeFocusValue.ID.toString() === element._id && activeDragValue.elementType === "arrowAnchorStart")) {
+        if ((activeDragValue.ID === element.anchorStart.onCard.toString() && activeDragValue.elementType === "board") || (activeFocusValue.ID.toString() === element._id && activeDragValue.elementType === "arrowAnchorStart")) {
             //update arrow if card moves
-            if (activeDragValue.elementType === "card") {
+            if (activeDragValue.elementType === "board") {
                 if (rotation >= 45 && rotation <= 135) {
                     xOnCard = activeDragValue.placeToLeftX
                     yOnCard = activeDragValue.placeToTopY + activeDragValue.height / 2
@@ -108,9 +108,9 @@ export function ArrowComponent(props: canvasProps) {
 
         }
         //update arrow if card moves || update arrow if anchor moves
-        if ((activeDragValue.ID === element.anchorEnd.onCard.toString() && activeDragValue.elementType === "card") || (activeFocusValue.ID.toString() === element._id && activeDragValue.elementType === "arrowAnchorEnd")) {
+        if ((activeDragValue.ID === element.anchorEnd.onCard.toString() && activeDragValue.elementType === "board") || (activeFocusValue.ID.toString() === element._id && activeDragValue.elementType === "arrowAnchorEnd")) {
             //update arrow if card moves
-            if (activeDragValue.elementType === "card") {
+            if (activeDragValue.elementType === "board") {
                 if (rotation >= 45 && rotation <= 135) {
                     xOnCard = activeDragValue.placeToLeftX + activeDragValue.width + 10
                     yOnCard = activeDragValue.placeToTopY + activeDragValue.height / 2

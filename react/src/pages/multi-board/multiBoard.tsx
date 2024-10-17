@@ -24,7 +24,7 @@ import "./multiBoard.css"
 import { ArrowComponent } from "./elements/multiBoardArrow"
 import { fetchAllArrows } from "../../app/fetch-data/multiBoardArrowSlice"
 
-import { ArrowFocus } from "./elements/arrowFocus"
+import { ArrowFocus } from "./elements/multiBoardArrowFocus"
 import { removeFocusElement } from "../slices/focusSlice";
 
 
@@ -116,22 +116,15 @@ export const MultiBoard = () => {
             if (event.key === 'Backspace') {
                 console.log('Entf/Entfernen-Taste gedrückt, activeFocusValue:', activeFocusValue);
                 if (activeFocusValue.elementType === "arrow") {
-                    // Öffnet ein Bestätigungsdialog
-                    const confirmed = window.confirm("Are you sure you want to delete this arrow?");
 
-                    if (confirmed) {
-                        // Der Benutzer hat "OK" geklickt
-                        console.log("delete arrow")
-                        dispatch(deleteArrowFromDb(activeFocusValue.ID));
-                    } else {
-                        // Der Benutzer hat "Abbrechen" geklickt
-                        console.log("Aktion abgebrochen");
-                    }
+                    console.log("delete arrow")
+                    dispatch(deleteArrowFromDb(activeFocusValue.ID));
+
 
                 }
                 if (activeFocusValue.elementType === "board") {
                     // Öffnet ein Bestätigungsdialog
-                    const confirmed = window.confirm("Are you sure you want to delete this board?");
+                    const confirmed = window.confirm("Are you sure you want to delete this board? This cannot be undone.");
 
                     if (confirmed) {
                         // Der Benutzer hat "OK" geklickt
@@ -170,12 +163,6 @@ export const MultiBoard = () => {
                     ref={dropRef}
                     style={{ 'width': "2000px", 'height': "2000px" }}
                     className="svg-multi-board">
-                    {data?.boards?.map(board => (
-                        <BoardMiniature
-                            key={"boardNr" + board._id}
-                            board={board}
-                        />
-                    ))}
 
                     {arrows?.multiBoardArrows?.map(arrow =>
                         <ArrowComponent
@@ -183,6 +170,13 @@ export const MultiBoard = () => {
                             arrow={arrow}
                         />
                     )}
+                    {data?.boards?.map(board => (
+                        <BoardMiniature
+                            key={"boardNr" + board._id}
+                            board={board}
+                        />
+                    ))}
+
 
                     {arrows?.multiBoardArrows?.map(arrow => (
                         activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow._id && (

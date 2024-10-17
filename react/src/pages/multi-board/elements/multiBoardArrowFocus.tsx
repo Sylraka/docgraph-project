@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to 
 import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
 import overCardSlice, { setOverCard, removeOverCard } from "../../slices/overCardSlice"
 
+
 import { setArrowInside } from "../../../app/fetch-data/multiBoardArrowSlice"
 
 
@@ -200,7 +201,7 @@ export const ArrowFocus = (props: propTypes) => {
             }));
 
         }
-
+        dispatch(removeOverCard())
 
     }
 

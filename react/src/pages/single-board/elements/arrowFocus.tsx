@@ -206,6 +206,7 @@ const ArrowFocus = (props: propTypes) => {
                 }
             }));
         }
+        dispatch(removeOverCard())
 
 
     }

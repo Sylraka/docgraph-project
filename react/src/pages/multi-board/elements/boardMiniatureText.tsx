@@ -135,7 +135,7 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
             }} className="">
 
                 <img className="link-image" alt="go to board" src={linkImg}
-                    style={{ 'top': element.boardPosition.y - (22), 'left': element.boardPosition.x - 110 }}
+                    style={{ 'top': element.boardPosition.y - (22), 'left': element.boardPosition.x - 105 }}
                 />
             </Link>
         </>

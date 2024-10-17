@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 
 import { Board } from '../../../app/fetch-data/dataTypes';
-import {setBoard} from "../../../app/fetch-data/allBoardsSlice"
+import { setBoard } from "../../../app/fetch-data/allBoardsSlice"
 
-import {setActiveDragElement} from "../../slices/dragSlice"
+import { setActiveDragElement } from "../../slices/dragSlice"
 import { setFocusElement } from "../../slices/focusSlice";
 
 interface miniatureProps {
@@ -19,6 +19,7 @@ interface DragElement extends Board {
 }
 
 export const BoardMiniature = (props: miniatureProps) => {
+    const overCardState = useAppSelector(state => state.overCard);
     const dispatch = useAppDispatch()
     const [element, setElement] = useState<DragElement>({
         // the attributes the cards didnt have
@@ -83,9 +84,9 @@ export const BoardMiniature = (props: miniatureProps) => {
             newElement = {
                 ...element,
                 boardPosition: {
-                x: element.boardPosition.x - (element.offsetX - x),
-                y: element.boardPosition.y - (element.offsetY - y),
-            }
+                    x: element.boardPosition.x - (element.offsetX - x),
+                    y: element.boardPosition.y - (element.offsetY - y),
+                }
             };
 
             setElement(newElement);
@@ -111,27 +112,46 @@ export const BoardMiniature = (props: miniatureProps) => {
 
     }
 
-    return(        <>
+    return (<>
 
         <g
             key={props.board._id}
         >
-            <ellipse
-                cx={element.boardPosition.x}
-                cy={element.boardPosition.y}
-                fill="#555555"
-                stroke="white"
-                rx="100"
-                width={100 + 30}
-                height={30 + 30}
-                ry="50" 
-                onPointerDown={(event) => handlePointerDown(event)}
-                onPointerUp={(event) => handlePointerUp(event)}
-                onPointerMove={(event) => handlePointerMove(event)}
-                id={element._id}
+            {(overCardState.cardID === element._id) &&
+                <ellipse
+                    cx={element.boardPosition.x}
+                    cy={element.boardPosition.y}
+                    fill="#555555"
+                    stroke="#3399ff"
+                    strokeWidth={5}
+                    rx="100"
+                    width={100 + 30}
+                    height={30 + 30}
+                    ry="50"
+                    onPointerDown={(event) => handlePointerDown(event)}
+                    onPointerUp={(event) => handlePointerUp(event)}
+                    onPointerMove={(event) => handlePointerMove(event)}
+                    id={element._id}
 
-            />
+                />
+            }
+            {(overCardState.cardID !== element._id) &&
+                <ellipse
+                    cx={element.boardPosition.x}
+                    cy={element.boardPosition.y}
+                    fill="#555555"
+                    stroke="white"
+                    rx="100"
+                    width={100 + 30}
+                    height={30 + 30}
+                    ry="50"
+                    onPointerDown={(event) => handlePointerDown(event)}
+                    onPointerUp={(event) => handlePointerUp(event)}
+                    onPointerMove={(event) => handlePointerMove(event)}
+                    id={element._id}
 
+                />
+            }
         </g>
 
     </>);
