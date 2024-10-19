@@ -15,6 +15,7 @@ exports.create = (req, res) => {
     boardName: req.body.boardName,
     boardRubrics: req.body.boardRubrics,
     boardPosition: req.body.boardPosition,
+    linkList: req.body.linkList,
     cardList: req.body.cardList,
     arrowList: req.body.arrowList,
     cardIDCounter: req.body.cardIDCounter,
@@ -41,7 +42,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
   Board.find(condition)
-  .select("_id boardName boardPosition boardRubrics")
+  .select("_id boardName boardPosition boardRubrics linkList")
     .then(data => {
       res.send(data);
     })

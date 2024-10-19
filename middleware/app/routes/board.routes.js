@@ -42,6 +42,7 @@ module.exports = app => {
    router.get("/arrows", arrows.findAll)
    router.put("/arrows", arrows.updateAll)
    router.delete("/arrows/:id", arrows.delete)
+   router.put("/arrows/:id", arrows.update)
    
    app.use('/api', router);
   };

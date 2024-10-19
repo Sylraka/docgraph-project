@@ -1,5 +1,5 @@
 
-import { Card, Board, Arrow, multiBoardArrow } from './fetch-data/dataTypes';
+import { Card, Board, Arrow, multiBoardArrow, LinkCard } from './fetch-data/dataTypes';
 
 export const newCardData: Card = {
     // math: {
@@ -31,6 +31,8 @@ export const newCardMathData: Card = {
     height: 100
 
 }
+
+
 
 export const newArrowData: Arrow = {
     arrowID: -1,//are filled in rootBoards

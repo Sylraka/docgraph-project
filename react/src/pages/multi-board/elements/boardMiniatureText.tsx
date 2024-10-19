@@ -125,7 +125,7 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
                 //className='text-element'
                 className="multi-board-text-element text-element card-field-input"//
                 spellCheck="false"
-                style={{ 'top': element.boardPosition.y - 75, 'left': element.boardPosition.x - (element.width - 10), 'width': element.width, 'height': element.height }}
+                style={{ 'top': element.boardPosition.y - 75, 'left': element.boardPosition.x - (element.width - 10), 'width': element.width, 'height': element.height -20 }}
                 onChange={(event) => manageTextInput(event.target.value, "textID" + props.board._id)}//
                  onClick={klickAtTextarea}
                 value={element.boardName}
@@ -136,7 +136,7 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
             }} className="">
 
                 <img className="link-image" alt="go to board" src={linkImg}
-                    style={{ 'top': element.boardPosition.y - (22), 'left': element.boardPosition.x - 105 }}
+                    style={{ 'top': element.boardPosition.y - (22), 'left': element.boardPosition.x - 100 }}
                 />
             </Link>
         </>

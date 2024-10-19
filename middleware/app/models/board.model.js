@@ -5,6 +5,7 @@ module.exports = mongoose => {
       boardName: String,
       boardRubrics: Array,
       boardPosition: Object,
+      linkList: Array,
       cardList: Array,
       arrowList: Array,
       cardIDCounter: Number,

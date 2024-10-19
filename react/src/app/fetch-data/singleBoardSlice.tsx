@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { Card, Arrow, Board } from "./dataTypes"
+import { Card, Arrow, Board, LinkCard } from "./dataTypes"
 
 export interface singleBoardInsideState {
     board: Board | undefined
@@ -52,12 +52,55 @@ export const updateBoardInDb = createAsyncThunk(
 );
 
 
-
+// Dieser Thunk führt eine Datenbankabfrage durch und gibt das Ergebnis zurück
+export const fetchBoardById = createAsyncThunk(
+    'data/onlyFetchBoardById', // Typ für den Thunk
+    async (boardId: string, { rejectWithValue }) => {
+        try {
+            const response = await fetch(`http://localhost:5100/api/boards/${boardId}`);
+            
+            if (!response.ok) {
+                throw new Error('Failed to fetch the board');
+            }
+            
+            const data = await response.json();
+            
+            // Gib das Ergebnis zurück, ohne es in den Redux-State zu schreiben
+            return data;
+        } catch (error) {
+            // Bei einem Fehler wird der Fehler zurückgegeben
+            return rejectWithValue(error);
+        }
+    }
+);
 
 const singleBoardInsideSlice = createSlice({
     name: "singleBoardInside",
     initialState,
     reducers: {
+        setLinkCardInside(state, action: PayloadAction<LinkCard>) {
+            const cardIndex = state.board?.linkList.findIndex(link => link.fromArrowID === action.payload.fromArrowID);
+            if (cardIndex !== undefined && state.board !== undefined) {
+                state.board.linkList[cardIndex] = action.payload;
+            }
+        },
+        // deleteLinkCardInside(state, action: PayloadAction<String>) {
+        //     if (state.board !== undefined) {
+        //         //fills all arrows in arrowlist where not having the arrowid we want to delete
+        //         state.board.linkList = state.board?.linkList.filter(link => link.fromArrowID !== action.payload)
+        //     }
+        // },
+        // addNewLinkCardInside(state, action: PayloadAction<LinkCard>) {
+        //     // we cannot mutate the action-payload-object, so we make a new object
+        //     const newLinkCard = {
+        //         ...action.payload,
+        //       //  cardID: state.board!.cardIDCounter
+        //     }
+        //    // state.board!.cardIDCounter++;
+        //     //concat returns a new array, no modification inplace
+        //     state.board!.linkList = state.board!.linkList.concat(newLinkCard)
+
+        // },
         setSingleBoardInside(state, action: PayloadAction<Board>) {
             state.board = action.payload
         },
@@ -147,6 +190,7 @@ export const { setSingleBoardInside,
     setCardInside, setArrowInside, 
     clearState, 
     addNewCardInside, addNewArrowInside, 
-    deleteArrowInside, deleteCardInside
+    deleteArrowInside, deleteCardInside,
+    setLinkCardInside
 } = singleBoardInsideSlice.actions;
 export default singleBoardInsideSlice.reducer;

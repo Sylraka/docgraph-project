@@ -6,8 +6,8 @@ import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
 //for insert new elements
 import { useDrop } from "react-dnd";
 import { ItemTypes } from '../../dragConstants';
-import { createNewArrow, deleteArrowFromDb } from "../../app/fetch-data/multiBoardArrowSlice"
-import { createNewBoard, deleteBoardFromDb, fetchAllBoards } from "../../app/fetch-data/allBoardsSlice"
+import { createNewArrow, deleteArrowFromDb, updateArrowsInDb } from "../../app/fetch-data/multiBoardArrowSlice"
+import { createNewBoard, deleteBoardFromDb, fetchAllBoards, updateBoardsInDb } from "../../app/fetch-data/allBoardsSlice"
 import { newMultiBoardArrowData } from "../../app/newElementData"
 import { newBoardData } from "../../app/newBoardData"
 import { clearState } from "../../app/fetch-data/singleBoardSlice";
@@ -40,6 +40,12 @@ export const MultiBoard = () => {
         dispatch(fetchAllArrows())
         dispatch(fetchAllBoards())
         dispatch(clearState())
+
+        return () => {
+            // Clean-up code, der beim Unmounten ausgeführt wird
+            dispatch(updateBoardsInDb(data.boards))
+            dispatch(updateArrowsInDb(arrows.multiBoardArrows))
+        };
     }, [])
 
     const [, dropRef] = useDrop({

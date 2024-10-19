@@ -139,7 +139,7 @@ export function ArrowComponent(props: canvasProps) {
                     ...prevArrow,
                     anchorEnd: {
                         ...prevArrow.anchorEnd,
-                        onCard: overCardState.cardID.toString(),//TODO
+                        onCard: overCardState.cardID.toString(),
                         x: activeDragValue.placeToLeftX,
                         y: activeDragValue.placeToTopY,
 

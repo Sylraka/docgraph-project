@@ -43,6 +43,33 @@ export const createNewArrow = createAsyncThunk(
         return data
     }
 )
+// //  async Thunk zum Aktualisieren eines Arrows
+export const updateArrowInDb = createAsyncThunk(
+    'data/updateArrowsInDb', // Der Action-Typ
+    //parameter of thunk: updatedArrows
+    async (arrowId: string, { rejectWithValue }) => {
+        try {
+            // Baue den Pfad zum API-Endpunkt zusammen
+            const response = await fetch(`http://localhost:5100/api/arrows/${arrowId}`, {
+                method: 'PUT', // HTTP-Methode, hier PUT für Updates
+                headers: {
+                    'Content-Type': 'application/json', // Stelle sicher, dass der Content-Type auf JSON gesetzt ist
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json(); // Parsen der JSON-Antwort
+            console.log("data:", data)
+            //    return data; // Gib die aktualisierten Daten zurück
+        } catch (error) {
+            console.log(error)
+            //return rejectWithValue(error).payload; // Fehlerbehandlung
+        }
+    }
+);
 
 // //  async Thunk zum Aktualisieren aller Arrows
 export const updateArrowsInDb = createAsyncThunk(

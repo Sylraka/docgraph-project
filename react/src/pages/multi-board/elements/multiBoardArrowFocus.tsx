@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 
-import { multiBoardArrow } from '../../../app/fetch-data/dataTypes';
+import { Board, multiBoardArrow } from '../../../app/fetch-data/dataTypes';
 import "../../single-board/elements/arrow.css";
 
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
 import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
 import overCardSlice, { setOverCard, removeOverCard } from "../../slices/overCardSlice"
+import { fetchBoardById, fetchData, updateBoardInDb } from "../../../app/fetch-data/singleBoardSlice"
+import { fetchAllBoards, setBoard } from "../../../app/fetch-data/allBoardsSlice"
 
-
-import { setArrowInside } from "../../../app/fetch-data/multiBoardArrowSlice"
+import { setArrowInside, updateArrowInDb } from "../../../app/fetch-data/multiBoardArrowSlice"
 
 
 type propTypes = {
@@ -36,6 +37,8 @@ export const ArrowFocus = (props: propTypes) => {
 
     });
 
+
+    const allBoards = useAppSelector(state => state.allBoards.boards);
 
 
 
@@ -65,6 +68,83 @@ export const ArrowFocus = (props: propTypes) => {
         // dispatch(setActiveDragElement(newElement))
         let newElement = { ...props.arrow, offsetX: x, offsetY: y, active: true };
         setElement(newElement)
+
+
+        //remove links from card
+        let ellipseElement;
+        const elementUnderPointer1 = document.elementFromPoint(event.clientX + 10, event.clientY + 10);
+        const elementUnderPointer2 = document.elementFromPoint(event.clientX - 10, event.clientY + 10);
+        const elementUnderPointer3 = document.elementFromPoint(event.clientX + 10, event.clientY - 10);
+        const elementUnderPointer4 = document.elementFromPoint(event.clientX - 10, event.clientY - 10);
+
+        if (elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer1
+        } else if (elementUnderPointer2 && elementUnderPointer2.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer2
+        } else if (elementUnderPointer3 && elementUnderPointer3.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer3
+        } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer4
+        } else {
+            ellipseElement = undefined
+        }
+
+        let id: String;
+        if (ellipseElement !== undefined) {
+            id = ellipseElement.id;
+            console.log('we delete links from boardid ', id);
+
+            const toDraggedBoard = allBoards!.filter(board => board._id! === ellipseElement.id);
+            //append link to second board
+            const updatedBoard = {
+                ...toDraggedBoard[0], // Kopiere alle anderen Eigenschaften des Boards
+                linkList: toDraggedBoard[0].linkList.filter(link => link.fromArrowID !== props.arrow._id)
+            };
+            dispatch(updateBoardInDb(updatedBoard))
+
+            let ifArrowHasSecondAnchorBoard = allBoards!.filter(board =>
+                board.linkList.some(link => link.fromArrowID === props.arrow._id)
+            );
+            if (ifArrowHasSecondAnchorBoard[0]) {
+                if (location === "Start") {
+                    const newLink1 = {
+                        fromArrowID: props.arrow._id!,
+                        isFromBoard: false,
+                        fromID: "",
+                        toID: ifArrowHasSecondAnchorBoard[0]._id!,
+                        linkPosition: {
+                            x: 200,
+                            y: 500
+                        }
+                    }
+                    const newLinkList = ifArrowHasSecondAnchorBoard[0].linkList.filter(link => link.fromArrowID !== props.arrow._id).concat(newLink1)
+                    const newSecondBoard = {
+                        ...ifArrowHasSecondAnchorBoard[0],
+                        linkList: newLinkList
+                    }
+                    dispatch(updateBoardInDb(newSecondBoard))
+                } else { 
+                    const newLink2 = {
+                        fromArrowID: props.arrow._id!,
+                        isFromBoard: false,
+                        fromID:  ifArrowHasSecondAnchorBoard[0]._id!,
+                        toID:"",
+                        linkPosition: {
+                            x: 200,
+                            y: 500
+                        }
+                    }
+                    const newLinkList = ifArrowHasSecondAnchorBoard[0].linkList.filter(link => link.fromArrowID !== props.arrow._id).concat(newLink2)
+                    const newSecondBoard = {
+                        ...ifArrowHasSecondAnchorBoard[0],
+                        linkList: newLinkList
+                    }
+                    dispatch(updateBoardInDb(newSecondBoard))
+
+                }
+
+            }
+        }
 
     }
 
@@ -167,8 +247,7 @@ export const ArrowFocus = (props: propTypes) => {
 
 
 
-
-    const handlePointerUp = (event: React.PointerEvent<SVGElement>, location: string) => {
+    const handlePointerUp = async (event: React.PointerEvent<SVGElement>, location: string) => {
         let newElement: DragElement;
         newElement = { ...element, active: false, offsetX: -1, offsetY: -1 };
         setElement(newElement);
@@ -176,7 +255,7 @@ export const ArrowFocus = (props: propTypes) => {
 
         console.log("overCardState", overCardState)
 
-
+        //write down the anchor for the arrows, overCardState can be "" or "_id"
         if (location === "Start") {
             dispatch(setArrowInside({
                 ...element,
@@ -199,8 +278,159 @@ export const ArrowFocus = (props: propTypes) => {
 
                 }
             }));
-
         }
+
+
+        //set links inside selected board
+        if (overCardState.cardID !== "") {
+            const toDraggedBoard = allBoards!.filter(board => board._id! === overCardState.cardID);
+            console.log("toDraggedBoard", toDraggedBoard)
+            const boardName = toDraggedBoard[0].boardName;
+            let completeToDraggedBoard: Board;
+            completeToDraggedBoard = await dispatch(fetchBoardById(toDraggedBoard[0]._id!)).unwrap()
+            // console.log("completeToDraggedBoard", completeToDraggedBoard)
+
+
+            let ifArrowHasSecondAnchorBoard = allBoards!.filter(board =>
+                board.linkList.some(link => link.fromArrowID === props.arrow._id)
+            );
+
+            //if the anchor from arrow is the second one
+            if (ifArrowHasSecondAnchorBoard[0]) {
+                //call the second board
+                let completeSecondBoard: Board;
+                completeSecondBoard = await dispatch(fetchBoardById(ifArrowHasSecondAnchorBoard[0]._id!)).unwrap()
+
+                console.log("completeSecondBoard", completeSecondBoard)
+                let link = completeSecondBoard.linkList.filter(link => link.fromArrowID === props.arrow._id)
+                console.log("link", link)
+                console.log("linkid", link[0].toID)
+
+                if (location === "Start") {
+
+                    const newLink1 = {
+                        fromArrowID: props.arrow._id!,
+                        isFromBoard: false,
+                        fromID: overCardState.cardID.toString(),
+                        toID: link[0].toID,
+                        linkPosition: {
+                            x: 200,
+                            y: 500
+                        }
+                    }
+                    //append link to second board
+                    const updatedBoard = {
+                        ...completeSecondBoard, // Kopiere alle anderen Eigenschaften des Boards
+                        linkList: completeSecondBoard.linkList.filter(link => link.fromArrowID !== props.arrow._id).concat(newLink1)
+                    };
+                    console.log("updatedBoard start", updatedBoard)
+                    await dispatch(updateBoardInDb(updatedBoard))
+                    dispatch(setBoard(updatedBoard))
+
+                    const newLink2 = {
+                        fromArrowID: props.arrow._id!,
+                        isFromBoard: true,
+                        fromID: overCardState.cardID.toString(),
+                        toID: link[0].toID,
+                        linkPosition: {
+                            x: 200,
+                            y: 500
+                        }
+                    }
+                    //append link to dragged board
+                    completeToDraggedBoard.linkList = completeToDraggedBoard.linkList.filter(link => link.fromArrowID !== props.arrow._id)
+                    completeToDraggedBoard.linkList = completeToDraggedBoard.linkList.concat(newLink2)
+                    await dispatch(updateBoardInDb(completeToDraggedBoard))
+                    dispatch(setBoard(completeToDraggedBoard))
+
+                    //(fetchAllBoards())
+
+
+
+
+
+
+                    //else if location is "End"
+                } else {
+                    const newLink1 = {
+                        fromArrowID: props.arrow._id!,
+                        isFromBoard: true,
+                        fromID: link[0].fromID,
+                        toID: overCardState.cardID.toString(),
+                        linkPosition: {
+                            x: 200,
+                            y: 500
+                        }
+                    }
+                    //append link to second board
+                    const updatedBoard = {
+                        ...completeSecondBoard, // Kopiere alle anderen Eigenschaften des Boards
+                        linkList: completeSecondBoard.linkList.filter(link => link.fromArrowID !== props.arrow._id).concat(newLink1)
+                    };
+                    console.log("updatedBoard end", updatedBoard)
+                    dispatch(updateBoardInDb(updatedBoard))
+                    dispatch(setBoard(updatedBoard))
+
+                    const newLink2 = {
+                        fromArrowID: props.arrow._id!,
+                        isFromBoard: false,
+                        fromID: link[0].fromID,
+                        toID: overCardState.cardID.toString(),
+                        linkPosition: {
+                            x: 200,
+                            y: 500
+                        }
+                    }
+                    //append link to dragged board
+                    completeToDraggedBoard.linkList = completeToDraggedBoard.linkList.filter(link => link.fromArrowID !== props.arrow._id)
+                    completeToDraggedBoard.linkList = completeToDraggedBoard.linkList.concat(newLink2)
+                    dispatch(updateBoardInDb(completeToDraggedBoard))
+                    dispatch(setBoard(completeToDraggedBoard))
+                    //dispatch(fetchAllBoards())
+                }
+
+
+
+                //else if the arrow drags with his first anchor
+            } else {
+                if (location === "Start") {
+                    const newLink = {
+                        fromArrowID: props.arrow._id!,
+                        isFromBoard: true,
+                        fromID: overCardState.cardID.toString(),
+                        toID: "",
+                        linkPosition: {
+                            x: 200,
+                            y: 500
+                        }
+                    }
+                    completeToDraggedBoard.linkList = completeToDraggedBoard.linkList.concat(newLink)
+                    console.log("completeToDraggedBoard start", completeToDraggedBoard)
+                    dispatch(updateBoardInDb(completeToDraggedBoard))
+                    dispatch(setBoard(completeToDraggedBoard))
+                    //dispatch(fetchAllBoards())
+                    //else if location is "End"
+                } else {
+                    const newLink = {
+                        fromArrowID: props.arrow._id!,
+                        isFromBoard: false,
+                        fromID: "",
+                        toID: overCardState.cardID.toString(),
+                        linkPosition: {
+                            x: 200,
+                            y: 500
+                        }
+                    }
+                    completeToDraggedBoard.linkList = completeToDraggedBoard.linkList.concat(newLink)
+                    console.log("completeToDraggedBoard end", completeToDraggedBoard)
+                    dispatch(updateBoardInDb(completeToDraggedBoard))
+                    dispatch(setBoard(completeToDraggedBoard))
+                    //dispatch(fetchAllBoards())
+                }
+            }
+        }
+
+        dispatch(updateArrowInDb(element._id!))
         dispatch(removeOverCard())
 
     }
