@@ -11,6 +11,7 @@ import { fetchBoardById, fetchData, updateBoardInDb } from "../../../app/fetch-d
 import { fetchAllBoards, setBoard } from "../../../app/fetch-data/allBoardsSlice"
 
 import { setArrowInside, updateArrowInDb } from "../../../app/fetch-data/multiBoardArrowSlice"
+import { SavedBoards } from "../../savedBoards";
 
 
 type propTypes = {
@@ -72,10 +73,20 @@ export const ArrowFocus = (props: propTypes) => {
 
         //remove links from card
         let ellipseElement;
-        const elementUnderPointer1 = document.elementFromPoint(event.clientX + 10, event.clientY + 10);
-        const elementUnderPointer2 = document.elementFromPoint(event.clientX - 10, event.clientY + 10);
-        const elementUnderPointer3 = document.elementFromPoint(event.clientX + 10, event.clientY - 10);
-        const elementUnderPointer4 = document.elementFromPoint(event.clientX - 10, event.clientY - 10);
+        const elementUnderPointer1 = document.elementFromPoint(event.clientX + 15, event.clientY + 15);
+        const elementUnderPointer2 = document.elementFromPoint(event.clientX - 15, event.clientY + 15);
+        const elementUnderPointer3 = document.elementFromPoint(event.clientX + 15, event.clientY - 15);
+        const elementUnderPointer4 = document.elementFromPoint(event.clientX - 15, event.clientY - 15);
+        const elementUnderPointer5 = document.elementFromPoint(event.clientX + 10, event.clientY + 10);
+        const elementUnderPointer6 = document.elementFromPoint(event.clientX - 10, event.clientY + 10);
+        const elementUnderPointer7 = document.elementFromPoint(event.clientX + 10, event.clientY - 10);
+        const elementUnderPointer8 = document.elementFromPoint(event.clientX - 10, event.clientY - 10);
+        const elementUnderPointer9 = document.elementFromPoint(event.clientX + 20, event.clientY + 20);
+        const elementUnderPointer10 = document.elementFromPoint(event.clientX - 20, event.clientY + 20);
+        const elementUnderPointer11 = document.elementFromPoint(event.clientX + 20, event.clientY - 20);
+        const elementUnderPointer12 = document.elementFromPoint(event.clientX - 20, event.clientY - 20);
+
+
 
         if (elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
             ellipseElement = elementUnderPointer1
@@ -85,6 +96,22 @@ export const ArrowFocus = (props: propTypes) => {
             ellipseElement = elementUnderPointer3
         } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'ellipse') {
             ellipseElement = elementUnderPointer4
+        } else if (elementUnderPointer5 && elementUnderPointer5.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer5
+        } else if (elementUnderPointer6 && elementUnderPointer6.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer6
+        } else if (elementUnderPointer7 && elementUnderPointer7.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer7
+        } else if (elementUnderPointer8 && elementUnderPointer8.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer8
+        } else if (elementUnderPointer9 && elementUnderPointer9.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer9
+        } else if (elementUnderPointer10 && elementUnderPointer10.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer10
+        } else if (elementUnderPointer11 && elementUnderPointer11.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer11
+        } else if (elementUnderPointer12 && elementUnderPointer12.tagName === 'ellipse') {
+            ellipseElement = elementUnderPointer12
         } else {
             ellipseElement = undefined
         }
@@ -100,50 +127,60 @@ export const ArrowFocus = (props: propTypes) => {
                 ...toDraggedBoard[0], // Kopiere alle anderen Eigenschaften des Boards
                 linkList: toDraggedBoard[0].linkList.filter(link => link.fromArrowID !== props.arrow._id)
             };
+            // Dispatch update action and await for completion if necessary
             dispatch(updateBoardInDb(updatedBoard))
+            dispatch(setBoard(updatedBoard))
 
             let ifArrowHasSecondAnchorBoard = allBoards!.filter(board =>
                 board.linkList.some(link => link.fromArrowID === props.arrow._id)
             );
-            if (ifArrowHasSecondAnchorBoard[0]) {
-                if (location === "Start") {
-                    const newLink1 = {
-                        fromArrowID: props.arrow._id!,
-                        isFromBoard: false,
-                        fromID: "",
-                        toID: ifArrowHasSecondAnchorBoard[0]._id!,
-                        linkPosition: {
-                            x: 200,
-                            y: 500
+            ifArrowHasSecondAnchorBoard.forEach(board => {
+                if (board._id !== toDraggedBoard[0]._id) {
+                    console.log('there is a second anchor we have to update ', ifArrowHasSecondAnchorBoard);
+                    if (location === "Start") {
+                        const newLink1 = {
+                            fromArrowID: props.arrow._id!,
+                            isFromBoard: false,
+                            fromID: "",
+                            toID: board._id!,
+                            linkPosition: {
+                                x: 200,
+                                y: 500
+                            }
                         }
-                    }
-                    const newLinkList = ifArrowHasSecondAnchorBoard[0].linkList.filter(link => link.fromArrowID !== props.arrow._id).concat(newLink1)
-                    const newSecondBoard = {
-                        ...ifArrowHasSecondAnchorBoard[0],
-                        linkList: newLinkList
-                    }
-                    dispatch(updateBoardInDb(newSecondBoard))
-                } else { 
-                    const newLink2 = {
-                        fromArrowID: props.arrow._id!,
-                        isFromBoard: false,
-                        fromID:  ifArrowHasSecondAnchorBoard[0]._id!,
-                        toID:"",
-                        linkPosition: {
-                            x: 200,
-                            y: 500
+                        const newLinkList = board.linkList.filter(link => link.fromArrowID !== props.arrow._id).concat(newLink1)
+                        const newSecondBoard = {
+                            ...board,
+                            linkList: newLinkList
                         }
+                        dispatch(updateBoardInDb(newSecondBoard))
+                        dispatch(setBoard(newSecondBoard))
+                    } else {
+                        const newLink2 = {
+                            fromArrowID: props.arrow._id!,
+                            isFromBoard: true,
+                            fromID: board._id!,
+                            toID: "",
+                            linkPosition: {
+                                x: 200,
+                                y: 500
+                            }
+                        }
+                        const newLinkList = board.linkList.filter(link => link.fromArrowID !== props.arrow._id).concat(newLink2)
+                        const newSecondBoard = {
+                            ...board,
+                            linkList: newLinkList
+                        }
+                        dispatch(updateBoardInDb(newSecondBoard))
+                        dispatch(setBoard(newSecondBoard))
+
+
                     }
-                    const newLinkList = ifArrowHasSecondAnchorBoard[0].linkList.filter(link => link.fromArrowID !== props.arrow._id).concat(newLink2)
-                    const newSecondBoard = {
-                        ...ifArrowHasSecondAnchorBoard[0],
-                        linkList: newLinkList
-                    }
-                    dispatch(updateBoardInDb(newSecondBoard))
 
                 }
-
             }
+            )
+
         }
 
     }

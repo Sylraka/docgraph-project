@@ -16,8 +16,7 @@ import { Link } from "react-router-dom";
 
 
 interface canvasProps {
-    card: LinkCard,
-    boardId: string,
+    link: LinkCard,
 }
 
 
@@ -34,7 +33,7 @@ export default function LinkCardComponent(props: canvasProps) {
 
     const [element, setElement] = useState<DragElement>({
         // the attributes the cards didnt have
-        ...props.card,
+        ...props.link,
         active: false,
         offsetX: -1, //place between element left and mouse
         offsetY: -1, // place between element top and mouse   
@@ -48,7 +47,7 @@ export default function LinkCardComponent(props: canvasProps) {
 
 
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
-        dispatch(setFocusElement({ elementType: "card", ID: props.card.fromArrowID }))
+        dispatch(setFocusElement({ elementType: "link", ID: props.link.fromArrowID }))
         let newElement: DragElement;
         const el = e.currentTarget;
         const bbox = e.currentTarget.getBoundingClientRect();
@@ -77,7 +76,7 @@ export default function LinkCardComponent(props: canvasProps) {
                 let placeToLeft = cardBounds.left - parentNodeBounds.left;
                 //console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
                 dispatch(setActiveDragElement({
-                    elementType: "card",
+                    elementType: "link",
                     ID: element.fromArrowID,
                     placeToTopY: placeToTop,
                     width: width,
@@ -116,7 +115,7 @@ export default function LinkCardComponent(props: canvasProps) {
         setElement(newElement);
 
         setLinkCardInside({
-            ...props.card,
+            ...props.link,
             linkPosition: {
                 x: element.linkPosition.x,
                 y: element.linkPosition.y
@@ -132,7 +131,7 @@ export default function LinkCardComponent(props: canvasProps) {
                 key={element.fromArrowID}
             >
 
-                {(overCardState.cardID === element.fromArrowID.toString()) &&
+                {/* {(overCardState.cardID === element.fromArrowID.toString()) &&
                     <rect
                         x={element.linkPosition.x}
                         y={element.linkPosition.y}
@@ -148,16 +147,17 @@ export default function LinkCardComponent(props: canvasProps) {
                         id={element.fromArrowID.toString()}
 
                     />
-                }
+                } */}
                 {(overCardState.cardID !== element.fromArrowID.toString()) &&
-                    <rect
-                        x={element.linkPosition.x}
-                        y={element.linkPosition.y}
+                    <ellipse
+                        cx={element.linkPosition.x}
+                        cy={element.linkPosition.y}
                         fill="#555555"
                         stroke="white"
-                        rx="10"
-                        width={300}
-                        height={100}
+                        rx="100"
+                        width={100 + 30}
+                        height={30 + 30}
+                        ry="50"
                         onPointerDown={(event) => handlePointerDown(event)}
                         onPointerUp={(event) => handlePointerUp(event)}
                         onPointerMove={(event) => handlePointerMove(event)}
@@ -165,8 +165,6 @@ export default function LinkCardComponent(props: canvasProps) {
 
                     />
                 }
-
-
 
             </g>
 

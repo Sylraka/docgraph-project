@@ -95,7 +95,8 @@ exports.update = (req, res) => {
 //save all 
 exports.updateAll = async (req, res) => {
   //console.log(req.body);  
-  if (!req.body) {
+  console.log("multiboardarrows ",req.body)
+  if (Object.keys(req.body).length === 0 || !req.body) {
     return res.status(400).send({
       message: "Data to update can not be empty!"
     });

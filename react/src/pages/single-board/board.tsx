@@ -15,6 +15,9 @@ import { Sidebar } from "./nav-bar/sidebar";
 import CardFocus from "./elements/cardFocus";
 import CardMath from "./elements/cardMath"
 
+import LinkCard from "./elements/linkCard"
+import LinkCardText from "./elements/linkCardText"
+
 // from the redux slices 
 import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
 import { removeFocusElement } from "../slices/focusSlice"
@@ -170,69 +173,82 @@ export const SingleBoard = () => {
                     <Sidebar />
 
                     <div className="three-canvas-container"
-                                    ref={divRef}
-                                    onPointerMove={event => handlePointerMove(event)}
-                                    onPointerUp={handlePointerUp}
-                                    onContextMenu={event => handleRightClick(event)} // Rechtsklick-Event starten
+                        ref={divRef}
+                        onPointerMove={event => handlePointerMove(event)}
+                        onPointerUp={handlePointerUp}
+                        onContextMenu={event => handleRightClick(event)} // Rechtsklick-Event starten
                     >
-                            <svg className='svg-canvas' id="svg-canvas-id"
-                                onPointerDown={handlePointerDown}
-                                ref={dropRef}
-                            >
-                                {data?.arrowList.map(arrow => (
-                                    <DragArrow
-                                        key={"arrowNr" + arrow.arrowID}
+                        <svg className='svg-canvas' id="svg-canvas-id"
+                            onPointerDown={handlePointerDown}
+                            ref={dropRef}
+                        >
+                            {data?.arrowList.map(arrow => (
+                                <DragArrow
+                                    key={"arrowNr" + arrow.arrowID}
+                                    arrow={arrow}
+                                //    saveArrow={saveArrow}
+                                />
+
+                            ))}
+                            {data?.cardList.map(card => (
+                                <DragCard
+                                    key={"cardNr" + card.cardID}
+                                    card={card}
+                                    boardId={boardId}
+                                // saveCard={saveCard}
+                                />
+                            ))}
+                            {data?.arrowList.map(arrow => (
+                                activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID.toString() && (
+                                    <ArrowFocus
+                                        key={"arrowFocusNr" + arrow.arrowID}
                                         arrow={arrow}
-                                    //    saveArrow={saveArrow}
                                     />
+                                )
 
-                                ))}
-                                {data?.cardList.map(card => (
-                                    <DragCard
-                                        key={"cardNr" + card.cardID}
+                            ))}
+                            {data?.cardList.map(card => (
+                                activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID.toString() && (
+                                    < CardFocus
+                                        key={"cardFocusNr" + card.cardID}
                                         card={card}
-                                        boardId={boardId}
-                                       // saveCard={saveCard}
                                     />
-                                ))}
-                                {data?.arrowList.map(arrow => (
-                                    activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID.toString() && (
-                                        <ArrowFocus
-                                            key={"arrowFocusNr" + arrow.arrowID}
-                                            arrow={arrow}
-                                        />
-                                    )
-
-                                ))}
-                                {data?.cardList.map(card => (
-                                    activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID.toString() && (
-                                        < CardFocus
-                                            key={"cardFocusNr" + card.cardID}
-                                            card={card}
-                                        />
 
 
 
-                                    )
-                                ))}
-
-                            </svg>
-
-                            {data?.cardList.map(card => (
-                                (card.cardType === "primitive" && <CardText
-                                    key={"cardTextNr" + card.cardID}
-                                    card={card}
-                                />
                                 )
                             ))}
-                            {data?.cardList.map(card => (
-                                (card.cardType === "math" && <CardMath
-                                    key={"cardMathNr" + card.cardID}
-                                    card={card}
+                            {data?.linkList.map(link => (
+                                <LinkCard
+                                    key={"linkNr" + link.fromArrowID}
+                                    link={link}
+                                // saveCard={saveCard}
                                 />
-                                )
                             ))}
-                        </div>
+
+                        </svg>
+                        {data?.linkList.map(link => (
+                            <LinkCardText
+                                key={"linkTextNr" + link.fromArrowID}
+                                link={link}
+                            />
+
+                        ))}
+                        {data?.cardList.map(card => (
+                            (card.cardType === "primitive" && <CardText
+                                key={"cardTextNr" + card.cardID}
+                                card={card}
+                            />
+                            )
+                        ))}
+                        {data?.cardList.map(card => (
+                            (card.cardType === "math" && <CardMath
+                                key={"cardMathNr" + card.cardID}
+                                card={card}
+                            />
+                            )
+                        ))}
+                    </div>
 
 
 

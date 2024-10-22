@@ -92,12 +92,13 @@ exports.update = (req, res) => {
 };
 
 exports.updateAll = async (req, res) => {
-  //console.log(req.body);  
-  if (!req.body) {
+  console.log("boards",req.body);  
+  if (Object.keys(req.body).length === 0 || !req.body) {
     return res.status(400).send({
       message: "Data to update can not be empty!"
     });
   }
+  console.log(req.body)
   const updatePromises = req.body.map(async (item) => {
     const { _id, ...updateData } = item;  // split the Item in _id and the rest
 

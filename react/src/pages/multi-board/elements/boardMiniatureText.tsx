@@ -92,13 +92,12 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
             ...prevElement,
             boardName: value
         }))
-
+        console.log("boardname:", value )
         dispatch(setBoard({
             ...props.board,
             boardName: value
         }))
     }
-
 
     const setTextPosition = () => {
 
@@ -136,7 +135,7 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
             }} className="">
 
                 <img className="link-image" alt="go to board" src={linkImg}
-                    style={{ 'top': element.boardPosition.y - (22), 'left': element.boardPosition.x - 100 }}
+                    style={{ 'top': element.boardPosition.y -15, 'left': element.boardPosition.x - 90 }}
                 />
             </Link>
         </>

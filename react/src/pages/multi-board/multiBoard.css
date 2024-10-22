@@ -1,11 +1,12 @@
-
-
 .svg-multi-board {
     pointer-events: auto;
-    background-image: url('../../images/caro.png'); /* Bild als Hintergrund */
-    background-repeat: repeat; /* Wiederholt das Bild */
-    background-size:auto; /* Standard: Bild in Originalgröße */
-    width:100%;
+    background-image: url('../../images/caro.png');
+    /* Bild als Hintergrund */
+    background-repeat: repeat;
+    /* Wiederholt das Bild */
+    background-size: auto;
+    /* Standard: Bild in Originalgröße */
+    width: 100%;
     height: 100%;
 }
 
@@ -34,9 +35,10 @@
 }
 
 .link-image {
-width: 60px;
-height: 50px;
-position: absolute;
+    width: 35px;
+    height: 30px;
+    position: absolute;
+
 }
 
 .multi-board-wrapper {

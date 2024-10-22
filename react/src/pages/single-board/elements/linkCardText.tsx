@@ -9,7 +9,7 @@ import { Board, LinkCard } from '../../../app/fetch-data/dataTypes';
 
 
 
-import { fetchBoardById, setCardInside, } from "../../../app/fetch-data/singleBoardSlice"
+import { fetchBoardById, setCardInside, fetchData } from "../../../app/fetch-data/singleBoardSlice"
 import { removeFocusElement } from "../../slices/focusSlice"
 import { Link } from "react-router-dom";
 
@@ -17,28 +17,37 @@ import linkImgFrom from "../../../images/link.png"
 import linkImgTo from "../../../images/link_02.png"
 
 interface canvasProps {
-    card: LinkCard;
+    link: LinkCard;
 }
 
 
 
-export default async function CardTextComponent(props: canvasProps) {
+export default function CardTextComponent(props: canvasProps) {
     const activeDragValue = useAppSelector((state) => state.drag)
     const dispatch = useAppDispatch()
     const [element, setElement] = useState<LinkCard>({
-        ...props.card,
+        ...props.link,
     });
-    let linkedCard: Board
-    if (props.card.isFromBoard === true) {
-        linkedCard = await dispatch(fetchBoardById(props.card.toID)).unwrap()
-    } else { 
-        linkedCard = await dispatch(fetchBoardById(props.card.fromID)).unwrap()
-    }
+    const [linkedCard, setLinkedCard] = useState<Board>();
+
+    useEffect(() => {
+        const fetchLinkedCard = async () => {
+            let fetchedCard;
+            if (props.link.isFromBoard === true) {
+                fetchedCard = await dispatch(fetchBoardById(props.link.toID)).unwrap();
+            } else {
+                fetchedCard = await dispatch(fetchBoardById(props.link.fromID)).unwrap();
+            }
+            setLinkedCard(fetchedCard);
+        };
+
+        fetchLinkedCard();
+    }, [dispatch, props.link]); // Abhängigkeit von `dispatch` und `props.link`
 
 
 
     useEffect(() => {
-        if (activeDragValue.elementType === "card") {
+        if (activeDragValue.elementType === "link") {
             setTextPosition();
         }
 
@@ -47,11 +56,14 @@ export default async function CardTextComponent(props: canvasProps) {
 
     const setTextPosition = () => {
 
-        if (activeDragValue.ID === props.card.fromArrowID.toString() && activeDragValue.elementType === "card") {
+        if (activeDragValue.ID === props.link.fromArrowID.toString() && activeDragValue.elementType === "link") {
             setElement((prevElement) => ({
                 ...prevElement,
-                x: activeDragValue.placeToLeftX + 60,
-                y: activeDragValue.placeToTopY
+                linkPosition:{
+                    x: activeDragValue.placeToLeftX +100,
+                    y: activeDragValue.placeToTopY +50
+                }
+
             }))
         }
     }
@@ -61,58 +73,70 @@ export default async function CardTextComponent(props: canvasProps) {
     }
 
     return (
-        props.card.isFromBoard === true ? (
+        props.link.isFromBoard === true ? (
             //when the arrow starts at board
-            <>
+            <div>
+
+                <p
+                    key={props.link.fromArrowID.toString()}
+                    id={"textID" + props.link.fromArrowID}
+                    className="link-card-text card-field-input no-cursor strong"
+                    style={{
+                        top: element.linkPosition.y - 50,
+                        left: element.linkPosition.x -55,
+                        width: 100,
+                        height: 77
+                    }}
+                    onClick={klickAtTextarea}
+                >
+                    {/* Überprüfung, ob linkedCard verfügbar ist */}
+                    {linkedCard ? linkedCard.boardName : "Loading..."}
+                </p>
                 <Link to={{
-                    pathname: "/board/" + props.card.toID
-                }} className="">
+                    pathname: "/board/" + props.link.toID
+                }} className=""
+                    onClick={() => dispatch(fetchData(props.link.toID))}
+                >
+
 
                     <img className="link-image" alt="go to board" src={linkImgTo}
-                        style={{ 'top': element.linkPosition.y - (22), 'left': element.linkPosition.x - 105 }}
+                        style={{ 'top': element.linkPosition.y -15, 'left': element.linkPosition.x -90 }}
+
                     />
                 </Link>
-                <p
-                    key={props.card.fromArrowID.toString()}
-                    id={"textID" + props.card.fromArrowID}
-                    className="text-element card-field-input no-cursor strong"
-                    style={{
-                        top: element.linkPosition.y - 15,
-                        left: element.linkPosition.x - 78,
-                        width: 200,
-                        height: 300
-                    }}
-                    onClick={klickAtTextarea}
-                >
-                    {linkedCard.boardName}
-                </p>
-            </>
+            </div>
         ) : (
             //when the arrow ends at board
-            <>
-                <Link to={{
-                    pathname: "/board/" + props.card.fromID
-                }} className="">
+            <div>
 
-                    <img className="link-image" alt="go to board" src={linkImgFrom}
-                        style={{ 'top': element.linkPosition.y - (22), 'left': element.linkPosition.x - 105 }}
-                    />
-                </Link>
                 <p
-                    key={props.card.fromArrowID}
-                    id={"textID" + props.card.fromArrowID}
-                    className="text-element card-field-input no-cursor strong"
+
+                    key={props.link.fromArrowID}
+                    id={"textID" + props.link.fromArrowID}
+                    className="link-card-text card-field-input no-cursor strong"
                     style={{
-                        top: element.linkPosition.y - 15,
-                        left: element.linkPosition.x - 78,
-                        width: 200,
-                        height: 300
+                        top: element.linkPosition.y - 50,
+                        left: element.linkPosition.x -55,
+                        width: 100,
+                        height: 77
                     }}
                     onClick={klickAtTextarea}
                 >
-                    {linkedCard.boardName}
+                    {/* Überprüfung, ob linkedCard verfügbar ist */}
+                    {linkedCard ? linkedCard.boardName : "Loading..."}
                 </p>
-            </>
+                <Link to={{
+                    pathname: "/board/" + props.link.fromID
+                }} className=""
+                    onClick={() => dispatch(fetchData(props.link.fromID))}
+                >
+
+                    <img className="link-image" alt="go to board" src={linkImgFrom}
+                        style={{ 'top': element.linkPosition.y -25, 'left': element.linkPosition.x - 110 }}
+                    />
+                </Link>
+            </div>
         )
+
     );
 }

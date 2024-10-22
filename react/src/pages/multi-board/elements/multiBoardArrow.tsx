@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to 
 import { setActiveDragElement, removeActiveDrag } from "../../slices/dragSlice"
 import { setFocusElement, FocusState } from "../../slices/focusSlice"
 
-import { updateArrowsInDb, setArrowInside } from "../../../app/fetch-data/multiBoardArrowSlice"
+import { updateArrowInDb, setArrowInside } from "../../../app/fetch-data/multiBoardArrowSlice"
 
 interface canvasProps {
     arrow: multiBoardArrow;
