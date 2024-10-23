@@ -9,6 +9,7 @@ import singleBoardReducer from "./fetch-data/singleBoardSlice"
 import allBoardsReducer from "./fetch-data/allBoardsSlice"
 import navigationReducer from "../pages/slices/navigationSlice"
 import multiBoardArrowReducer from "./fetch-data/multiBoardArrowSlice"
+import collectionReducer from "./fetch-data/collectionSlice"
 
 export const store = configureStore({
     reducer: {
@@ -18,8 +19,8 @@ export const store = configureStore({
       singleBoard: singleBoardReducer,
       allBoards: allBoardsReducer,
       navigation: navigationReducer,
-      multiBoardArrow: multiBoardArrowReducer
-      
+      multiBoardArrow: multiBoardArrowReducer,
+      collections: collectionReducer
       // [boardsApiSlice.reducerPath]: boardsApiSlice.reducer,
     },
 

@@ -73,7 +73,7 @@ const Layout = () => {
 
 
 
-            {(navigation === "home" || navigation === "multi-board") &&
+            {/* {(navigation === "home" || navigation === "multi-board") &&
               <>
                 <button
                   className={isMultiButtonOn === true ? 'button-radio-inactive' : 'button-radio-active'}
@@ -89,7 +89,7 @@ const Layout = () => {
                   multi board
                 </button>
               </>
-            }
+            } */}
 
             {navigation === "single-board" &&
               <>

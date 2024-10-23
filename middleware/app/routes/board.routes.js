@@ -44,5 +44,9 @@ module.exports = app => {
    router.delete("/arrows/:id", arrows.delete)
    router.put("/arrows/:id", arrows.update)
    
+   const collections = require("../controllers/collections.controller.js");
+    router.post("/collections", collections.create)
+    router.get("/collections", collections.findAll)
+
    app.use('/api', router);
   };

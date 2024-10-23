@@ -82,3 +82,11 @@ export interface multiBoardArrow {
     updatedAt: string | undefined;
     __v: number | undefined;
 }
+
+export interface Collection {
+    _id: string | undefined;
+    collectionName: string;
+    createdAt: string | undefined;
+    updatedAt: string | undefined;
+    __v: number | undefined;
+}

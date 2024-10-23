@@ -9,6 +9,7 @@ export const newBoardData = {
     linkList: [],
     cardList: [],
     arrowList: [],
+    collectionID: "",
     cardIDCounter: 3,
     arrowIDCounter: 2,
     anchorIDCounter: 3

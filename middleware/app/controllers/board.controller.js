@@ -18,6 +18,7 @@ exports.create = (req, res) => {
     linkList: req.body.linkList,
     cardList: req.body.cardList,
     arrowList: req.body.arrowList,
+    collectionID: req.body.collectionID,
     cardIDCounter: req.body.cardIDCounter,
     arrowIDCounter: req.body.arrowIDCounter,
     anchorIDCounter: req.body.anchorIDCounter
@@ -39,10 +40,17 @@ exports.create = (req, res) => {
 
 // Retrieve all Boards from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+  const collectionID = req.query.collectionID; // Holt die collectionID aus der url ?collectionID=...
+
+  let condition = {};
+  if (collectionID) {
+    condition = { collectionID: collectionID }; // Setze die collectionID als Bedingung
+  }
+  console.log(collectionID)
+  //const title = req.query.title;
+  //var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
   Board.find(condition)
-  .select("_id boardName boardPosition boardRubrics linkList")
+    .select("_id boardName boardPosition boardRubrics linkList")
     .then(data => {
       res.send(data);
     })
@@ -92,18 +100,18 @@ exports.update = (req, res) => {
 };
 
 exports.updateAll = async (req, res) => {
-  console.log("boards",req.body);  
+ //("boards", req.body);
   if (Object.keys(req.body).length === 0 || !req.body) {
     return res.status(400).send({
       message: "Data to update can not be empty!"
     });
   }
-  console.log(req.body)
+ // console.log(req.body)
   const updatePromises = req.body.map(async (item) => {
     const { _id, ...updateData } = item;  // split the Item in _id and the rest
 
     try {
-      const data = await Board.findByIdAndUpdate(_id, { $set: updateData }, { useFindAndModify: false});
+      const data = await Board.findByIdAndUpdate(_id, { $set: updateData }, { useFindAndModify: false });
       if (!data) {
         return {
           id: _id,

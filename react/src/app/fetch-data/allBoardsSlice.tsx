@@ -9,12 +9,13 @@ const initialState: boardsApiState = {
     boards: undefined
 }
 
-export const fetchAllBoards = createAsyncThunk(
+export const fetchAllBoardsFromCollection = createAsyncThunk(
     //namespace, in axtraReducer we can reference to "fetchData.pending, fetchData.fulfilled, fetchData.rejected"
     'data/fetchAllBoards',
     // parameter of thunk: id
-    async (thunkAPI) => {
-        const response = await fetch(`http://localhost:5100/api/boards`);
+    async ({ collectionID }: { collectionID: string }, thunkAPI) => {
+        console.log("collectionID:",collectionID)
+        const response = await fetch(`http://localhost:5100/api/boards?collectionID=${collectionID}`);
         const data = await response.json();
        // console.log(data)
         return data; // Das zurückgegebene Ergebnis wird in den Fulfilled-State übernommen
@@ -113,15 +114,15 @@ const boardsApiSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchAllBoards.pending, (state) => {
+            .addCase(fetchAllBoardsFromCollection.pending, (state) => {
                 // state.loading = true;
                 // state.error = null;
             })
-            .addCase(fetchAllBoards.fulfilled, (state, action) => {
+            .addCase(fetchAllBoardsFromCollection.fulfilled, (state, action) => {
                 // state.loading = false;
                 state.boards = action.payload; // Daten in den State einfügen
             })
-            .addCase(fetchAllBoards.rejected, (state, action) => {
+            .addCase(fetchAllBoardsFromCollection.rejected, (state, action) => {
                 // state.loading = false;
                 // state.error = action.error.message;
             })  

@@ -1,0 +1,28 @@
+[
+  {
+    "_id": {
+      "$oid": "6708fd5bf8c6aca1cf786cbe"
+    },
+    "collectionID": "6718edfa1c1d922fbf68e06d",
+    "arrowType": "oneHead",
+    "anchorStart": {
+      "onCard": "",
+      "boardRubrics": [],
+      "x": 100,
+      "y": 300
+    },
+    "anchorEnd": {
+      "onCard": "",
+      "boardRubrics": [],
+      "x": 100,
+      "y": 200
+    },
+    "createdAt": {
+      "$date": "2024-10-11T10:26:35.508Z"
+    },
+    "updatedAt": {
+      "$date": "2024-10-11T10:26:35.508Z"
+    },
+    "__v": 0
+  }
+]

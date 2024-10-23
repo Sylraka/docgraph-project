@@ -23,7 +23,7 @@ exports.create = (req, res) => {
   arrow
     .save(arrow)
     .then(data => {
-      console.log('Saved entry:', data)
+   //   console.log('Saved entry:', data)
       res.send(data);
     })
     .catch(err => {
@@ -37,7 +37,12 @@ exports.create = (req, res) => {
 
 // Retrieve all Arrows from the database.
 exports.findAll = (req, res) => {
-  var condition = {};
+  const collectionID = req.query.collectionID; // Holt die collectionID aus der url ?collectionID=...
+
+  let condition = {};
+  if (collectionID) {
+    condition = { collectionID: collectionID }; // Setze die collectionID als Bedingung
+  }
   Arrow.find(condition)
     .then(data => {
       res.send(data);
@@ -56,7 +61,7 @@ exports.delete = async (req, res) => {
 
     // Versuche, den Arrow in der Datenbank zu finden und zu löschen
     const deletedArrow = await Arrow.findByIdAndDelete(arrowId);
-    console.log(deletedArrow)
+    //console.log(deletedArrow)
     if (!deletedArrow) {
       // Wenn der Arrow mit der angegebenen ID nicht gefunden wurde
       return res.status(404).json({ message: 'Arrow not found' });
@@ -95,7 +100,7 @@ exports.update = (req, res) => {
 //save all 
 exports.updateAll = async (req, res) => {
   //console.log(req.body);  
-  console.log("multiboardarrows ",req.body)
+  //("multiboardarrows ",req.body)
   if (Object.keys(req.body).length === 0 || !req.body) {
     return res.status(400).send({
       message: "Data to update can not be empty!"

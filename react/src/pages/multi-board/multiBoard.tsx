@@ -7,7 +7,7 @@ import { setNavigationToMultiBoard } from "./../slices/navigationSlice"
 import { useDrop } from "react-dnd";
 import { ItemTypes } from '../../dragConstants';
 import { createNewArrow, deleteArrowFromDb, updateArrowsInDb } from "../../app/fetch-data/multiBoardArrowSlice"
-import { createNewBoard, deleteBoardFromDb, fetchAllBoards, updateBoardsInDb } from "../../app/fetch-data/allBoardsSlice"
+import { createNewBoard, deleteBoardFromDb, fetchAllBoardsFromCollection, updateBoardsInDb } from "../../app/fetch-data/allBoardsSlice"
 import { newMultiBoardArrowData } from "../../app/newElementData"
 import { newBoardData } from "../../app/newBoardData"
 import { clearState } from "../../app/fetch-data/singleBoardSlice";
@@ -26,6 +26,7 @@ import { fetchAllArrows } from "../../app/fetch-data/multiBoardArrowSlice"
 
 import { ArrowFocus } from "./elements/multiBoardArrowFocus"
 import { removeFocusElement } from "../slices/focusSlice";
+import { useLocation } from "react-router-dom";
 
 
 export const MultiBoard = () => {
@@ -34,11 +35,16 @@ export const MultiBoard = () => {
     let data = useAppSelector(state => state.allBoards)
     let arrows = useAppSelector(state => state.multiBoardArrow)
     let activeFocusValue = useAppSelector((state) => state.focus)
+    const location = useLocation();
+
+
+    // extract Board-ID from path
+    const collectionID = location.pathname.split('/').pop() || 'IdNotDefined';
 
     useEffect(() => {
         dispatch(setNavigationToMultiBoard());
-        dispatch(fetchAllArrows())
-        dispatch(fetchAllBoards())
+        dispatch(fetchAllArrows({ collectionID }))
+        dispatch(fetchAllBoardsFromCollection({ collectionID }));
         dispatch(clearState())
 
         return () => {

@@ -14,8 +14,9 @@ export const fetchAllArrows = createAsyncThunk(
     //namespace, in axtraReducer we can reference to "fetchData.pending, fetchData.fulfilled, fetchData.rejected"
     'data/fetchAllArrows',
     // parameter of thunk: id
-    async (thunkAPI) => {
-        const response = await fetch(`http://localhost:5100/api/arrows`);
+    async ({ collectionID }: { collectionID: string }, thunkAPI) => {
+        console.log("collectionID:",collectionID)
+        const response = await fetch(`http://localhost:5100/api/arrows?collectionID=${collectionID}`);
         const data = await response.json();
         // console.log(data)
         return data; // Das zurückgegebene Ergebnis wird in den Fulfilled-State übernommen

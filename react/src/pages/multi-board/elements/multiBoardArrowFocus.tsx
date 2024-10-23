@@ -8,10 +8,9 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to 
 import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
 import overCardSlice, { setOverCard, removeOverCard } from "../../slices/overCardSlice"
 import { fetchBoardById, fetchData, updateBoardInDb } from "../../../app/fetch-data/singleBoardSlice"
-import { fetchAllBoards, setBoard } from "../../../app/fetch-data/allBoardsSlice"
+import { fetchAllBoardsFromCollection, setBoard } from "../../../app/fetch-data/allBoardsSlice"
 
 import { setArrowInside, updateArrowInDb } from "../../../app/fetch-data/multiBoardArrowSlice"
-import { SavedBoards } from "../../savedBoards";
 
 
 type propTypes = {

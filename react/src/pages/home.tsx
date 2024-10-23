@@ -2,18 +2,17 @@ import { useState, useEffect, Key } from "react";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from 'react-router-dom';
-import { fetchAllBoards } from "../app/fetch-data/allBoardsSlice"
+import { fetchAllBoardsFromCollection } from "../app/fetch-data/allBoardsSlice"
 import { useAppDispatch, useAppSelector } from "../app/hooks"
 import { clearState } from "../app/fetch-data/singleBoardSlice"
-import { SavedBoards } from "./savedBoards"
-import { fetchAllArrows } from "../app/fetch-data/multiBoardArrowSlice"
-
-import { createNewBoard } from '../app/fetch-data/allBoardsSlice.js'
-import { newBoardData } from "../app/newBoardData.js"
+import { SavedCollections } from "./savedCollections"
+import { CollectionData } from "../app/newElementData"
 
 import {MultiBoard} from "./multi-board/multiBoard"
 
 import "./../general-styles.css"
+import { createNewCollection, fetchAllCollections } from "../app/fetch-data/collectionSlice";
+import { setNavigationToHome } from "./slices/navigationSlice";
 
 export const Home = () => {
     const navigate = useNavigate();
@@ -21,31 +20,32 @@ export const Home = () => {
     const navigation = useAppSelector(state => state.navigation.nav)
 
     useEffect(() => {
-        dispatch(fetchAllBoards())
+        dispatch(fetchAllCollections())
         dispatch(clearState())
-        dispatch(fetchAllArrows())
+        dispatch(setNavigationToHome())
+     //   dispatch(fetchAllArrows())
     },
         []);
 
         //await is onjly allowed in async methods
-    const handleCreateBoard = async () => {
-        const newBoard = newBoardData
+    const handleCreateCollection = async () => {
+        const newCollection = CollectionData
 
         try {
             // Dispatch Thunk und warte auf die Antwort, 
-            const resultAction = await dispatch(createNewBoard(newBoard));
+            const resultAction = await dispatch(createNewCollection(newCollection));
 
             // Wenn der Thunk erfolgreich war, navigiere zu einer neuen Seite
-            if (createNewBoard.fulfilled.match(resultAction)) {
+            if (createNewCollection.fulfilled.match(resultAction)) {
                 // Beispiel: Navigiere zur neuen Board-Seite nach erfolgreicher Erstellung
-                navigate(`/board/${resultAction.payload._id}`);
+                navigate(`/${resultAction.payload._id}`);
             } else {
                 // Fehlerbehandlung
-                console.log('Error creating board:', resultAction.payload);
+                console.log('Error creating collection:', resultAction.payload);
             }
 
         } catch (error) {
-            console.error("failed to create board")
+            console.error("failed to create collection")
         }
     }
     if (navigation==="home") {
@@ -63,20 +63,20 @@ export const Home = () => {
                 </header>
                 <main className="flex-wrapper border-horizontal">
                     <div className="brick flex-content "
-                        onClick={handleCreateBoard}>
-                        <p className="brick-content">create new board</p>
+                        onClick={handleCreateCollection}>
+                        <p className="brick-content">create new collection</p>
     
                     </div>
                 </main >
 
 
 
-                <h4>saved Bricks</h4>
+                <h4>saved Collections</h4>
                 <div className="buttonbar-wrapper">
                     {/* <DropdownButton labels={['id', 'x']} clickElem={changeSort} />*/}
                 </div>
                 <div className="flex-wrapper">
-                    <SavedBoards sortBy={0} />
+                    <SavedCollections sortBy={0} />
                 </div>
 
             </div>

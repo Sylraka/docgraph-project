@@ -32,6 +32,8 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
         width: 100,
         height: 100
     });
+    // extract Board-ID from path
+    const collectionID = location.pathname.split('/').pop() || 'IdNotDefined';
 
 
     //update width and height of a card (cardFocus is moving)
@@ -131,7 +133,7 @@ export default function BoardMiniatureTextComponent(props: canvasProps) {
             >
             </textarea>
             <Link to={{
-                pathname: "/board/" + props.board._id
+                pathname:  props.board._id
             }} className="">
 
                 <img className="link-image" alt="go to board" src={linkImg}

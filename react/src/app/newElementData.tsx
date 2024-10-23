@@ -77,3 +77,8 @@ export const newMultiBoardArrowData = {
 
 }
 
+
+export const CollectionData = {
+    collectionName: "Enter Collection Name"
+}
+
