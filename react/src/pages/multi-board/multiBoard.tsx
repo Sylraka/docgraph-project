@@ -8,7 +8,7 @@ import { useDrop } from "react-dnd";
 import { ItemTypes } from '../../dragConstants';
 import { createNewArrow, deleteArrowFromDb, updateArrowsInDb } from "../../app/fetch-data/multiBoardArrowSlice"
 import { createNewBoard, deleteBoardFromDb, fetchAllBoardsFromCollection, updateBoardsInDb } from "../../app/fetch-data/allBoardsSlice"
-import { newMultiBoardArrowData } from "../../app/newElementData"
+import { newArrowData, newMultiBoardArrowData } from "../../app/newElementData"
 import { newBoardData } from "../../app/newBoardData"
 import { clearState } from "../../app/fetch-data/singleBoardSlice";
 
@@ -27,6 +27,8 @@ import { fetchAllArrows } from "../../app/fetch-data/multiBoardArrowSlice"
 import { ArrowFocus } from "./elements/multiBoardArrowFocus"
 import { removeFocusElement } from "../slices/focusSlice";
 import { useLocation } from "react-router-dom";
+import { CollectionName } from "./elements/collectionName";
+import { fetchCollectionById, fetchAllCollections } from "../../app/fetch-data/collectionSlice";
 
 
 export const MultiBoard = () => {
@@ -45,7 +47,9 @@ export const MultiBoard = () => {
         dispatch(setNavigationToMultiBoard());
         dispatch(fetchAllArrows({ collectionID }))
         dispatch(fetchAllBoardsFromCollection({ collectionID }));
+        // console.log(collectionID)
         dispatch(clearState())
+        dispatch(fetchCollectionById(collectionID))
 
         return () => {
             // Clean-up code, der beim Unmounten ausgeführt wird
@@ -56,17 +60,42 @@ export const MultiBoard = () => {
 
     const [, dropRef] = useDrop({
         accept: [ItemTypes.NEWMULTIBOARDARROW, ItemTypes.NEWBOARD],
-        //TODO: get the cursorCoords and add them to newCardData
+
 
         drop: (item, monitor) => {
             console.log(item, monitor.getItemType())
+            const mousePosition = monitor.getClientOffset(); // Holt die Mauskoordinaten
+
             if (monitor.getItemType() === 'newMultiBoardArrow') {
                 console.log("newMultiBoardArrow trigger")
-                dispatch(createNewArrow(newMultiBoardArrowData))
+                let newArrow = {
+                    ...newArrowData,
+                    collectionID: collectionID,
+                    anchorStart: {
+                        ...newArrowData.anchorStart,
+                        x: mousePosition!.x - 40,
+                        y: mousePosition!.y 
+                    },
+                    anchorEnd: {
+                        ...newArrowData.anchorEnd,
+                        x: mousePosition!.x + 40,
+                        y: mousePosition!.y 
+                    }
+                }
+
+                dispatch(createNewArrow(newArrow))
             }
             else if (monitor.getItemType() === 'newBoard') {
                 console.log("newBoard trigger")
-                dispatch(createNewBoard(newBoardData))
+                let newBoard = {
+                    ...newBoardData,
+                    collectionID: collectionID,
+                    boardPosition: {
+                        x: mousePosition!.x,
+                        y: mousePosition!.y
+                    }
+                }
+                dispatch(createNewBoard(newBoard))
             }
             //} 
             else {
@@ -163,6 +192,7 @@ export const MultiBoard = () => {
     // console.log(data);
     return (
         <>
+            <CollectionName />
             <div className="svg-multi-board-wrapper"
                 ref={divRef}
                 onPointerMove={event => handlePointerMove(event)}

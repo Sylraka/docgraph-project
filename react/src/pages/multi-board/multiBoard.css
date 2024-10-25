@@ -50,3 +50,10 @@
     width: 100vw;
     overflow: auto;
 }
+
+.collection-name-label{
+    top: -45px;
+    /* position: fixed;
+
+    left: 50vw; */
+}

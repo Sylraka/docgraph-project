@@ -12,6 +12,7 @@ import { updateBoardsInDb } from "./app/fetch-data/allBoardsSlice"
 import {updateArrowsInDb} from "./app/fetch-data/multiBoardArrowSlice"
 
 import { Board } from './app/fetch-data/dataTypes'
+import { updateCollectionInDb } from "./app/fetch-data/collectionSlice";
 
 
 
@@ -21,6 +22,7 @@ const Layout = () => {
   let data = useAppSelector(state => state.singleBoard.board)
   let datas = useAppSelector(state => state.allBoards.boards)
   let multiArrows = useAppSelector(state => state.multiBoardArrow.multiBoardArrows)
+  let currentCollection = useAppSelector(state => state.collections.currentCollection)
 
   const location = useLocation();
   const boardId = location.pathname.split('/').pop() || 'IdNotDefined';
@@ -41,6 +43,8 @@ const Layout = () => {
 
     dispatch(updateBoardsInDb(datas!));
     dispatch(updateArrowsInDb(multiArrows))
+    console.log(currentCollection)
+    dispatch(updateCollectionInDb(currentCollection!))
 
   }
 

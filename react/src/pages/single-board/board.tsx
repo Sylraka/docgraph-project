@@ -52,7 +52,12 @@ export const SingleBoard = () => {
     useEffect(() => {
         dispatch(fetchData(boardId))
         dispatch(setNavigationToSingleBoard())
-    }, [])
+        return () => {
+            dispatch(updateBoardInDb(data!))
+            dispatch(clearState())
+
+        }
+    }, [location.pathname])
 
 
     //to prevent "stale closure problem": have an old state if we didnt hear to activeFocusValue
@@ -99,18 +104,48 @@ export const SingleBoard = () => {
         //TODO: get the cursorCoords and add them to newCardData
 
         drop: (item, monitor) => {
+            const mousePosition = monitor.getClientOffset(); // Holt die Mauskoordinaten
+
             console.log(item, monitor.getItemType())
             if (monitor.getItemType() === 'newCard') {
-                console.log("newCard trigger")
-                dispatch(addNewCardInside(newCardData))
+                console.log("newCard trigger, mousecoords")
+                const newCard = {
+                    ...newCardData,
+                    x: mousePosition!.x - 100,
+                    y: mousePosition!.y - 130
+                }
+                dispatch(addNewCardInside(newCard))
                 //props.boardState.handleCardFunctions.newCard(newCardData());
             } else if (monitor.getItemType() === 'newArrow') {
                 console.log("newArrow trigger")
-                dispatch(addNewArrowInside(newArrowData))
+                const newArrow = {
+                    ...newArrowData,
+                    anchorStart: {
+                        ...newArrowData.anchorStart,
+                        anchorCanvas: {
+                            x: mousePosition!.x - 140,
+                            y: mousePosition!.y - 130
+                        }
+                    },
+                    anchorEnd: {
+                        ...newArrowData.anchorEnd,
+                        anchorCanvas: {
+                            x: mousePosition!.x - 60,
+                            y: mousePosition!.y - 130
+                        }
+                    }
+                }
+                console.log(newArrow)
+                dispatch(addNewArrowInside(newArrow))
                 // props.boardState.handleArrowFunctions.newArrow(newArrowData());
             } else if (monitor.getItemType() === 'newCardMath') {
                 console.log("newCard Math trigger")
-                dispatch(addNewCardInside(newCardMathData))
+                const newCardMath = {
+                    ...newCardMathData,
+                    x: mousePosition!.x - 100,
+                    y: mousePosition!.y - 130
+                }
+                dispatch(addNewCardInside(newCardMath))
             } else {
                 console.error("ItemType not found:", monitor.getItemType())
             }

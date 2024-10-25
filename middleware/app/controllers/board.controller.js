@@ -46,7 +46,7 @@ exports.findAll = (req, res) => {
   if (collectionID) {
     condition = { collectionID: collectionID }; // Setze die collectionID als Bedingung
   }
-  console.log(collectionID)
+ // console.log(collectionID)
   //const title = req.query.title;
   //var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
   Board.find(condition)
