@@ -54,7 +54,7 @@ export const updateBoardInDb = createAsyncThunk(
 
 // Dieser Thunk führt eine Datenbankabfrage durch und gibt das Ergebnis zurück
 export const fetchBoardById = createAsyncThunk(
-    'data/onlyFetchBoardById', // Typ für den Thunk
+    'data/fetchBoardById', // Typ für den Thunk
     async (boardId: string, { rejectWithValue }) => {
         try {
             const response = await fetch(`http://localhost:5100/api/boards/${boardId}`);
@@ -79,7 +79,9 @@ const singleBoardInsideSlice = createSlice({
     initialState,
     reducers: {
         setLinkCardInside(state, action: PayloadAction<LinkCard>) {
+        //    console.log("cardIndex")
             const cardIndex = state.board?.linkList.findIndex(link => link.fromArrowID === action.payload.fromArrowID);
+
             if (cardIndex !== undefined && state.board !== undefined) {
                 state.board.linkList[cardIndex] = action.payload;
             }
@@ -107,6 +109,7 @@ const singleBoardInsideSlice = createSlice({
 
         setCardInside(state, action: PayloadAction<Card>) {
             const cardIndex = state.board?.cardList.findIndex(card => card.cardID === action.payload.cardID);
+            console.log("cardIndex")
             if (cardIndex !== undefined && state.board !== undefined) {
                 state.board.cardList[cardIndex] = action.payload;
             }

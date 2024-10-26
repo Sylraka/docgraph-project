@@ -72,6 +72,10 @@ export default function CardTextComponent(props: canvasProps) {
         dispatch(removeFocusElement())
     }
 
+    const handleClickAtLink = () => {
+        dispatch(fetchData(props.link.toID));
+    }
+
     return (
         props.link.isFromBoard === true ? (
             //when the arrow starts at board
@@ -95,7 +99,7 @@ export default function CardTextComponent(props: canvasProps) {
                 <Link to={{
                     pathname: "/board/" + props.link.toID
                 }} className=""
-                    onClick={() => dispatch(fetchData(props.link.toID))}
+                    onClick={() => handleClickAtLink()}
                 >
 
 

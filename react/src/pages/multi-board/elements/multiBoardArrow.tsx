@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to 
 import { setActiveDragElement, removeActiveDrag } from "../../slices/dragSlice"
 import { setFocusElement, FocusState } from "../../slices/focusSlice"
 
-import { updateArrowInDb, setArrowInside } from "../../../app/fetch-data/multiBoardArrowSlice"
+import { updateArrowInDb, setMultiArrowInside } from "../../../app/fetch-data/multiBoardArrowSlice"
 
 interface canvasProps {
     arrow: multiBoardArrow;
@@ -32,7 +32,7 @@ export interface DragElement extends multiBoardArrow {
 }
 
 
-export function ArrowComponent(props: canvasProps) {
+export function MultiArrowComponent(props: canvasProps) {
     const dispatch = useAppDispatch()
     let activeDragValue = useAppSelector((state) => state.drag)
     let activeFocusValue = useAppSelector((state) => state.focus)
@@ -97,7 +97,7 @@ export function ArrowComponent(props: canvasProps) {
 
             }
             //always save, overCardState is written in arrowFocus
-            dispatch(setArrowInside({
+            dispatch(setMultiArrowInside({
                 ...props.arrow,
                 anchorStart: {
                     ...props.arrow.anchorStart,
@@ -147,7 +147,7 @@ export function ArrowComponent(props: canvasProps) {
                 }))
             }
             //always save, overCardState is written in arrowFocus
-            dispatch(setArrowInside({
+            dispatch(setMultiArrowInside({
                 ...props.arrow,
                 anchorEnd: {
                     ...props.arrow.anchorEnd,

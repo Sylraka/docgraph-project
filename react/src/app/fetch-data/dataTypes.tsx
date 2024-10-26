@@ -15,7 +15,7 @@ export interface Arrow {
     arrowTypes: string[];
     anchorStart: {
         anchorID: number;
-        onCard: number;
+        onCard: string;
         anchorCanvas: {
             //  canvasNumber: number;
             x: number;
@@ -24,7 +24,7 @@ export interface Arrow {
     };
     anchorEnd: {
         anchorID: number;
-        onCard: number;
+        onCard: string;
         anchorCanvas: {
             //    canvasNumber: number;
             x: number;

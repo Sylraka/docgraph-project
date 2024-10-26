@@ -125,7 +125,7 @@ const arrowsApiSlice = createSlice({
     name: "arrowsApiSlice",
     initialState,
     reducers: {
-        setArrowInside(state, action: PayloadAction<multiBoardArrow>) {
+        setMultiArrowInside(state, action: PayloadAction<multiBoardArrow>) {
             const arrowIndex = state.multiBoardArrows?.findIndex(arrow => arrow._id === action.payload._id);
             if (arrowIndex !== undefined && state.multiBoardArrows !== undefined) {
                 state.multiBoardArrows[arrowIndex] = action.payload;
@@ -165,5 +165,5 @@ const arrowsApiSlice = createSlice({
 });
 
 
-export const { setArrowInside } = arrowsApiSlice.actions;
+export const { setMultiArrowInside } = arrowsApiSlice.actions;
 export default arrowsApiSlice.reducer;

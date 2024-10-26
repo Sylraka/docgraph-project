@@ -10,7 +10,7 @@ import overCardSlice, { setOverCard, removeOverCard } from "../../slices/overCar
 import { fetchBoardById, fetchData, updateBoardInDb } from "../../../app/fetch-data/singleBoardSlice"
 import { fetchAllBoardsFromCollection, setBoard } from "../../../app/fetch-data/allBoardsSlice"
 
-import { setArrowInside, updateArrowInDb } from "../../../app/fetch-data/multiBoardArrowSlice"
+import { setMultiArrowInside, updateArrowInDb } from "../../../app/fetch-data/multiBoardArrowSlice"
 
 
 type propTypes = {
@@ -293,7 +293,7 @@ export const ArrowFocus = (props: propTypes) => {
 
         //write down the anchor for the arrows, overCardState can be "" or "_id"
         if (location === "Start") {
-            dispatch(setArrowInside({
+            dispatch(setMultiArrowInside({
                 ...element,
                 anchorStart: {
                     ...element.anchorStart,
@@ -304,7 +304,7 @@ export const ArrowFocus = (props: propTypes) => {
                 }
             }));
         } else {
-            dispatch(setArrowInside({
+            dispatch(setMultiArrowInside({
                 ...element,
                 anchorEnd: {
                     ...element.anchorEnd,

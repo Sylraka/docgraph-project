@@ -21,7 +21,7 @@ import { BoardMiniatureFocus } from "./elements/boardMiniatureFocus";
 
 import "./multiBoard.css"
 
-import { ArrowComponent } from "./elements/multiBoardArrow"
+import { MultiArrowComponent } from "./elements/multiBoardArrow"
 import { fetchAllArrows } from "../../app/fetch-data/multiBoardArrowSlice"
 
 import { ArrowFocus } from "./elements/multiBoardArrowFocus"
@@ -207,7 +207,7 @@ export const MultiBoard = () => {
                     className="svg-multi-board">
 
                     {arrows?.multiBoardArrows?.map(arrow =>
-                        <ArrowComponent
+                        <MultiArrowComponent
                             key={"multiBoardArrowNr" + arrow._id}
                             arrow={arrow}
                         />

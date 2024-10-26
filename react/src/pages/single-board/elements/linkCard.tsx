@@ -114,13 +114,13 @@ export default function LinkCardComponent(props: canvasProps) {
 
         setElement(newElement);
 
-        setLinkCardInside({
+        dispatch(setLinkCardInside({
             ...props.link,
             linkPosition: {
                 x: element.linkPosition.x,
                 y: element.linkPosition.y
             }
-        })
+        }))
 
     }
 
@@ -131,23 +131,24 @@ export default function LinkCardComponent(props: canvasProps) {
                 key={element.fromArrowID}
             >
 
-                {/* {(overCardState.cardID === element.fromArrowID.toString()) &&
-                    <rect
-                        x={element.linkPosition.x}
-                        y={element.linkPosition.y}
+                {(overCardState.cardID === element.fromArrowID.toString()) &&
+                    <ellipse
+                        cx={element.linkPosition.x}
+                        cy={element.linkPosition.y}
                         fill="#555555"
                         stroke="#3399ff"
                         strokeWidth={5}
-                        rx="10"
-                        width={300}
-                        height={100}
+                        rx="100"
+                        ry="50"
+                        width={100 + 30}
+                        height={30 + 30}
                         onPointerDown={(event) => handlePointerDown(event)}
                         onPointerUp={(event) => handlePointerUp(event)}
                         onPointerMove={(event) => handlePointerMove(event)}
                         id={element.fromArrowID.toString()}
 
                     />
-                } */}
+                }
                 {(overCardState.cardID !== element.fromArrowID.toString()) &&
                     <ellipse
                         cx={element.linkPosition.x}

@@ -39,7 +39,7 @@ export const newArrowData: Arrow = {
     arrowTypes: ['oneHead'],
     anchorStart: {
         anchorID: -1,//are filled in rootBoards
-        onCard: -1,
+        onCard: "",
         anchorCanvas: {
             //  canvasNumber: -1,
             x: 100,
@@ -48,7 +48,7 @@ export const newArrowData: Arrow = {
     },
     anchorEnd: {
         anchorID: -1,//are filled in rootBoards
-        onCard: -1,
+        onCard: "",
         anchorCanvas: {
             //     canvasNumber: -1,
             x: 100,

@@ -17,6 +17,7 @@ import CardMath from "./elements/cardMath"
 
 import LinkCard from "./elements/linkCard"
 import LinkCardText from "./elements/linkCardText"
+import { LinkCardFocus } from "./elements/linkCardFocus"
 
 // from the redux slices 
 import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
@@ -53,7 +54,9 @@ export const SingleBoard = () => {
         dispatch(fetchData(boardId))
         dispatch(setNavigationToSingleBoard())
         return () => {
-            dispatch(updateBoardInDb(data!))
+            if (data !== undefined) {
+                dispatch(updateBoardInDb(data))
+            }
             dispatch(clearState())
 
         }
@@ -221,7 +224,6 @@ export const SingleBoard = () => {
                                 <DragArrow
                                     key={"arrowNr" + arrow.arrowID}
                                     arrow={arrow}
-                                //    saveArrow={saveArrow}
                                 />
 
                             ))}
@@ -230,7 +232,13 @@ export const SingleBoard = () => {
                                     key={"cardNr" + card.cardID}
                                     card={card}
                                     boardId={boardId}
-                                // saveCard={saveCard}
+                                />
+                            ))}
+
+                            {data?.linkList.map(link => (
+                                <LinkCard
+                                    key={"linkNr" + link.fromArrowID}
+                                    link={link}
                                 />
                             ))}
                             {data?.arrowList.map(arrow => (
@@ -248,18 +256,17 @@ export const SingleBoard = () => {
                                         key={"cardFocusNr" + card.cardID}
                                         card={card}
                                     />
-
-
-
                                 )
                             ))}
                             {data?.linkList.map(link => (
-                                <LinkCard
-                                    key={"linkNr" + link.fromArrowID}
-                                    link={link}
-                                // saveCard={saveCard}
-                                />
+                                activeFocusValue.elementType === "link" && activeFocusValue.ID === link.fromArrowID && (
+                                    < LinkCardFocus
+                                        key={"cardFocusNr" + link.fromArrowID}
+                                        linkCard={link}
+                                    />
+                                )
                             ))}
+
 
                         </svg>
                         {data?.linkList.map(link => (

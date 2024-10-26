@@ -81,27 +81,27 @@ const ArrowFocus = (props: propTypes) => {
             const elementUnderPointer3 = document.elementFromPoint(event.clientX + 10, event.clientY - 10);
             const elementUnderPointer4 = document.elementFromPoint(event.clientX - 10, event.clientY - 10);
 
-            if (elementUnderPointer1 && elementUnderPointer1.tagName === 'rect') {
+            if (elementUnderPointer1 && elementUnderPointer1.tagName === 'rect' || elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
                 rectElement = elementUnderPointer1
-            } else if (elementUnderPointer2 && elementUnderPointer2.tagName === 'rect') {
+            } else if (elementUnderPointer2 && elementUnderPointer2.tagName === 'rect' || elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
                 rectElement = elementUnderPointer2
-            } else if (elementUnderPointer3 && elementUnderPointer3.tagName === 'rect') {
+            } else if (elementUnderPointer3 && elementUnderPointer3.tagName === 'rect' || elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
                 rectElement = elementUnderPointer3
-            } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'rect') {
+            } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'rect' || elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
                 rectElement = elementUnderPointer4
             } else {
                 rectElement = undefined
             }
 
             let id: String;
-            if (rectElement !== undefined) {
+            if (rectElement !== undefined && rectElement !== null) {
                 id = rectElement.id;
                 console.log('Pointer entered rectangle nr', id);
                 dispatch(setOverCard(id))
             } else {
                 dispatch(removeOverCard())
-               // console.log('pointer is free')
-               console.log("arrowID:", element.arrowID)
+                // console.log('pointer is free')
+                console.log("arrowID:", element.arrowID)
             }
 
 
@@ -176,7 +176,7 @@ const ArrowFocus = (props: propTypes) => {
         setElement(newElement);
 
 
-        console.log("overCardState",overCardState)
+        console.log("overCardState", overCardState)
 
 
         if (location === "Start") {
@@ -184,7 +184,7 @@ const ArrowFocus = (props: propTypes) => {
                 ...element,
                 anchorStart: {
                     ...element.anchorStart,
-                    onCard: Number(overCardState.cardID),
+                    onCard: overCardState.cardID.toString(),
                     anchorCanvas: {
                         ...element.anchorStart.anchorCanvas,
                         x: element.anchorStart.anchorCanvas.x,
@@ -197,7 +197,7 @@ const ArrowFocus = (props: propTypes) => {
                 ...element,
                 anchorEnd: {
                     ...element.anchorEnd,
-                    onCard: Number(overCardState.cardID),
+                    onCard: overCardState.cardID.toString(),
                     anchorCanvas: {
                         ...element.anchorEnd.anchorCanvas,
                         x: element.anchorEnd.anchorCanvas.x,

@@ -49,11 +49,11 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(prevElement.width + activeDragValue.width, 30),
                 height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
-            setCardInside({
+            dispatch(setCardInside({
                 ...props.card,
                 width: Math.max(props.card.width + activeDragValue.width, 30),
                 height: Math.max(props.card.height + activeDragValue.height, 30)
-            })
+            }))
         } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
@@ -61,12 +61,12 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(prevElement.width - activeDragValue.width, 30),
                 height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
-            setCardInside({
+            dispatch(setCardInside({
                 ...props.card,
                 x: props.card.x + activeDragValue.width,
                 width: Math.max(props.card.width - activeDragValue.width, 30),
                 height: Math.max(props.card.height + activeDragValue.height, 30)
-            })
+            }))
         } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
@@ -74,12 +74,12 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(prevElement.width + activeDragValue.width, 30),
                 height: Math.max(prevElement.height - activeDragValue.height, 30)
             }))
-            setCardInside({
+            dispatch(setCardInside({
                 ...props.card,
                 y: props.card.x + activeDragValue.height,
                 width: Math.max(props.card.width + activeDragValue.width, 30),
                 height: Math.max(props.card.height - activeDragValue.height, 30)
-            })
+            }))
         } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
@@ -88,13 +88,13 @@ export default function CardComponent(props: canvasProps) {
                 width: Math.max(prevElement.width - activeDragValue.width, 30),
                 height: Math.max(prevElement.height - activeDragValue.height, 30)
             }))
-            setCardInside({
+            dispatch(setCardInside({
                 ...props.card,
                 x: props.card.x + activeDragValue.width,
                 y: props.card.x + activeDragValue.height,
                 width: Math.max(props.card.width - activeDragValue.width, 30),
                 height: Math.max(props.card.height - activeDragValue.height, 30)
-            })
+            }))
         }
 
 
@@ -170,12 +170,11 @@ export default function CardComponent(props: canvasProps) {
         newElement = { ...element, active: false, offsetX: -1, offsetY: -1 };
 
         setElement(newElement);
-
-        setCardInside({
+        dispatch(setCardInside({
             ...props.card,
             x: element.x,
             y: element.y
-        })
+        }))
 
     }
 
