@@ -3,9 +3,9 @@ import { /*useState,*/ useEffect } from "react";
 import { useDrag, DragPreviewImage } from "react-dnd";
 import { ItemTypes } from "../../../../dragConstants";
 
-import cardPreviewImg from "./../../../../images/newCardPreview.png";
+import cardPreviewImg from "./../../../../images/newBoardPreview.png";
 
-import cardImg from "./../../../../images/card.svg"
+import cardImg from "./../../../../images/newBoard.png"
 import "../../../single-board/nav-bar/buttons/buttons.css"
 
 

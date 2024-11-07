@@ -113,6 +113,9 @@ const collectionsApiSlice = createSlice({
         setCollectionName(state,  action: PayloadAction<string>) {
             state.currentCollection!.collectionName = action.payload;
         }
+        // clearState(state) {
+        //     state.board = undefined
+        // }
     },
     extraReducers: (builder) => {
         builder

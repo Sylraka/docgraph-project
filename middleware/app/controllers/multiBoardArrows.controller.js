@@ -15,6 +15,7 @@ exports.create = (req, res) => {
   // Create a Arrow
   const arrow = new Arrow({
     arrowType: req.body.arrowType,
+    collectionID: req.body.collectionID,
     anchorStart: req.body.anchorStart,
     anchorEnd: req.body.anchorEnd,
     /*    published: req.body.published ? req.body.published : false */

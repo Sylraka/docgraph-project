@@ -8,6 +8,7 @@ module.exports = mongoose => {
       linkList: Array,
       cardList: Array,
       arrowList: Array,
+      collectionID: String,
       cardIDCounter: Number,
       arrowIDCounter: Number,
       anchorIDCounter: Number

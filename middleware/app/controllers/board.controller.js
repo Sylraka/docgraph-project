@@ -6,10 +6,11 @@ exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
     //write down in docker logs
-    console.info("received requestbody:", req.body);
+
     res.status(400).send({ message: "Body can not be empty!" });
     return;
   }
+  console.info("received requestbody:", req.body);
   // Create a Board
   const board = new Board({
     boardName: req.body.boardName,

@@ -87,7 +87,7 @@ export default function CardTextComponent(props: canvasProps) {
                     className="link-card-text card-field-input no-cursor strong"
                     style={{
                         top: element.linkPosition.y - 50,
-                        left: element.linkPosition.x -55,
+                        left: element.linkPosition.x -50,
                         width: 100,
                         height: 77
                     }}
@@ -120,7 +120,7 @@ export default function CardTextComponent(props: canvasProps) {
                     className="link-card-text card-field-input no-cursor strong"
                     style={{
                         top: element.linkPosition.y - 50,
-                        left: element.linkPosition.x -55,
+                        left: element.linkPosition.x -50,
                         width: 100,
                         height: 77
                     }}
@@ -136,7 +136,7 @@ export default function CardTextComponent(props: canvasProps) {
                 >
 
                     <img className="link-image" alt="go to board" src={linkImgFrom}
-                        style={{ 'top': element.linkPosition.y -25, 'left': element.linkPosition.x - 110 }}
+                        style={{ 'top': element.linkPosition.y -15, 'left': element.linkPosition.x - 90 }}
                     />
                 </Link>
             </div>

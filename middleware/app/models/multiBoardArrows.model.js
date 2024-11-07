@@ -4,6 +4,7 @@ module.exports = mongoose => {
       {
       // arrowID: Number,
         arrowType: String,
+        collectionID: String,
         anchorStart: {
             onCard: String,
             boardRubrics: Array,

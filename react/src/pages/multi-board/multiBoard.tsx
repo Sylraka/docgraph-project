@@ -86,7 +86,7 @@ export const MultiBoard = () => {
                 dispatch(createNewArrow(newArrow))
             }
             else if (monitor.getItemType() === 'newBoard') {
-                console.log("newBoard trigger")
+                console.log("newBoard trigger, collectionID", collectionID)
                 let newBoard = {
                     ...newBoardData,
                     collectionID: collectionID,

@@ -18,7 +18,6 @@ export const CollectionName = (props: any) => {
 
         setWidth("IDcollectionname" + collection?._id);
 
-
     }, [collection]);
 
 
@@ -48,7 +47,7 @@ export const CollectionName = (props: any) => {
             <input
                 id={"IDcollectionname" + collection?._id}
                 className="board-name board-name-input"
-                defaultValue={collection?.collectionName}
+                value={collection?.collectionName}
                 onInput={() => manageTextInput("IDcollectionname" + collection?._id)}
                 maxLength={50}
             />
