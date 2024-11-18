@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
@@ -11,25 +11,31 @@ import { BoardName } from "./boardName"
 import DragArrow from "./elements/arrow";
 import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
-import { Sidebar } from "./nav-bars/sidebar";
+import { Sidebar } from "./nav-bar/sidebar";
 import CardFocus from "./elements/cardFocus";
-import CardMath from  "./elements/card-math/cardMath"
+import CardMath from "./elements/cardMath";
+import CardCode from "./elements/cardCode";
+
+import LinkCard from "./elements/linkCard"
+import LinkCardText from "./elements/linkCardText"
+import { LinkCardFocus } from "./elements/linkCardFocus"
 
 // from the redux slices 
 import { Card, Board, Arrow } from '../../app/fetch-data/dataTypes';
-import { removeFocusElement } from "./elements/focusSlice"
+import { removeFocusElement } from "../slices/focusSlice"
 import {
     fetchData, clearState,
     setSingleBoardInside, setCardInside, setArrowInside,
     updateBoardInDb,
     addNewArrowInside, addNewCardInside,
     deleteArrowInside, deleteCardInside
-} from "./singleBoardSlice"
+} from "../../app/fetch-data/singleBoardSlice"
+import { setNavigationToSingleBoard } from "../slices/navigationSlice"
 
 //for insert new elements
 import { useDrop } from "react-dnd";
 import { ItemTypes } from './../../dragConstants';
-import { newArrowData, newCardData, newCardMathData } from './../../app/newElementData';
+import { newArrowData, newCardData, newCardMathData, newCardCodeData } from './../../app/newElementData';
 
 
 export const SingleBoard = () => {
@@ -47,7 +53,28 @@ export const SingleBoard = () => {
 
     useEffect(() => {
         dispatch(fetchData(boardId))
-    }, [])
+        dispatch(setNavigationToSingleBoard())
+        return () => {
+            dispatch(clearState())
+        }
+    }, [location.pathname])
+
+    useEffect(() => {
+
+        return () => {
+            const handleUnmount =  () => {
+                if (data !== undefined) {
+                   // console.log("updateBoardInDb", data)
+                    dispatch(updateBoardInDb(data))
+                }
+
+            }
+ 
+            handleUnmount()
+
+        }
+    }, [data])
+
 
 
     //to prevent "stale closure problem": have an old state if we didnt hear to activeFocusValue
@@ -77,19 +104,6 @@ export const SingleBoard = () => {
     }, [activeFocusValue]);
 
 
-    const saveCard = (updatedCard: Card) => {
-        dispatch(setCardInside(updatedCard));
-
-    }
-
-    const saveArrow = (updatedArrow: Arrow) => {
-        dispatch(setArrowInside(updatedArrow));
-    }
-
-
-    const saveDBBoard = (updatedBoard: Board) => {
-        dispatch(updateBoardInDb(updatedBoard));
-    }
 
 
     const handlePointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
@@ -103,28 +117,102 @@ export const SingleBoard = () => {
 
     // more info to usedrop in https://codesandbox.io/s/react-dnd-02-chess-board-and-lonely-knight-7buy2?from-embed=&file=/src/components/BoardSquare.js:394-653
     const [, dropRef] = useDrop({
-        accept: [ItemTypes.NEWCARD, ItemTypes.NEWARROW, ItemTypes.NEWCARDMATH],
+        accept: [ItemTypes.NEWCARD, ItemTypes.NEWARROW, ItemTypes.NEWCARDMATH, ItemTypes.NEWCARDCODE],
         //TODO: get the cursorCoords and add them to newCardData
 
         drop: (item, monitor) => {
+            const mousePosition = monitor.getClientOffset(); // Holt die Mauskoordinaten
+
             console.log(item, monitor.getItemType())
             if (monitor.getItemType() === 'newCard') {
-                console.log("newCard trigger")
-                dispatch(addNewCardInside(newCardData))
+                console.log("newCard trigger, mousecoords")
+                const newCard = {
+                    ...newCardData,
+                    x: mousePosition!.x - 100,
+                    y: mousePosition!.y - 130
+                }
+                dispatch(addNewCardInside(newCard))
                 //props.boardState.handleCardFunctions.newCard(newCardData());
             } else if (monitor.getItemType() === 'newArrow') {
                 console.log("newArrow trigger")
-                dispatch(addNewArrowInside(newArrowData))
+                const newArrow = {
+                    ...newArrowData,
+                    anchorStart: {
+                        ...newArrowData.anchorStart,
+                        anchorCanvas: {
+                            x: mousePosition!.x - 140,
+                            y: mousePosition!.y - 130
+                        }
+                    },
+                    anchorEnd: {
+                        ...newArrowData.anchorEnd,
+                        anchorCanvas: {
+                            x: mousePosition!.x - 60,
+                            y: mousePosition!.y - 130
+                        }
+                    }
+                }
+                console.log(newArrow)
+                dispatch(addNewArrowInside(newArrow))
                 // props.boardState.handleArrowFunctions.newArrow(newArrowData());
             } else if (monitor.getItemType() === 'newCardMath') {
                 console.log("newCard Math trigger")
-                dispatch(addNewCardInside(newCardMathData))
+                const newCardMath = {
+                    ...newCardMathData,
+                    x: mousePosition!.x - 100,
+                    y: mousePosition!.y - 130
+                }
+                dispatch(addNewCardInside(newCardMath))
+            } else if (monitor.getItemType() === 'newCardCode') {
+                console.log("newCard Code trigger")
+                const newCardCode = {
+                    ...newCardCodeData,
+                    x: mousePosition!.x - 100,
+                    y: mousePosition!.y - 130
+                }
+                dispatch(addNewCardInside(newCardCode))
             } else {
                 console.error("ItemType not found:", monitor.getItemType())
             }
         }
     });
 
+
+    const divRef = useRef<HTMLDivElement>(null); // Referenz auf das div-Element
+    const [isDragging, setIsDragging] = useState(false); // Zustand für das Ziehen
+    const [startPoint, setStartPoint] = useState({ x: 0, y: 0 }); // Startpunkt der Maus
+    const [scrollPosition, setScrollPosition] = useState({ left: 0, top: 0 }); // Scrollposition
+
+    // Rechtsklick-Event (startet das Ziehen)
+    const handleRightClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        event.preventDefault(); // Verhindert das Standard-Kontextmenü
+        setIsDragging(true); // Setzt den Dragging-Zustand
+        setStartPoint({ x: event.clientX, y: event.clientY }); // Startposition der Maus
+        const div = divRef.current;
+        if (div) {
+            setScrollPosition({
+                left: div.scrollLeft,
+                top: div.scrollTop
+            });
+        }
+    };
+
+    // Bewegt das SVG, indem die Scrollposition des div geändert wird
+    const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+        if (isDragging) {
+            const div = divRef.current;
+            // Berechnung der neuen Scroll-Position relativ zur Mausbewegung
+            if (div) {
+                div.scrollLeft = scrollPosition.left - (event.clientX - startPoint.x);
+                div.scrollTop = scrollPosition.top - (event.clientY - startPoint.y);
+            }
+        }
+    };
+
+    // Beendet das Ziehen, wenn die Maus losgelassen wird
+    const handlePointerUp = () => {
+        setIsDragging(false); // Beendet den Dragging-Zustand
+    };
 
 
     // console.log(data);
@@ -144,91 +232,95 @@ export const SingleBoard = () => {
                 <div className='flex-row'>
                     <Sidebar />
 
-                    <div className="three-canvas-container">
-                        <div className="flex-row" id="three-canvas-inner">
-                            <svg className='svg-canvas' id="svg-canvas-id"
-                                onPointerDown={handlePointerDown}
-                                ref={dropRef}
-                            >
-                                {data?.arrowList.map(arrow => (
-                                    <DragArrow
-                                        key={"arrowNr" + arrow.arrowID}
+                    <div className="three-canvas-container"
+                        ref={divRef}
+                        onPointerMove={event => handlePointerMove(event)}
+                        onPointerUp={handlePointerUp}
+                        onContextMenu={event => handleRightClick(event)} // Rechtsklick-Event starten
+                    >
+                        <svg className='svg-canvas' id="svg-canvas-id"
+                            onPointerDown={handlePointerDown}
+                            ref={dropRef}
+                        >
+                            {data?.arrowList.map(arrow => (
+                                <DragArrow
+                                    key={"arrowNr" + arrow.arrowID}
+                                    arrow={arrow}
+                                />
+
+                            ))}
+                            {data?.cardList.map(card => (
+                                <DragCard
+                                    key={"cardNr" + card.cardID}
+                                    card={card}
+                                    boardId={boardId}
+                                />
+                            ))}
+
+                            {data?.linkList.map(link => (
+                                <LinkCard
+                                    key={"linkNr" + link.fromArrowID}
+                                    link={link}
+                                />
+                            ))}
+                            {data?.arrowList.map(arrow => (
+                                activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID.toString() && (
+                                    <ArrowFocus
+                                        key={"arrowFocusNr" + arrow.arrowID}
                                         arrow={arrow}
-                                        saveArrow={saveArrow}
                                     />
+                                )
 
-                                ))}
-                                {data?.cardList.map(card => (
-                                    <DragCard
-                                        key={"cardNr" + card.cardID}
+                            ))}
+                            {data?.cardList.map(card => (
+                                activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID.toString() && (
+                                    < CardFocus
+                                        key={"cardFocusNr" + card.cardID}
                                         card={card}
-                                        boardId={boardId}
-                                        saveCard={saveCard}
                                     />
-                                ))}
-                                {data?.arrowList.map(arrow => (
-                                    activeFocusValue.elementType === "arrow" && activeFocusValue.ID === arrow.arrowID && (
-                                        <ArrowFocus
-                                            key={"arrowFocusNr" + arrow.arrowID}
-                                            arrow={arrow}
-                                            saveArrow={saveArrow}
-                                        />
-                                    )
-
-                                ))}
-                                {data?.cardList.map(card => (
-                                    activeFocusValue.elementType === "card" && activeFocusValue.ID === card.cardID && (
-                                        < CardFocus
-                                            key={"cardFocusNr" + card.cardID}
-                                            card={card}
-                                            saveCard={saveCard}
-                                        />
-
-
-
-                                    )
-                                ))}
-
-                            </svg>
-
-                            {data?.cardList.map(card => (
-                                (card.cardType === "primitive" && <CardText
-                                    key={"cardTextNr" + card.cardID}
-                                    card={card}
-                                />
                                 )
                             ))}
-                            {data?.cardList.map(card => (
-                                (card.cardType === "math" && <CardMath
-                                    key={"cardMathNr" + card.cardID}
-                                    card={card}
-                                />
+                            {data?.linkList.map(link => (
+                                activeFocusValue.elementType === "link" && activeFocusValue.ID === link.fromArrowID && (
+                                    < LinkCardFocus
+                                        key={"cardFocusNr" + link.fromArrowID}
+                                        linkCard={link}
+                                    />
                                 )
                             ))}
 
 
+                        </svg>
+                        {data?.linkList.map(link => (
+                            <LinkCardText
+                                key={"linkTextNr" + link.fromArrowID}
+                                link={link}
+                            />
 
-
-
-                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-1">
-                                <div className='squares-wrapper flex-row' >
-                                </div>
-                            </div>
-
-                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-2">
-                                <div className='squares-wrapper'>
-                                </div>
-                            </div>
-
-
-
-                            <div className="fancy-canvas-wrapper" id="fancy-canvas-wrapper-3">
-                                <div className='squares-wrapper' >
-                                </div>
-                            </div>
-
-                        </div>
+                        ))}
+                        {data?.cardList.map(card => (
+                            (card.cardType === "primitive" && <CardText
+                                key={"cardTextNr" + card.cardID}
+                                card={card}
+                            />
+                            )
+                        ))}
+                        {data?.cardList.map(card => (
+                            (card.cardType === "math" && <CardMath
+                                key={"cardMathNr" + card.cardID}
+                                card={card}
+                            />
+                            )
+                        ))}
+                        {data?.cardList.map(card => (
+                            (card.cardType === "code" && <CardCode
+                                key={"cardCodeNr" + card.cardID}
+                                card={card}
+                            />
+                            )
+                        ))}ƒ
                     </div>
+
 
 
 

@@ -1,15 +1,15 @@
-import { Card, Board, Arrow } from './fetch-data/dataTypes';
-
 
 export const newBoardData = {
     boardName: 'Boardname',
-    boardType: '',
+    boardRubrics: [],
     boardPosition: {
-        x: 0,
-        y: 0
+        x: 200,
+        y: 200
     },
+    linkList: [],
     cardList: [],
-    arrowList: [ ],
+    arrowList: [],
+    collectionID: "",
     cardIDCounter: 3,
     arrowIDCounter: 2,
     anchorIDCounter: 3

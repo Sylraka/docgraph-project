@@ -1,0 +1,1025 @@
+[{
+  "_id": {
+    "$oid": "671f7cd29acc01dda951d39a"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "",
+    "x": 509.25390625,
+    "y": 1074.86328125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "",
+    "x": 713.9921875,
+    "y": 1026.15625,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:00:18.949Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f7ce19acc01dda951d3aa"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "",
+    "x": 609.25390625,
+    "y": 1124.86328125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "",
+    "x": 700.421875,
+    "y": 1166.41796875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:00:33.281Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f7e429acc01dda951d50e"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "",
+    "x": 1272.20703125,
+    "y": 787.26953125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "",
+    "x": 1316.421875,
+    "y": 711.71484375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:06:26.767Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f7e599acc01dda951d51b"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671f7e2a9acc01dda951d50c",
+    "x": 1306.625,
+    "y": 794.62890625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63388ae710ff1a53060fec56",
+    "x": 1707.27734375,
+    "y": 753.5078125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:06:49.172Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f7e9d9acc01dda951d5c1"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671f7e2a9acc01dda951d50c",
+    "x": 1306.625,
+    "y": 794.62890625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63453145a40319139e30539e",
+    "x": 1490.84375,
+    "y": 830.203125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:07:57.060Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f7eb09acc01dda951d5ce"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671f7e2a9acc01dda951d50c",
+    "x": 1306.625,
+    "y": 794.62890625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63451f79a40319139e305388",
+    "x": 1563.23828125,
+    "y": 909.7578125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:08:16.771Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f808c9acc01dda951d875"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671f7e2a9acc01dda951d50c",
+    "x": 1206.625,
+    "y": 844.62890625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63388e1d10ff1a53060fec6a",
+    "x": 1372.91796875,
+    "y": 1035.12890625,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:16:12.903Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f824c9acc01dda951d87f"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671f7e2a9acc01dda951d50c",
+    "x": 1206.625,
+    "y": 844.62890625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "633c3fc16af81199cba86a7e",
+    "x": 1552.828125,
+    "y": 1068.52734375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:23:40.584Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f82b59acc01dda951d976"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "63451f79a40319139e305388",
+    "x": 1663.23828125,
+    "y": 969.7578125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63b6e93b3af9c5702d5e4665",
+    "x": 1733.6484375,
+    "y": 959.3203125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:25:25.766Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f834e9acc01dda951da1e"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "63388ae710ff1a53060fec56",
+    "x": 1545.62109375,
+    "y": 720.44921875,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "633858cf10ff1a53060fec2e",
+    "x": 1707.27734375,
+    "y": 753.5078125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:27:58.279Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f86349acc01dda951dc64"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "634d0e67a40319139e305416",
+    "x": 260.5,
+    "y": 757.51171875,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "637ba2d9fd64ac4dcf5ebdab",
+    "x": 274.87109375,
+    "y": 830.859375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:40:20.603Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f86699acc01dda951dce4"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "634d0e67a40319139e305416",
+    "x": 271.6328125,
+    "y": 753.13671875,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63482c15a40319139e3053d2",
+    "x": 404.828125,
+    "y": 709.546875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:41:13.750Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f87099acc01dda951de19"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "633dae426af81199cba86a86",
+    "x": 616.5625,
+    "y": 851.1640625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63451141a40319139e305378",
+    "x": 733.4296875,
+    "y": 780.47265625,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T12:43:53.753Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f942d9acc01dda951e11b"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "635bac86fd64ac4dcf5ebce3",
+    "x": 917.640625,
+    "y": 609.6953125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "634bd25ca40319139e3053ea",
+    "x": 958.5546875,
+    "y": 609.59375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T13:39:57.417Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f95579acc01dda951e31c"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "637355e0fd64ac4dcf5ebd55",
+    "x": 1097.28515625,
+    "y": 1142.6796875,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "639979563af9c5702d5e4603",
+    "x": 1121.140625,
+    "y": 1093.3671875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T13:44:55.492Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f95ba9acc01dda951e363"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671f7e2a9acc01dda951d50c",
+    "x": 1206.625,
+    "y": 844.62890625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "633891e810ff1a53060fec73",
+    "x": 1372.48046875,
+    "y": 1158.8984375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T13:46:34.201Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f95e39acc01dda951e36e"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671f7e2a9acc01dda951d50c",
+    "x": 1206.625,
+    "y": 844.62890625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "639979563af9c5702d5e4603",
+    "x": 1121.140625,
+    "y": 973.3671875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T13:47:15.963Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9b919acc01dda951e6a0"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "634c36a9a40319139e3053f2",
+    "x": 1095.86328125,
+    "y": 1293.94921875,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "637355e0fd64ac4dcf5ebd55",
+    "x": 1097.28515625,
+    "y": 1252.6796875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:11:29.304Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9c4c9acc01dda951e7e3"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "",
+    "x": 799.8828125,
+    "y": 113.47265625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "",
+    "x": 862.26171875,
+    "y": 118.1015625,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:14:36.073Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9ec29acc01dda951e9ad"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671fa0639acc01dda951ed36",
+    "x": 616.48828125,
+    "y": 234.20703125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63465614a40319139e3053a3",
+    "x": 735.43359375,
+    "y": 167.03125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:25:06.768Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9ecd9acc01dda951e9b7"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "634fa859a40319139e305440",
+    "x": 887.14453125,
+    "y": 289.25,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6338853010ff1a53060fec4f",
+    "x": 989.21875,
+    "y": 272.31640625,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:25:17.806Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9eda9acc01dda951e9ca"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671fa0639acc01dda951ed36",
+    "x": 616.48828125,
+    "y": 234.20703125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "634fa859a40319139e305440",
+    "x": 805.8828125,
+    "y": 327.26171875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:25:30.306Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9f059acc01dda951e9dc"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671fa0639acc01dda951ed36",
+    "x": 616.48828125,
+    "y": 234.20703125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "637d0228fd64ac4dcf5ebdc5",
+    "x": 993.27734375,
+    "y": 188.5078125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:26:13.185Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9f119acc01dda951e9e6"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671fa0639acc01dda951ed36",
+    "x": 616.48828125,
+    "y": 234.20703125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "63628d31fd64ac4dcf5ebcf3",
+    "x": 1009.41015625,
+    "y": 473.1484375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:26:25.291Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9f6f9acc01dda951ea72"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671f7e2a9acc01dda951d50c",
+    "x": 1181.08203125,
+    "y": 823.91015625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "634c4581a40319139e305409",
+    "x": 1145.99609375,
+    "y": 894.6875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:27:59.485Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671f9fbd9acc01dda951eacf"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "633dae426af81199cba86a86",
+    "x": 616.5625,
+    "y": 851.1640625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "633bcc276af81199cba86a78",
+    "x": 699.2734375,
+    "y": 899.9921875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:29:17.621Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671fa0ef9acc01dda951ee19"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "634fa859a40319139e305440",
+    "x": 907.47265625,
+    "y": 291.9921875,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6363cdaffd64ac4dcf5ebd10",
+    "x": 1078.5703125,
+    "y": 382.05859375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:34:23.217Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671fa10a9acc01dda951ee23"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "671fa0639acc01dda951ed36",
+    "x": 616.48828125,
+    "y": 234.20703125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "634f91f5a40319139e305438",
+    "x": 1325.61328125,
+    "y": 255.08203125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:34:50.669Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "671fa18d9acc01dda951eecb"
+  },
+  "collectionID": "6718edfa1c1d922fbf68e06d",
+  "anchorStart": {
+    "onCard": "637ba2d9fd64ac4dcf5ebdab",
+    "x": 374.87109375,
+    "y": 890.859375,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "633dae426af81199cba86a86",
+    "x": 406.5625,
+    "y": 851.1640625,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-10-28T14:37:01.606Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T12:38:15.424Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "672e3304c0899f2808054f90"
+  },
+  "collectionID": "6718fb3c1c1d922fbf68e36c",
+  "anchorStart": {
+    "onCard": "672e301ec0899f2808054f7e",
+    "x": 588.84375,
+    "y": 516.5625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "672e3142c0899f2808054f8e",
+    "x": 785.2890625,
+    "y": 403.0390625,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-08T15:49:24.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:22:13.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67322070c0899f2808055147"
+  },
+  "collectionID": "6718fb3c1c1d922fbf68e36c",
+  "anchorStart": {
+    "onCard": "672e301ec0899f2808054f7e",
+    "x": 588.84375,
+    "y": 516.5625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "67321fdbc0899f2808055131",
+    "x": 795.09375,
+    "y": 516.3984375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-11T15:19:12.123Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:22:13.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6734bca8c0899f280805527c"
+  },
+  "collectionID": "6718fb3c1c1d922fbf68e36c",
+  "anchorStart": {
+    "onCard": "672e301ec0899f2808054f7e",
+    "x": 588.84375,
+    "y": 516.5625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6734bc9ac0899f280805527a",
+    "x": 779.0234375,
+    "y": 644.53125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-13T14:50:16.319Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:22:13.947Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6735f491c0899f2808055924"
+  },
+  "collectionID": "6718fb3c1c1d922fbf68e36c",
+  "anchorStart": {
+    "onCard": "6734c8bcc0899f28080552e3",
+    "x": 1043.55078125,
+    "y": 230.93359375,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6735cf7bc0899f2808055302",
+    "x": 864.59375,
+    "y": 185.21875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-14T13:01:05.774Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:22:13.948Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6735fc86c0899f28080578d7"
+  },
+  "collectionID": "6718fb3c1c1d922fbf68e36c",
+  "anchorStart": {
+    "onCard": "672e301ec0899f2808054f7e",
+    "x": 557,
+    "y": 542.08203125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6735fc6fc0899f280805715a",
+    "x": 871,
+    "y": 728.90234375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-14T13:35:03.002Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:22:13.948Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67360a42c0899f2808059b17"
+  },
+  "collectionID": "6718fb3c1c1d922fbf68e36c",
+  "anchorStart": {
+    "onCard": "67321fdbc0899f2808055131",
+    "x": 978.4296875,
+    "y": 525.6484375,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "67360a32c0899f28080598d8",
+    "x": 1127.11328125,
+    "y": 535.1875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-14T14:33:38.874Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:22:13.948Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67360d84c0899f280805ad20"
+  },
+  "collectionID": "6718fb3c1c1d922fbf68e36c",
+  "anchorStart": {
+    "onCard": "672e301ec0899f2808054f7e",
+    "x": 532.30859375,
+    "y": 547.04296875,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "67360d7ac0899f280805ac6f",
+    "x": 788.8046875,
+    "y": 894.40625,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-14T14:47:32.496Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T15:22:13.948Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "673739e0c0899f280805c7dc"
+  },
+  "collectionID": "673739b0c0899f280805c798",
+  "anchorStart": {
+    "onCard": "673739c9c0899f280805c7a9",
+    "x": 489.85546875,
+    "y": 294.1953125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "673739d4c0899f280805c7bf",
+    "x": 642.07421875,
+    "y": 292.3046875,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-15T12:09:04.038Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-16T17:17:37.659Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6738b915c0899f280805d75d"
+  },
+  "collectionID": "673739b0c0899f280805c798",
+  "anchorStart": {
+    "onCard": "673739d4c0899f280805c7bf",
+    "x": 841.0390625,
+    "y": 279.4140625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6738b8f1c0899f280805d6fd",
+    "x": 1065.203125,
+    "y": 222.5234375,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-16T15:24:05.923Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-16T17:17:37.659Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6738c041c0899f280805f9fd"
+  },
+  "collectionID": "673739b0c0899f280805c798",
+  "anchorStart": {
+    "onCard": "673739c9c0899f280805c7a9",
+    "x": 386.80859375,
+    "y": 331.9140625,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6738c01ac0899f280805f7a4",
+    "x": 405.0390625,
+    "y": 411.86328125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-16T15:54:41.932Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-16T17:17:37.659Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6738c04ec0899f280805fdc5"
+  },
+  "collectionID": "673739b0c0899f280805c798",
+  "anchorStart": {
+    "onCard": "673739d4c0899f280805c7bf",
+    "x": 680.4296875,
+    "y": 330,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6738bde3c0899f280805f228",
+    "x": 741.60546875,
+    "y": 415.86328125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-16T15:54:54.745Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-16T17:17:37.659Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6738c057c0899f2808060242"
+  },
+  "collectionID": "673739b0c0899f280805c798",
+  "anchorStart": {
+    "onCard": "6738c01ac0899f280805f7a4",
+    "x": 505.0390625,
+    "y": 471.86328125,
+    "boardRubrics": []
+  },
+  "anchorEnd": {
+    "onCard": "6738bde3c0899f280805f228",
+    "x": 631.60546875,
+    "y": 475.86328125,
+    "boardRubrics": []
+  },
+  "createdAt": {
+    "$date": "2024-11-16T15:55:03.948Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-16T17:17:37.659Z"
+  },
+  "__v": 0
+}]

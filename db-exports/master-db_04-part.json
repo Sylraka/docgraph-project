@@ -1,0 +1,473 @@
+[{
+  "_id": {
+    "$oid": "633858cf10ff1a53060fec2e"
+  },
+  "boardName": "ML NLP FrameworksTEST",
+  "boardType": "",
+  "boardPosition": {
+    "x": 120,
+    "y": 130
+  }
+},
+{
+  "_id": {
+    "$oid": "63385aae10ff1a53060fec32"
+  },
+  "boardName": "Crawler",
+  "boardType": "",
+  "boardPosition": {
+    "x": 5,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "6338853010ff1a53060fec4f"
+  },
+  "boardName": " statistische Klassifikation: generativer & diskriminativer Ansatz",
+  "boardType": "",
+  "boardPosition": {
+    "x": 43,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63388ae710ff1a53060fec56"
+  },
+  "boardName": "Text-zu-Bild-Generatoren, NLP vortrainierte Modelle",
+  "boardType": "",
+  "boardPosition": {
+    "x": 10,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63388e1d10ff1a53060fec6a"
+  },
+  "boardName": "ML Netzwerkarchitekturen Begriffe",
+  "boardType": "",
+  "boardPosition": {
+    "x": 11,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "633891e810ff1a53060fec73"
+  },
+  "boardName": "ML Netzwerkarchitekturen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 10,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "633bcc276af81199cba86a78"
+  },
+  "boardName": " (multiple) lineare Regression",
+  "boardType": "",
+  "boardPosition": {
+    "x": 39,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "633c3fc16af81199cba86a7e"
+  },
+  "boardName": "ML Modell&Verlust-/Kostenfunktion, Koeffizientenvektor, Residuen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 38,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "633dae426af81199cba86a86"
+  },
+  "boardName": "multivariate Funktionen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 35,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63451141a40319139e305378"
+  },
+  "boardName": "binäre logistische - & multinominale logistische (Softmax) Regression",
+  "boardType": "",
+  "boardPosition": {
+    "x": 39,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63451f79a40319139e305388"
+  },
+  "boardName": "ML Anwendungsfälle",
+  "boardType": "",
+  "boardPosition": {
+    "x": 10,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63452ddda40319139e305399"
+  },
+  "boardName": "Wegweiser Infos in ML Folien",
+  "boardType": "",
+  "boardPosition": {
+    "x": 10,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63453145a40319139e30539e"
+  },
+  "boardName": "ML Distanzmaße",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63465614a40319139e3053a3"
+  },
+  "boardName": "Statistik Kausale Netze, Bayes Netze",
+  "boardType": "",
+  "boardPosition": {
+    "x": 44,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63465a0ba40319139e3053a9"
+  },
+  "boardName": "Ideen für Features(hier)",
+  "boardType": "",
+  "boardPosition": {
+    "x": 4,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63482c15a40319139e3053d2"
+  },
+  "boardName": "Mathe Ableitungs- bzw. Differenzierungssregeln",
+  "boardType": "",
+  "boardPosition": {
+    "x": 6,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "634bd25ca40319139e3053ea"
+  },
+  "boardName": "Definitheit, Hermitesch, Konjugierte, Isometrie, Homogenität, Dreiecksungleichung",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "634c36a9a40319139e3053f2"
+  },
+  "boardName": "Matrizentypen, Eigenvektoren&Werte",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "634c4581a40319139e305409"
+  },
+  "boardName": "Räume, Basen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "634d0e67a40319139e305416"
+  },
+  "boardName": "Mathe Symbole",
+  "boardType": "",
+  "boardPosition": {
+    "x": 6,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "634f91f5a40319139e305438"
+  },
+  "boardName": "Pandas Befehle",
+  "boardType": "",
+  "boardPosition": {
+    "x": 7,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "634fa859a40319139e305440"
+  },
+  "boardName": "Häufigkeiten, Abhängigkeiten, Wahrscheinlichkeiten",
+  "boardType": "",
+  "boardPosition": {
+    "x": 45,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63564193fd64ac4dcf5ebcb5"
+  },
+  "boardName": "Statistik: Analyse Datensatz",
+  "boardType": "",
+  "boardPosition": {
+    "x": 47,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "635bac86fd64ac4dcf5ebce3"
+  },
+  "boardName": "Normen: Beträge/Länge: euklidische Norm, Skalarprodukt, Frobeniusnorm,...",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "635fe6defd64ac4dcf5ebcea"
+  },
+  "boardName": "Taylor-Polynom, Taylor-Reihe",
+  "boardType": "",
+  "boardPosition": {
+    "x": 41,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63628d31fd64ac4dcf5ebcf3"
+  },
+  "boardName": "induktive Statistik: Statistisches Lernmodell, p-Wert, Hypothesentest, Chi-Quadrat-Test",
+  "boardType": "",
+  "boardPosition": {
+    "x": 48,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "6363cdaffd64ac4dcf5ebd10"
+  },
+  "boardName": "Statistik: Verteilungen, Binominalverteilung, Normalverteilung",
+  "boardType": "",
+  "boardPosition": {
+    "x": 49,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "636a73b6fd64ac4dcf5ebd28"
+  },
+  "boardName": "Kreisgleichung, Ellipsengleichung",
+  "boardType": "",
+  "boardPosition": {
+    "x": 39,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "636cedc3fd64ac4dcf5ebd32"
+  },
+  "boardName": "Lösung linearer Gleichungssysteme (opt3Numerik)",
+  "boardType": "",
+  "boardPosition": {
+    "x": 41,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "636e2082fd64ac4dcf5ebd4a"
+  },
+  "boardName": "Datenbanken",
+  "boardType": "",
+  "boardPosition": {
+    "x": 1,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "637355e0fd64ac4dcf5ebd55"
+  },
+  "boardName": "Eigenvektoren im Detail",
+  "boardType": "",
+  "boardPosition": {
+    "x": 40,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "6375f519fd64ac4dcf5ebd5d"
+  },
+  "boardName": "Lösung LGS: direkte Zerlegungungen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 41,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "6377860dfd64ac4dcf5ebd74"
+  },
+  "boardName": "Lösung LGS: iterative Zerlegungen/Splitting Verfahren",
+  "boardType": "",
+  "boardPosition": {
+    "x": 41,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63779b89fd64ac4dcf5ebd87"
+  },
+  "boardName": "Optimierungsverfahren (opt_4) und deren Methoden",
+  "boardType": "",
+  "boardPosition": {
+    "x": 42,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "637ba2d9fd64ac4dcf5ebdab"
+  },
+  "boardName": "Mathe Umformungsregeln",
+  "boardType": "",
+  "boardPosition": {
+    "x": 6,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "637d0228fd64ac4dcf5ebdc5"
+  },
+  "boardName": "Maximum-Likelihood-Methode, Dichtefunktion",
+  "boardType": "",
+  "boardPosition": {
+    "x": 42,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "639979563af9c5702d5e4603"
+  },
+  "boardName": "ML Dimensionsreduktion: PCA, T-SNE",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "639cab583af9c5702d5e4639"
+  },
+  "boardName": "ML Metriken",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63b2e97c3af9c5702d5e4659"
+  },
+  "boardName": "Python",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "63b6e93b3af9c5702d5e4665"
+  },
+  "boardName": "Recommender Engines",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "641ec8f03d5d8caee6d84107"
+  },
+  "boardName": "Mobilfunk Architekturen",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "641ecd3b3d5d8caee6d84110"
+  },
+  "boardName": "Immutable State in JavaScript and Redux",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+},
+{
+  "_id": {
+    "$oid": "651a7e85575853bf5229fedd"
+  },
+  "boardName": "java",
+  "boardType": "",
+  "boardPosition": {
+    "x": 0,
+    "y": 0
+  }
+}]

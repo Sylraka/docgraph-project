@@ -5,15 +5,14 @@ import "./arrow.css"
 
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
-import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
-import overCardSlice, { setOverCard, removeOverCard } from "./overCardSlice"
+import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
+import overCardSlice, { setOverCard, removeOverCard } from "../../slices/overCardSlice"
 
-import { setArrowInside } from "../singleBoardSlice"
+import { setArrowInside } from "../../../app/fetch-data/singleBoardSlice"
 
 
 type propTypes = {
     arrow: Arrow,
-    saveArrow: (param: Arrow) => void
 };
 interface DragElement extends Arrow {
     active: boolean;
@@ -82,27 +81,27 @@ const ArrowFocus = (props: propTypes) => {
             const elementUnderPointer3 = document.elementFromPoint(event.clientX + 10, event.clientY - 10);
             const elementUnderPointer4 = document.elementFromPoint(event.clientX - 10, event.clientY - 10);
 
-            if (elementUnderPointer1 && elementUnderPointer1.tagName === 'rect') {
+            if (elementUnderPointer1 && elementUnderPointer1.tagName === 'rect' || elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
                 rectElement = elementUnderPointer1
-            } else if (elementUnderPointer2 && elementUnderPointer2.tagName === 'rect') {
+            } else if (elementUnderPointer2 && elementUnderPointer2.tagName === 'rect' || elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
                 rectElement = elementUnderPointer2
-            } else if (elementUnderPointer3 && elementUnderPointer3.tagName === 'rect') {
+            } else if (elementUnderPointer3 && elementUnderPointer3.tagName === 'rect' || elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
                 rectElement = elementUnderPointer3
-            } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'rect') {
+            } else if (elementUnderPointer4 && elementUnderPointer4.tagName === 'rect' || elementUnderPointer1 && elementUnderPointer1.tagName === 'ellipse') {
                 rectElement = elementUnderPointer4
             } else {
                 rectElement = undefined
             }
 
-            let id: number;
-            if (rectElement !== undefined) {
-                id = Number(rectElement.id);
+            let id: String;
+            if (rectElement !== undefined && rectElement !== null) {
+                id = rectElement.id;
                 console.log('Pointer entered rectangle nr', id);
                 dispatch(setOverCard(id))
             } else {
                 dispatch(removeOverCard())
-               // console.log('pointer is free')
-               console.log("arrowID:", element.arrowID)
+                // console.log('pointer is free')
+                console.log("arrowID:", element.arrowID)
             }
 
 
@@ -118,7 +117,7 @@ const ArrowFocus = (props: propTypes) => {
                 //for updating the arrow, he is listening to dragState
                 newDragElement = {
                     elementType: "arrowAnchor" + location,
-                    ID: props.arrow.anchorStart.anchorID,
+                    ID: props.arrow.anchorStart.anchorID.toString(),
                     placeToLeftX: element.anchorStart.anchorCanvas.x,
                     placeToTopY: element.anchorStart.anchorCanvas.y,
                     width: 0,
@@ -142,7 +141,7 @@ const ArrowFocus = (props: propTypes) => {
                 //for updating the arrow, he is listening to dragState
                 newDragElement = {
                     elementType: "arrowAnchor" + location,
-                    ID: props.arrow.anchorEnd.anchorID,
+                    ID: props.arrow.anchorEnd.anchorID.toString(),
                     placeToLeftX: element.anchorEnd.anchorCanvas.x,
                     placeToTopY: element.anchorEnd.anchorCanvas.y,
                     width: 0,
@@ -177,36 +176,37 @@ const ArrowFocus = (props: propTypes) => {
         setElement(newElement);
 
 
-        console.log("overCardState",overCardState)
+        console.log("overCardState", overCardState)
 
 
         if (location === "Start") {
-            props.saveArrow({
+            dispatch(setArrowInside({
                 ...element,
                 anchorStart: {
                     ...element.anchorStart,
-                    onCard: overCardState.cardID,
+                    onCard: overCardState.cardID.toString(),
                     anchorCanvas: {
                         ...element.anchorStart.anchorCanvas,
                         x: element.anchorStart.anchorCanvas.x,
                         y: element.anchorStart.anchorCanvas.y,
                     }
                 }
-            });
+            }));
         } else {
-            props.saveArrow({
+            dispatch(setArrowInside({
                 ...element,
                 anchorEnd: {
                     ...element.anchorEnd,
-                    onCard: overCardState.cardID,
+                    onCard: overCardState.cardID.toString(),
                     anchorCanvas: {
                         ...element.anchorEnd.anchorCanvas,
                         x: element.anchorEnd.anchorCanvas.x,
                         y: element.anchorEnd.anchorCanvas.y,
                     }
                 }
-            });
+            }));
         }
+        dispatch(removeOverCard())
 
 
     }

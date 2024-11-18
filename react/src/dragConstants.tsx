@@ -1,6 +1,9 @@
 export const ItemTypes = {
     NEWCARD: 'newCard',
     NEWARROW: 'newArrow',
-    NEWCARDMATH: 'newCardMath'
+    NEWCARDMATH: 'newCardMath',
+    NEWCARDCODE: 'newCardCode',
+    NEWMULTIBOARDARROW: 'newMultiBoardArrow',
+    NEWBOARD: 'newBoard'
   }
 

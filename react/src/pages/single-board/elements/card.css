@@ -1,6 +1,4 @@
-
-
-.text-element{
+.text-element {
     position: absolute;
     font-size: 12px;
     word-wrap: break-word;
@@ -39,6 +37,17 @@
     overflow: hidden;
 }
 
+.code-field {
+    font-family: monospace; /* Monospace-Schriftart für Code */
+    background-color: white;
+    border-radius: 3px;
+    white-space: pre-wrap; /* Zeilenumbruch für lange Zeilen */
+    position: absolute;
+    z-index: 10;
+    font-size: 12px;
+    text-align: left;
+  }
+
 .drag-box {
     position: absolute;
     background: #555;
@@ -54,6 +63,21 @@
     border-radius: 3px;
     min-height: 28px;
 }
+
+
+.link-card-text {
+    position: absolute;
+    z-Index: 11;
+    background-color: transparent;
+    color: white;
+}
+.link-image {
+    width: 35px;
+    height: 30px;
+    position: absolute;
+    z-index: 11;
+    }
+
 
 /* Tooltip container */
 .tooltip {

@@ -1,0 +1,128 @@
+
+
+import { useState, useEffect } from "react"
+
+import "./card.css"
+
+import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { Card } from '../../../app/fetch-data/dataTypes';
+
+
+
+import { setCardInside, } from "../../../app/fetch-data/singleBoardSlice"
+import { removeFocusElement } from "../../slices/focusSlice"
+
+
+interface canvasProps {
+    card: Card;
+}
+
+
+
+export default function CardCodeComponent(props: canvasProps) {
+    const activeDragValue = useAppSelector((state) => state.drag)
+    const dispatch = useAppDispatch()
+
+
+    const [element, setElement] = useState<Card>({
+        ...props.card,
+        x: props.card.x + 60
+    });
+
+
+    //update width and height of a card (cardFocus is moving)
+    useEffect(() => {
+        if (activeDragValue.elementType === "card") {
+            setTextPosition();
+        }
+
+
+        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID.toString()) {
+            setElement(prevElement => ({
+                ...prevElement,
+                width: Math.max(prevElement.width + activeDragValue.width, 30),
+                height: Math.max(prevElement.height + activeDragValue.height, 30)
+            }))
+
+        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID.toString()) {
+            setElement(prevElement => ({
+                ...prevElement,
+                x: prevElement.x + activeDragValue.width,
+                width: Math.max(prevElement.width - activeDragValue.width, 30),
+                height: Math.max(prevElement.height + activeDragValue.height, 30)
+            }))
+
+        } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID.toString()) {
+            setElement(prevElement => ({
+                ...prevElement,
+                y: prevElement.y + activeDragValue.height,
+                width: Math.max(prevElement.width + activeDragValue.width, 30),
+                height: Math.max(prevElement.height - activeDragValue.height, 30)
+            }))
+
+        } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID.toString()) {
+            setElement(prevElement => ({
+                ...prevElement,
+                y: prevElement.y + activeDragValue.height,
+                x: prevElement.x + activeDragValue.width,
+                width: Math.max(prevElement.width - activeDragValue.width, 30),
+                height: Math.max(prevElement.height - activeDragValue.height, 30)
+            }))
+
+        }
+
+
+
+    }, [activeDragValue]);
+
+
+    const manageTextInput = (value: string, fieldId: string) => {
+        let newCard: Card;
+        // let element = document.getElementById(fieldId) ;
+        const escapedText = value
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        newCard = {
+            ...props.card,
+            text: escapedText,
+        }
+        dispatch(setCardInside(newCard));
+        setElement(prevElement => ({
+            ...prevElement,
+            text: escapedText
+        }))
+    }
+
+    const setTextPosition = () => {
+
+        if (activeDragValue.ID === props.card.cardID.toString() && activeDragValue.elementType === "card") {
+            setElement((prevElement) => ({
+                ...prevElement,
+                x: activeDragValue.placeToLeftX + 60,
+                y: activeDragValue.placeToTopY
+            }))
+        }
+    }
+
+    const klickAtTextarea = () => {
+        dispatch(removeFocusElement())
+    }
+
+    return (
+        <pre contentEditable="true"
+            key={props.card.cardID.toString()}
+            id={"textID" + props.card.cardID}
+            //className='text-element'
+            className="code-field card-field-input no-cursor strong"
+            style={{ 'top': element.y + 10, 'left': element.x - 40, 'width': element.width - 10, 'height': element.height - 10 }}
+            onInput={(event) => {
+                manageTextInput(event.currentTarget.innerText, "textID" + props.card.cardID)
+            }}
+            onClick={klickAtTextarea}
+            dangerouslySetInnerHTML={{ __html: element.text }} // State direkt in innerHTML rendern
+        >
+        </pre>
+    );
+}
+
+

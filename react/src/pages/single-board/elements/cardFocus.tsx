@@ -5,16 +5,15 @@ import "./card.css"
 
 //we need that to read the state
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'; // path to custom Hook
-import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
-import overCardSlice, { setOverCard, removeOverCard } from "./overCardSlice"
+import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
+import overCardSlice, { setOverCard, removeOverCard } from "../../slices/overCardSlice"
 
-import { setArrowInside } from "../singleBoardSlice"
+import { setArrowInside } from "../../../app/fetch-data/singleBoardSlice"
 import { aC } from "vitest/dist/reporters-LqC_WI4d.js";
 
 
 type propTypes = {
     card: Card,
-    saveCard: (param: Card) => void,
     //handleWidthHeight:(newWidth: number, newHeight: number) => void
 };
 
@@ -140,7 +139,7 @@ export const CardFocus = (props: propTypes) => {
             setElementBottomLeft(newBottomLeft)
             dispatch(setActiveDragElement({
                 elementType: "cardAnchor" + location,
-                ID: props.card.cardID,
+                ID: props.card.cardID.toString(),
                 placeToLeftX: elementTopLeft.x,
                 placeToTopY: elementTopLeft.y,
                 width: x - elementTopLeft.offsetX,
@@ -172,7 +171,7 @@ export const CardFocus = (props: propTypes) => {
             setElementBottomRight(newBottomRight)
             dispatch(setActiveDragElement({
                 elementType: "cardAnchor" + location,
-                ID: props.card.cardID,
+                ID: props.card.cardID.toString(),
                 placeToLeftX: elementTopRight.x,
                 placeToTopY: elementTopRight.y,
                 width: x - elementTopRight.offsetX,
@@ -204,7 +203,7 @@ export const CardFocus = (props: propTypes) => {
             setElementBottomRight(newBottomRight)
             dispatch(setActiveDragElement({
                 elementType: "cardAnchor" + location,
-                ID: props.card.cardID,
+                ID: props.card.cardID.toString(),
                 placeToLeftX: elementBottomLeft.x,
                 placeToTopY: elementBottomLeft.y,
                 width: x - elementBottomLeft.offsetX,
@@ -238,7 +237,7 @@ export const CardFocus = (props: propTypes) => {
             // props.handleWidthHeight(x-elementBottomRight.offsetX, y-elementBottomRight.offsetY )
             dispatch(setActiveDragElement({
                 elementType: "cardAnchor" + location,
-                ID: props.card.cardID,
+                ID: props.card.cardID.toString(),
                 placeToLeftX: elementBottomRight.x,
                 placeToTopY: elementBottomRight.y,
                 width: x - elementBottomRight.offsetX,

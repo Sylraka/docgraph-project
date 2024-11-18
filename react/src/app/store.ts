@@ -2,11 +2,14 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
 
-import dragReducer from "../pages/single-board/elements/dragSlice"
-import focusReducer from "../pages/single-board/elements/focusSlice"
-import overCardReducer from "../pages/single-board/elements/overCardSlice" 
-import singleBoardReducer from "../pages/single-board/singleBoardSlice"
+import dragReducer from "../pages/slices/dragSlice"
+import focusReducer from "../pages/slices/focusSlice"
+import overCardReducer from "../pages/slices/overCardSlice" 
+import singleBoardReducer from "./fetch-data/singleBoardSlice"
 import allBoardsReducer from "./fetch-data/allBoardsSlice"
+import navigationReducer from "../pages/slices/navigationSlice"
+import multiBoardArrowReducer from "./fetch-data/multiBoardArrowSlice"
+import collectionReducer from "./fetch-data/collectionSlice"
 
 export const store = configureStore({
     reducer: {
@@ -14,8 +17,10 @@ export const store = configureStore({
       focus: focusReducer,
       overCard: overCardReducer,
       singleBoard: singleBoardReducer,
-      allBoards: allBoardsReducer
-
+      allBoards: allBoardsReducer,
+      navigation: navigationReducer,
+      multiBoardArrow: multiBoardArrowReducer,
+      collections: collectionReducer
       // [boardsApiSlice.reducerPath]: boardsApiSlice.reducer,
     },
 

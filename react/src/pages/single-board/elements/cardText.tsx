@@ -9,8 +9,8 @@ import { Card } from '../../../app/fetch-data/dataTypes';
 
 
 
-import { setCardInside, } from "./../singleBoardSlice"
-import {removeFocusElement} from "./focusSlice"
+import { setCardInside, } from "../../../app/fetch-data/singleBoardSlice"
+import {removeFocusElement} from "../../slices/focusSlice"
 
 
 interface canvasProps {
@@ -36,14 +36,14 @@ export default function CardTextComponent(props: canvasProps) {
         }
 
 
-        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID) {
+        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 width: Math.max(prevElement.width + activeDragValue.width, 30),
                 height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 x: prevElement.x + activeDragValue.width,
@@ -51,7 +51,7 @@ export default function CardTextComponent(props: canvasProps) {
                 height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 y: prevElement.y + activeDragValue.height,
@@ -59,7 +59,7 @@ export default function CardTextComponent(props: canvasProps) {
                 height: Math.max(prevElement.height - activeDragValue.height, 30)
             }))
 
-        } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID) {
+        } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
                 y: prevElement.y + activeDragValue.height,
@@ -91,7 +91,7 @@ export default function CardTextComponent(props: canvasProps) {
 
     const setTextPosition = () => {
 
-        if (activeDragValue.ID === props.card.cardID && activeDragValue.elementType === "card") {
+        if (activeDragValue.ID === props.card.cardID.toString() && activeDragValue.elementType === "card") {
             setElement((prevElement) => ({
                 ...prevElement,
                 x: activeDragValue.placeToLeftX + 60,
@@ -110,7 +110,7 @@ export default function CardTextComponent(props: canvasProps) {
             id={"textID" + props.card.cardID}
             //className='text-element'
             className="text-element card-field-input no-cursor strong"
-            style={{ 'top': element.y, 'left': element.x, 'width': element.width - 10, 'height': element.height - 10 }}
+            style={{ 'top': element.y -15, 'left': element.x -78, 'width': element.width - 10, 'height': element.height - 10 }}
             onChange={(event) => manageTextInput(event.target.value, "textID" + props.card.cardID)}//
             onClick={klickAtTextarea}
             value={element.text}

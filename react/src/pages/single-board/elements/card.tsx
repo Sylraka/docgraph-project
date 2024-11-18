@@ -6,16 +6,16 @@ import './card.css';
 import Draggable, { DraggableData, DraggableEvent } from 'react-draggable';
 
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import { setActiveDragElement, removeActiveDrag, DragState } from "./dragSlice"
-import { setFocusElement } from "./focusSlice"
-import { setOverCard } from "./overCardSlice"
+import { setActiveDragElement, removeActiveDrag, DragState } from "../../slices/dragSlice"
+import { setFocusElement } from "../../slices/focusSlice"
+import { removeOverCard, setOverCard } from "../../slices/overCardSlice"
+import { setCardInside } from "../../../app/fetch-data/singleBoardSlice";
 
 import CardFocus from "./cardFocus"
 
 interface canvasProps {
     card: Card,
     boardId: string,
-    saveCard: (param: Card) => void,
 }
 
 
@@ -27,6 +27,7 @@ interface DragElement extends Card {
 }
 
 export default function CardComponent(props: canvasProps) {
+    const overCardState = useAppSelector(state => state.overCard);
     const dispatch = useAppDispatch()
     const activeDragValue = useAppSelector(state => state.drag)
 
@@ -40,60 +41,60 @@ export default function CardComponent(props: canvasProps) {
     });
 
 
-//update width and height of a card (cardFocus is moving)
+    //update width and height of a card (cardFocus is moving)
     useEffect(() => {
-        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID) {
+        if (activeDragValue.elementType === "cardAnchorBottomRight" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
-                width: Math.max(prevElement.width + activeDragValue.width,30),
-                height: Math.max(prevElement.height + activeDragValue.height,30)
-            }))
-            props.saveCard({
-                ...props.card,
-                width: Math.max(props.card.width + activeDragValue.width, 30),
-                height:  Math.max(props.card.height + activeDragValue.height,30)
-            })     
-        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID) {
-            setElement(prevElement => ({
-                ...prevElement,
-                x:  prevElement.x + activeDragValue.width,
-                width: Math.max(prevElement.width - activeDragValue.width, 30),
-                height: Math.max(prevElement.height + activeDragValue.height,30)
-            }))
-            props.saveCard({
-                ...props.card,
-                x:  props.card.x + activeDragValue.width,
-                width: Math.max(props.card.width - activeDragValue.width, 30),
-                height:  Math.max(props.card.height + activeDragValue.height,30)
-            })  
-        }else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID) {
-            setElement(prevElement => ({
-                ...prevElement,
-                y:  prevElement.y + activeDragValue.height,
                 width: Math.max(prevElement.width + activeDragValue.width, 30),
-                height: Math.max(prevElement.height - activeDragValue.height,30)
+                height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
-            props.saveCard({
+            dispatch(setCardInside({
                 ...props.card,
-                y:  props.card.x + activeDragValue.height,
                 width: Math.max(props.card.width + activeDragValue.width, 30),
-                height:  Math.max(props.card.height - activeDragValue.height,30)
-            })  
-        }else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID) {
+                height: Math.max(props.card.height + activeDragValue.height, 30)
+            }))
+        } else if (activeDragValue.elementType === "cardAnchorBottomLeft" && activeDragValue.ID == element.cardID.toString()) {
             setElement(prevElement => ({
                 ...prevElement,
-                y:  prevElement.y + activeDragValue.height,
-                x:  prevElement.x + activeDragValue.width,
+                x: prevElement.x + activeDragValue.width,
                 width: Math.max(prevElement.width - activeDragValue.width, 30),
-                height: Math.max(prevElement.height - activeDragValue.height,30)
+                height: Math.max(prevElement.height + activeDragValue.height, 30)
             }))
-            props.saveCard({
+            dispatch(setCardInside({
                 ...props.card,
-                x:  props.card.x + activeDragValue.width,
-                y:  props.card.x + activeDragValue.height,
+                x: props.card.x + activeDragValue.width,
                 width: Math.max(props.card.width - activeDragValue.width, 30),
-                height:  Math.max(props.card.height - activeDragValue.height,30)
-            })  
+                height: Math.max(props.card.height + activeDragValue.height, 30)
+            }))
+        } else if (activeDragValue.elementType === "cardAnchorTopRight" && activeDragValue.ID == element.cardID.toString()) {
+            setElement(prevElement => ({
+                ...prevElement,
+                y: prevElement.y + activeDragValue.height,
+                width: Math.max(prevElement.width + activeDragValue.width, 30),
+                height: Math.max(prevElement.height - activeDragValue.height, 30)
+            }))
+            dispatch(setCardInside({
+                ...props.card,
+                y: props.card.x + activeDragValue.height,
+                width: Math.max(props.card.width + activeDragValue.width, 30),
+                height: Math.max(props.card.height - activeDragValue.height, 30)
+            }))
+        } else if (activeDragValue.elementType === "cardAnchorTopLeft" && activeDragValue.ID == element.cardID.toString()) {
+            setElement(prevElement => ({
+                ...prevElement,
+                y: prevElement.y + activeDragValue.height,
+                x: prevElement.x + activeDragValue.width,
+                width: Math.max(prevElement.width - activeDragValue.width, 30),
+                height: Math.max(prevElement.height - activeDragValue.height, 30)
+            }))
+            dispatch(setCardInside({
+                ...props.card,
+                x: props.card.x + activeDragValue.width,
+                y: props.card.x + activeDragValue.height,
+                width: Math.max(props.card.width - activeDragValue.width, 30),
+                height: Math.max(props.card.height - activeDragValue.height, 30)
+            }))
         }
 
 
@@ -105,7 +106,7 @@ export default function CardComponent(props: canvasProps) {
 
 
     function handlePointerDown(e: React.PointerEvent<SVGElement>) {
-        dispatch(setFocusElement({ elementType: "card", ID: props.card.cardID }))
+        dispatch(setFocusElement({ elementType: "card", ID: props.card.cardID.toString() }))
         let newElement: DragElement;
         const el = e.currentTarget;
         const bbox = e.currentTarget.getBoundingClientRect();
@@ -135,7 +136,7 @@ export default function CardComponent(props: canvasProps) {
                 //console.log("placeToTop",placeToTop,"width",width, "height", height, "placeToLeft", placeToLeft)
                 dispatch(setActiveDragElement({
                     elementType: "card",
-                    ID: element.cardID,
+                    ID: element.cardID.toString(),
                     placeToTopY: placeToTop,
                     width: width,
                     height: height,
@@ -169,12 +170,12 @@ export default function CardComponent(props: canvasProps) {
         newElement = { ...element, active: false, offsetX: -1, offsetY: -1 };
 
         setElement(newElement);
-
-        props.saveCard({
+        dispatch(setCardInside({
             ...props.card,
             x: element.x,
             y: element.y
-        })
+        }))
+
     }
 
     return (
@@ -183,20 +184,40 @@ export default function CardComponent(props: canvasProps) {
             <g
                 key={element.cardID.toString()}
             >
-                <rect
-                    x={element.x}
-                    y={element.y}
-                    fill="#555555"
-                    stroke="white"
-                    rx="10"
-                    width={element.width + 30}
-                    height={element.height + 30}
-                    onPointerDown={(event) => handlePointerDown(event)}
-                    onPointerUp={(event) => handlePointerUp(event)}
-                    onPointerMove={(event) => handlePointerMove(event)}
-                    id={element.cardID.toString()}
+                {(overCardState.cardID === element.cardID.toString()) &&
+                    <rect
+                        x={element.x}
+                        y={element.y}
+                        fill="#555555"
+                        stroke="#3399ff"
+                        strokeWidth={5}
+                        rx="10"
+                        width={element.width + 30}
+                        height={element.height + 30}
+                        onPointerDown={(event) => handlePointerDown(event)}
+                        onPointerUp={(event) => handlePointerUp(event)}
+                        onPointerMove={(event) => handlePointerMove(event)}
+                        id={element.cardID.toString()}
 
-                />
+                    />
+                }
+                {(overCardState.cardID !== element.cardID.toString()) &&
+                    <rect
+                        x={element.x}
+                        y={element.y}
+                        fill="#555555"
+                        stroke="white"
+                        rx="10"
+                        width={element.width + 30}
+                        height={element.height + 30}
+                        onPointerDown={(event) => handlePointerDown(event)}
+                        onPointerUp={(event) => handlePointerUp(event)}
+                        onPointerMove={(event) => handlePointerMove(event)}
+                        id={element.cardID.toString()}
+
+                    />
+                }
+
                 <rect
                     x={element.x + 15}
                     y={element.y + 15}
@@ -206,14 +227,6 @@ export default function CardComponent(props: canvasProps) {
                     rx="6"
                     id={element.cardID.toString()}
                 />
-                {/* {activeFocusValue.elementType === "card" && activeFocusValue.ID === props.card.cardID && (
-                    < CardFocus
-                        key={"cardFocusNr" + props.card.cardID}
-                        card={props.card}
-                        saveCard={props.saveCard}
-                        handleWidthHeight={handleWidthHeight}
-                    />
-                )} */}
             </g>
 
         </>

@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 
 
-import { setSingleBoardInside, } from "./singleBoardSlice"
+import { setSingleBoardInside, } from "../../app/fetch-data/singleBoardSlice"
 import { Board } from '../../app/fetch-data/dataTypes';
 
 
