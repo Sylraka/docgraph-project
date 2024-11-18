@@ -13,7 +13,8 @@ import CardText from "./elements/cardText";
 import ArrowFocus from "./elements/arrowFocus"
 import { Sidebar } from "./nav-bar/sidebar";
 import CardFocus from "./elements/cardFocus";
-import CardMath from "./elements/cardMath"
+import CardMath from "./elements/cardMath";
+import CardCode from "./elements/cardCode";
 
 import LinkCard from "./elements/linkCard"
 import LinkCardText from "./elements/linkCardText"
@@ -34,7 +35,7 @@ import { setNavigationToSingleBoard } from "../slices/navigationSlice"
 //for insert new elements
 import { useDrop } from "react-dnd";
 import { ItemTypes } from './../../dragConstants';
-import { newArrowData, newCardData, newCardMathData } from './../../app/newElementData';
+import { newArrowData, newCardData, newCardMathData, newCardCodeData } from './../../app/newElementData';
 
 
 export const SingleBoard = () => {
@@ -54,13 +55,26 @@ export const SingleBoard = () => {
         dispatch(fetchData(boardId))
         dispatch(setNavigationToSingleBoard())
         return () => {
-            if (data !== undefined) {
-                dispatch(updateBoardInDb(data))
-            }
             dispatch(clearState())
-
         }
     }, [location.pathname])
+
+    useEffect(() => {
+
+        return () => {
+            const handleUnmount =  () => {
+                if (data !== undefined) {
+                   // console.log("updateBoardInDb", data)
+                    dispatch(updateBoardInDb(data))
+                }
+
+            }
+ 
+            handleUnmount()
+
+        }
+    }, [data])
+
 
 
     //to prevent "stale closure problem": have an old state if we didnt hear to activeFocusValue
@@ -103,7 +117,7 @@ export const SingleBoard = () => {
 
     // more info to usedrop in https://codesandbox.io/s/react-dnd-02-chess-board-and-lonely-knight-7buy2?from-embed=&file=/src/components/BoardSquare.js:394-653
     const [, dropRef] = useDrop({
-        accept: [ItemTypes.NEWCARD, ItemTypes.NEWARROW, ItemTypes.NEWCARDMATH],
+        accept: [ItemTypes.NEWCARD, ItemTypes.NEWARROW, ItemTypes.NEWCARDMATH, ItemTypes.NEWCARDCODE],
         //TODO: get the cursorCoords and add them to newCardData
 
         drop: (item, monitor) => {
@@ -149,6 +163,14 @@ export const SingleBoard = () => {
                     y: mousePosition!.y - 130
                 }
                 dispatch(addNewCardInside(newCardMath))
+            } else if (monitor.getItemType() === 'newCardCode') {
+                console.log("newCard Code trigger")
+                const newCardCode = {
+                    ...newCardCodeData,
+                    x: mousePosition!.x - 100,
+                    y: mousePosition!.y - 130
+                }
+                dispatch(addNewCardInside(newCardCode))
             } else {
                 console.error("ItemType not found:", monitor.getItemType())
             }
@@ -290,6 +312,13 @@ export const SingleBoard = () => {
                             />
                             )
                         ))}
+                        {data?.cardList.map(card => (
+                            (card.cardType === "code" && <CardCode
+                                key={"cardCodeNr" + card.cardID}
+                                card={card}
+                            />
+                            )
+                        ))}ƒ
                     </div>
 
 

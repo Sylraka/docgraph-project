@@ -37,6 +37,17 @@
     overflow: hidden;
 }
 
+.code-field {
+    font-family: monospace; /* Monospace-Schriftart für Code */
+    background-color: white;
+    border-radius: 3px;
+    white-space: pre-wrap; /* Zeilenumbruch für lange Zeilen */
+    position: absolute;
+    z-index: 10;
+    font-size: 12px;
+    text-align: left;
+  }
+
 .drag-box {
     position: absolute;
     background: #555;

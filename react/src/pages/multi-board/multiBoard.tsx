@@ -51,12 +51,17 @@ export const MultiBoard = () => {
         dispatch(clearState())
         dispatch(fetchCollectionById(collectionID))
 
+
+    }, [])
+
+    useEffect(()=>{
         return () => {
             // Clean-up code, der beim Unmounten ausgeführt wird
             dispatch(updateBoardsInDb(data.boards))
             dispatch(updateArrowsInDb(arrows.multiBoardArrows))
         };
-    }, [])
+
+    },[data, arrows])
 
     const [, dropRef] = useDrop({
         accept: [ItemTypes.NEWMULTIBOARDARROW, ItemTypes.NEWBOARD],

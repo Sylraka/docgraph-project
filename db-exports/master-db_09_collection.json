@@ -1,0 +1,39 @@
+[{
+  "_id": {
+    "$oid": "6718edfa1c1d922fbf68e06d"
+  },
+  "collectionName": "Machine Learning",
+  "createdAt": {
+    "$date": "2024-10-23T12:37:14.764Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-04T09:36:16.430Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6718fb3c1c1d922fbf68e36c"
+  },
+  "collectionName": "React",
+  "createdAt": {
+    "$date": "2024-10-23T13:33:48.408Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-14T10:25:47.827Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "673739b0c0899f280805c798"
+  },
+  "collectionName": "Java und Spring",
+  "createdAt": {
+    "$date": "2024-11-15T12:08:16.559Z"
+  },
+  "updatedAt": {
+    "$date": "2024-11-16T15:55:13.695Z"
+  },
+  "__v": 0
+}]

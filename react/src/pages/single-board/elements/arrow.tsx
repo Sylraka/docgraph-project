@@ -223,6 +223,15 @@ export default function ArrowComponent(props: canvasProps) {
                     y2={element.anchorEnd.anchorCanvas.y}
                     stroke="#006666"
                     strokeWidth={3}
+                    id={"lineID" + element.arrowID}
+                />
+                <line
+                    x1={element.anchorStart.anchorCanvas.x}
+                    y1={element.anchorStart.anchorCanvas.y}
+                    x2={element.anchorEnd.anchorCanvas.x}
+                    y2={element.anchorEnd.anchorCanvas.y}
+                    stroke="transparent"
+                    strokeWidth={10}
                     onPointerDown={(event) => handlePointerDown(event)}
                     id={"lineID" + element.arrowID}
                 />

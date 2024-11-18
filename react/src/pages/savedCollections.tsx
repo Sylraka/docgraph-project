@@ -15,7 +15,7 @@ export const SavedCollections = (props: { sortBy: number }) => {
     // Using a query hook automatically fetches data and returns query values
     //const { data, isError, isLoading, isSuccess } = useFetchBoardsQuery()
     let data = useAppSelector(state => state.collections.collections)
-    console.log(data)
+   // console.log(data)
     return (
         <>
             {
