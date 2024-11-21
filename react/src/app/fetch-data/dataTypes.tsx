@@ -84,7 +84,7 @@ export interface multiBoardArrow {
 }
 
 export interface Collection {
-    _id: string | undefined;
+    id: string | undefined;
     collectionName: string;
     createdAt: string | undefined;
     updatedAt: string | undefined;

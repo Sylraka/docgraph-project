@@ -21,9 +21,9 @@ export const SavedCollections = (props: { sortBy: number }) => {
             {
                 data?.map((collection) => (
 
-                    <div key={collection._id} className="brick flex-content">
+                    <div key={collection.id} className="brick flex-content">
                         <Link to={{
-                            pathname:  collection._id
+                            pathname:  collection.id
                         }} className="brick-content">
                             {collection.collectionName}
 

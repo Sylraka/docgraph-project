@@ -40,11 +40,10 @@ const Layout = () => {
   }
 
   const saveDBBoards = (event: React.PointerEvent<HTMLButtonElement>, id: string) => {
-
+    dispatch(updateCollectionInDb(currentCollection!))
     dispatch(updateBoardsInDb(datas!));
     dispatch(updateArrowsInDb(multiArrows))
     console.log(currentCollection)
-    dispatch(updateCollectionInDb(currentCollection!))
 
   }
 
