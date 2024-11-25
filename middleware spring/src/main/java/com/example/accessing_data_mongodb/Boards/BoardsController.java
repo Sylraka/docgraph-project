@@ -1,4 +1,4 @@
-package com.example.accessing_data_mongodb.Collections;
+package com.example.accessing_data_mongodb.Boards;
 
 import java.util.List;
 
@@ -12,41 +12,43 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 //Der Controller stellt die Endpunkte bereit, über die die Collections abgerufen werden können.
 @RestController
-@RequestMapping("/api/collections")
-@CrossOrigin(origins = "http://localhost:5173")//damit der zugriff möglich wird
-public class CollectionController {
+@RequestMapping("/api/boards")
+@CrossOrigin(origins = "http://localhost:5173") // damit der zugriff möglich wird
+public class BoardsController {
     @Autowired
-    private CollectionService collectionService;
+    private BoardsService boardsService;
 
     @GetMapping
-    public List<Collections> getAllCollections() {
-        return collectionService.getAllCollections();
+    public List<Boards> getAllBoards(@RequestParam String collectionID) {
+        // Überprüfe, ob collectionID korrekt empfangen wird
+        System.out.println("Received collectionID: " + collectionID);
+        return boardsService.getAllBoards(collectionID);
     }
 
     @PostMapping
-    public Collections createCollection(@RequestBody Collections collection) {
-        return collectionService.createCollection(collection);
+    public Boards createBoard(@RequestBody Boards board) {
+        return boardsService.createBoard(board);
     }
 
     @GetMapping("/{id}")
-    public Collections getCollectionById(@PathVariable String id) {
-        return collectionService.getCollectionById(id);
+    public Boards getBoardById(@PathVariable String id) {
+        return boardsService.getBoardById(id);
     }
 
-    @PutMapping("/{id}")
-    public Collections updateCollectionById(@PathVariable String id, @RequestBody Collections updatedCollection) {
-        return collectionService.updateCollectionById(id, updatedCollection);
+    @PutMapping
+    public Boards updateCollectionById(@RequestBody Boards updatedBoard) {
+        return boardsService.updateBoardById(updatedBoard);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCollectionById(@PathVariable String id) {
-        collectionService.deleteCollectionById(id);
+        boardsService.deleteBoardById(id);
         return ResponseEntity.noContent().build();
     }
 
 }
-
