@@ -34,13 +34,21 @@ public class MultiArrowsController {
         return multiArrowService.createMultiArrow(multiArrow);
     }
 
+    //Der @RequestBody übernimmt die Konvertierung des JSON-Arrays in eine List<MultiArrows> mithilfe von Jackson
+    @PutMapping
+    public void updateMultiArrows(@RequestBody List<MultiArrows> updatedMultiArrows) {
+        System.out.println("update multiarrow: "  + updatedMultiArrows.toString());
+        multiArrowService.updateMultiArrows(updatedMultiArrows);
+    }
+
     @GetMapping("/{id}")
     public MultiArrows getMultiArrowById(@PathVariable String id) {
         return multiArrowService.getMultiArrowById(id);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public MultiArrows updateMultiArrowById(@PathVariable String id, @RequestBody MultiArrows updatedMultiArrow) {
+        System.out.println("update multiarrow: " + id + updatedMultiArrow.toString());
         return multiArrowService.updateMultiArrowById(id, updatedMultiArrow);
     }
 

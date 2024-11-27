@@ -2,9 +2,16 @@ package com.example.accessing_data_mongodb.Boards;
 
 import java.time.LocalDateTime;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.example.accessing_data_mongodb.ObjectIdDeserializer;
+import com.example.accessing_data_mongodb.ObjectIdSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 //Definiere die Java-Klasse, die die Struktur der MongoDB-Collection abbildet.
 //name have to be the same name as the mongodb collection, and the same name as the file
@@ -12,7 +19,10 @@ public class Boards {
 
     // id is standard name of mongodbid
     @Id
-    public String id;
+    @Field("id")
+    @JsonSerialize(using = ObjectIdSerializer.class) // Verwende den benutzerdefinierten Serializer
+    @JsonDeserialize(using = ObjectIdDeserializer.class) // Für die Eingabe
+    private ObjectId _id; // MongoDB ObjectId
     public String boardName;
     public String[] boardRubrics;
     public Object boardPosition;
@@ -61,6 +71,8 @@ public class Boards {
         this.collectionID = board.collectionID;
     }
 
+
+    
     public String getBoardName() {
         return this.boardName;
     }
@@ -77,11 +89,11 @@ public class Boards {
     public String toString() {
         return String.format(
                 "Collection[id=%s, boardName='%s']",
-                id, boardName);
+                _id, boardName);
     }
 
-    public Object getId() {
-        return this.id;
+    public String getId() {
+        return this._id.toString();
     }
 
 }

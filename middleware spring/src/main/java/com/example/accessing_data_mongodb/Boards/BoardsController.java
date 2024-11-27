@@ -41,12 +41,12 @@ public class BoardsController {
     }
 
     @PutMapping
-    public Boards updateCollectionById(@RequestBody Boards updatedBoard) {
-        return boardsService.updateBoardById(updatedBoard);
+    public List<Boards> updateBoardsById(@RequestBody List<Boards> updatedBoards) {
+        return boardsService.updateBoardsById(updatedBoards);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteCollectionById(@PathVariable String id) {
+    public ResponseEntity<Object> deleteBoardById(@PathVariable String id) {
         boardsService.deleteBoardById(id);
         return ResponseEntity.noContent().build();
     }

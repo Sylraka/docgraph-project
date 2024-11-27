@@ -52,7 +52,7 @@ export const updateBoardsInDb = createAsyncThunk(
     async (updatedBoards: any, { rejectWithValue }) => {
         try {
             // Baue den Pfad zum API-Endpunkt zusammen
-            const response = await fetch(`http://localhost:5100/api/boards/`, {
+            const response = await fetch(`http://localhost:5100/api/boards`, {
                 method: 'PUT', // HTTP-Methode, hier PUT für Updates
                 headers: {
                     'Content-Type': 'application/json', // Stelle sicher, dass der Content-Type auf JSON gesetzt ist

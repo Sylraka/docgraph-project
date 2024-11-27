@@ -57,8 +57,8 @@ export const MultiBoard = () => {
     useEffect(()=>{
         return () => {
             // Clean-up code, der beim Unmounten ausgeführt wird
-           // dispatch(updateBoardsInDb(data.boards))
-           // dispatch(updateArrowsInDb(arrows.multiBoardArrows))
+            dispatch(updateBoardsInDb(data.boards))
+            dispatch(updateArrowsInDb(arrows.multiBoardArrows))
         };
 
     },[data, arrows])

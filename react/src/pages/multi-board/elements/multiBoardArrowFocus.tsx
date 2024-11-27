@@ -466,7 +466,7 @@ export const ArrowFocus = (props: propTypes) => {
             }
         }
 
-        dispatch(updateArrowInDb(element._id!))
+        dispatch(updateArrowInDb(element))
         dispatch(removeOverCard())
 
     }

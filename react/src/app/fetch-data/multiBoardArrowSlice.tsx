@@ -46,16 +46,17 @@ export const createNewArrow = createAsyncThunk(
 )
 // //  async Thunk zum Aktualisieren eines Arrows
 export const updateArrowInDb = createAsyncThunk(
-    'data/updateArrowsInDb', // Der Action-Typ
+    'data/updateArrowInDb', // Der Action-Typ
     //parameter of thunk: updatedArrows
-    async (arrowId: string, { rejectWithValue }) => {
+    async (updatedArrow: any, { rejectWithValue }) => {
         try {
             // Baue den Pfad zum API-Endpunkt zusammen
-            const response = await fetch(`http://localhost:5100/api/arrows/${arrowId}`, {
+            const response = await fetch(`http://localhost:5100/api/arrows/${updatedArrow._id}`, {
                 method: 'PUT', // HTTP-Methode, hier PUT für Updates
                 headers: {
                     'Content-Type': 'application/json', // Stelle sicher, dass der Content-Type auf JSON gesetzt ist
                 },
+                body: JSON.stringify(updatedArrow),
             });
 
             if (!response.ok) {
@@ -78,8 +79,9 @@ export const updateArrowsInDb = createAsyncThunk(
     //parameter of thunk: updatedArrows
     async (updatedArrows: any, { rejectWithValue }) => {
         try {
+            console.log("updatedArrows: ",updatedArrows);
             // Baue den Pfad zum API-Endpunkt zusammen
-            const response = await fetch(`http://localhost:5100/api/arrows/`, {
+            const response = await fetch(`http://localhost:5100/api/arrows`, {
                 method: 'PUT', // HTTP-Methode, hier PUT für Updates
                 headers: {
                     'Content-Type': 'application/json', // Stelle sicher, dass der Content-Type auf JSON gesetzt ist
