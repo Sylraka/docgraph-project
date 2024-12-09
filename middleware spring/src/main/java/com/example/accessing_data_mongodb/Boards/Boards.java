@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import com.example.accessing_data_mongodb.ObjectIdDeserializer;
 import com.example.accessing_data_mongodb.ObjectIdSerializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -19,7 +20,8 @@ public class Boards {
 
     // id is standard name of mongodbid
     @Id
-    @Field("id")
+    @Field("_id") // Explizite Zuordnung zum MongoDB-Feld _id
+    @JsonProperty("_id") // Beibehalten des Namens _id beim JSON-Serialisieren/Deserialisieren
     @JsonSerialize(using = ObjectIdSerializer.class) // Verwende den benutzerdefinierten Serializer
     @JsonDeserialize(using = ObjectIdDeserializer.class) // Für die Eingabe
     private ObjectId _id; // MongoDB ObjectId
@@ -71,8 +73,6 @@ public class Boards {
         this.collectionID = board.collectionID;
     }
 
-
-    
     public String getBoardName() {
         return this.boardName;
     }

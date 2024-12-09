@@ -36,9 +36,10 @@ public class MultiArrowsController {
 
     //Der @RequestBody übernimmt die Konvertierung des JSON-Arrays in eine List<MultiArrows> mithilfe von Jackson
     @PutMapping
-    public void updateMultiArrows(@RequestBody List<MultiArrows> updatedMultiArrows) {
+    public ResponseEntity<List<MultiArrows>> updateMultiArrows(@RequestBody List<MultiArrows> updatedMultiArrows) {
         System.out.println("update multiarrow: "  + updatedMultiArrows.toString());
         multiArrowService.updateMultiArrows(updatedMultiArrows);
+        return ResponseEntity.ok(updatedMultiArrows);
     }
 
     @GetMapping("/{id}")

@@ -25,23 +25,32 @@ public class BoardsService {
                 .orElseThrow(() -> new RuntimeException("Board not found with id: " + id));
     }
 
-    @Transactional //datenbankänderungen: alle oder garkeine
+    public Boards updateBoardById(Boards updatedBoard) {
+        return repository.findById(updatedBoard.getId())
+                .map(existingBoard -> {
+                    existingBoard.setBoard(updatedBoard);
+                    return repository.save(existingBoard);
+                })
+                .orElseThrow(() -> new RuntimeException("Board not found with id: " + updatedBoard.getId()));
+    }
+
+    @Transactional // datenbankänderungen: alle oder garkeine
     public List<Boards> updateBoardsById(List<Boards> updatedBoards) {
         List<Boards> updatedBoardsList = new ArrayList<>();
         for (Boards updatedBoard : updatedBoards) {
             repository.findById(updatedBoard.getId())
                     .map(existingBoard -> {
                         existingBoard.setBoard(updatedBoard);
-                      // existingBoard.setBoardName(updatedBoard.getBoardName());
-                      //  existingBoard.setBoardRubrics(updatedBoard.getBoardRubrics());
+                        // existingBoard.setBoardName(updatedBoard.getBoardName());
+                        // existingBoard.setBoardRubrics(updatedBoard.getBoardRubrics());
                         // Weitere Felder setzen, wenn nötig...
-    
+
                         updatedBoardsList.add(repository.save(existingBoard));
                         return existingBoard;
                     })
                     .orElseThrow(() -> new RuntimeException("Board not found with id: " + updatedBoard.getId()));
         }
-    
+
         return updatedBoardsList;
     }
 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.accessing_data_mongodb.MultiArrows.MultiArrows;
+
 //Der Controller stellt die Endpunkte bereit, über die die Collections abgerufen werden können.
 @RestController
 @RequestMapping("/api/boards")
@@ -44,6 +46,12 @@ public class BoardsController {
     public List<Boards> updateBoardsById(@RequestBody List<Boards> updatedBoards) {
         return boardsService.updateBoardsById(updatedBoards);
     }
+
+    @PutMapping("/{id}")
+    public Boards updateBoardById(@RequestBody Boards updatedBoards) {
+        return boardsService.updateBoardById(updatedBoards);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteBoardById(@PathVariable String id) {
